@@ -1,4 +1,4 @@
-unit RegistryCleaner_FirstForm;
+п»їunit RegistryCleaner_FirstForm;
 
 {$WARN UNIT_PLATFORM OFF}
 {$WARN SYMBOL_PLATFORM OFF}
@@ -79,8 +79,8 @@ type
 
   private
     { Private declarations }
-    IsLeftImgLoaded: Boolean; //загружена ли левая картинка в компонент ThemeImgLeftTemp - чтобы её оттуда каждый раз читать при изменении размера окна
-    isLoaded: boolean; //Переменная нужна, чтобы не было изменений настроек при запуске программы
+    IsLeftImgLoaded: Boolean; //Р·Р°РіСЂСѓР¶РµРЅР° Р»Рё Р»РµРІР°СЏ РєР°СЂС‚РёРЅРєР° РІ РєРѕРјРїРѕРЅРµРЅС‚ ThemeImgLeftTemp - С‡С‚РѕР±С‹ РµС‘ РѕС‚С‚СѓРґР° РєР°Р¶РґС‹Р№ СЂР°Р· С‡РёС‚Р°С‚СЊ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂР° РѕРєРЅР°
+    isLoaded: boolean; //РџРµСЂРµРјРµРЅРЅР°СЏ РЅСѓР¶РЅР°, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ РёР·РјРµРЅРµРЅРёР№ РЅР°СЃС‚СЂРѕРµРє РїСЂРё Р·Р°РїСѓСЃРєРµ РїСЂРѕРіСЂР°РјРјС‹
   public
     { Protected declarations }
   protected
@@ -103,43 +103,43 @@ const
 {$R *.dfm}
 
 
-{СОХРАНИТЬ ПОЗИЦИЮ ОКНА ПРИ ЗАКРЫТИИ}
+{РЎРћРҐР РђРќРРўР¬ РџРћР—РР¦РР® РћРљРќРђ РџР Р Р—РђРљР Р«РўРР}
 procedure SaveWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ВОССТАНОВИТЬ ПОЗИЦИЮ ОКНА ПРИ ЗАПУСКЕ}
+{Р’РћРЎРЎРўРђРќРћР’РРўР¬ РџРћР—РР¦РР® РћРљРќРђ РџР Р Р—РђРџРЈРЎРљР•}
 procedure RestoreWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ВЫВОДИМ РАЗНУЮ ИНФУ О ВЕРСИИ WINTUNING: ИНДЕКС, ГОД ОКОНЧАНИЯ ИСПОЛЬЗОВАНИЯ И ТД.}
+{Р’Р«Р’РћР”РРњ Р РђР—РќРЈР® РРќР¤РЈ Рћ Р’Р•Р РЎРР WINTUNING: РРќР”Р•РљРЎ, Р“РћР” РћРљРћРќР§РђРќРРЇ РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ Р РўР”.}
 function GetWTVerInfo(info_id: integer): integer; external 'Functions.dll';
 
-{ВЫВОДИМ НАЗВАНИЕ ВЕРСИИ WINTUNING: [XP, VISTER, 7]}
+{Р’Р«Р’РћР”РРњ РќРђР—Р’РђРќРР• Р’Р•Р РЎРР WINTUNING: [XP, VISTER, 7]}
 function GetCapInfo(WTVerID, info_id: integer): shortstring; external 'Functions.dll';
 
-{ЧТЕНИЕ ЯЗЫКОВОЙ СТРОКИ ИЗ ОПРЕДЕЛЁННОГО ФАЙЛА}
+{Р§РўР•РќРР• РЇР—Р«РљРћР’РћР™ РЎРўР РћРљР РР— РћРџР Р•Р”Р•Р›РЃРќРќРћР“Рћ Р¤РђР™Р›Рђ}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
-{ПЕРЕВОД ИЗ БАЙТОВ В НОРМАЛЬНУЮ СТРОКУ}
+{РџР•Р Р•Р’РћР” РР— Р‘РђР™РўРћР’ Р’ РќРћР РњРђР›Р¬РќРЈР® РЎРўР РћРљРЈ}
 function BytesToStr(const i64Size: Int64): PChar; external 'Functions.dll';
 
-{ПРЕОБРАЗОВАНИЕ СТРОКИ ВИДА R,G,B В TCOLOR}
+{РџР Р•РћР‘Р РђР—РћР’РђРќРР• РЎРўР РћРљР Р’РР”Рђ R,G,B Р’ TCOLOR}
 function ReadRBG(instr: PChar): TColor; external 'Functions.dll';
 
-{ПРЕОБРАЗОВАНИЕ СТРОКИ ВИДА %WinTuning_PATH% В C:\Program Files\WinTuning 7}
+{РџР Р•РћР‘Р РђР—РћР’РђРќРР• РЎРўР РћРљР Р’РР”Рђ %WinTuning_PATH% Р’ C:\Program Files\WinTuning 7}
 function ThemePathConvert(InStr, InThemeName: PChar): PChar; external 'Functions.dll';
 
-{ОТКРЫТЬ ОПРЕДЕЛЁННЫЙ РАЗДЕЛ СПРАВКИ}
+{РћРўРљР Р«РўР¬ РћРџР Р•Р”Р•Р›РЃРќРќР«Р™ Р РђР—Р”Р•Р› РЎРџР РђР’РљР}
 procedure ViewHelp(page: PChar); stdcall; external 'Functions.dll';
 
-{О ПРОГРАММЕ}
+{Рћ РџР РћР“Р РђРњРњР•}
 function CreateTheForm(S1, S2, S3: PChar): integer; stdcall export; external 'About.dll';
 
-{ЧТЕНИЕ НАСТРОЕК ПРОГРАММЫ}
+{Р§РўР•РќРР• РќРђРЎРўР РћР•Рљ РџР РћР“Р РђРњРњР«}
 function GetProgParam(paramname: PChar): PChar; external 'Functions.dll';
 
 
 
 //=========================================================
-{ОТОБРАЖАЕТ ФОРМУ НА ПАНЕЛИ ЗАДАЧ}
+{РћРўРћР‘Р РђР–РђР•Рў Р¤РћР РњРЈ РќРђ РџРђРќР•Р›Р Р—РђР”РђР§}
 procedure TfmRegistryCleaner1.CreateParams(var Params: TCreateParams);
 begin
   inherited CreateParams(Params);
@@ -154,7 +154,7 @@ end;
 
 
 //=========================================================
-{ОТМЕЧЕН ЛИ ХОТЯ БЫ ОДНА СЕКЦИЯ}
+{РћРўРњР•Р§Р•Рќ Р›Р РҐРћРўРЇ Р‘Р« РћР”РќРђ РЎР•РљР¦РРЇ}
 //---------------------------------------------------------
 function TfmRegistryCleaner1.IsCheckedSomething: boolean;
 var
@@ -178,11 +178,11 @@ end;
 
 
 //=========================================================
-{ЗАМОСТИТЬ ЛЕВУЮ ПАНЕЛЬ КАРТИНКОЙ}
+{Р—РђРњРћРЎРўРРўР¬ Р›Р•Р’РЈР® РџРђРќР•Р›Р¬ РљРђР РўРРќРљРћР™}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.ThemeUpdateLeftIMG;
 var
-  x,y: integer; // левый верхний угол картинки
+  x,y: integer; // Р»РµРІС‹Р№ РІРµСЂС…РЅРёР№ СѓРіРѕР» РєР°СЂС‚РёРЅРєРё
   ImgObjLeft: TImage;
 begin
   if ThemeImgLeft.Picture <> nil then ThemeImgLeft.Picture := nil;
@@ -210,17 +210,17 @@ end;
 
 
 //=========================================================
-{НАЖАТИЕ НА ССЫКЛУ ЗАКРЫТИЯ БЫСТРОЙ ПОДСКАЗКИ}
+{РќРђР–РђРўРР• РќРђ РЎРЎР«РљР›РЈ Р—РђРљР Р«РўРРЇ Р‘Р«РЎРўР РћР™ РџРћР”РЎРљРђР—РљР}
 procedure TfmRegistryCleaner1.imgCloseQuickTipClick(Sender: TObject);
 begin
   ShowHideHelp(not agbHelp.Visible);
 end;
-{НАЖАТИЕ НА ЗНАК ВОПРОСА - ОТКРЫТИЕ ХЕЛПА}
+{РќРђР–РђРўРР• РќРђ Р—РќРђРљ Р’РћРџР РћРЎРђ - РћРўРљР Р«РўРР• РҐР•Р›РџРђ}
 procedure TfmRegistryCleaner1.imgQuickHelpClick(Sender: TObject);
 begin
   ViewHelp('UtilRegistryCleaner');
 end;
-{ПРИ НАЖАТИИ НА ГОРЯЧИЕ КЛАВИШИ}
+{РџР Р РќРђР–РђРўРР РќРђ Р“РћР РЇР§РР• РљР›РђР’РРЁР}
 procedure TfmRegistryCleaner1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if Ord(Key) = 112 then //F1
@@ -233,7 +233,7 @@ end;
 
 
 //=========================================================
-{КНОПКА "ЗАКРЫТЬ"}
+{РљРќРћРџРљРђ "Р—РђРљР Р«РўР¬"}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.btExitClick(Sender: TObject);
 begin
@@ -245,7 +245,7 @@ end;
 
 
 //=========================================================
-{КНОПКА "ВОССТАНОВЛЕНИЕ"}
+{РљРќРћРџРљРђ "Р’РћРЎРЎРўРђРќРћР’Р›Р•РќРР•"}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.btRestoreClick(Sender: TObject);
 begin
@@ -259,7 +259,7 @@ end;
 
 
 //=========================================================
-{КНОПКА - "НАСТРОЙКИ"}
+{РљРќРћРџРљРђ - "РќРђРЎРўР РћР™РљР"}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.btSettingsClick(Sender: TObject);
 begin
@@ -272,7 +272,7 @@ end;
 
 
 //=========================================================
-{КНОПКА - "НАЧАТЬ СКАНИРОВАНИЕ"}
+{РљРќРћРџРљРђ - "РќРђР§РђРўР¬ РЎРљРђРќРР РћР’РђРќРР•"}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.btStartClick(Sender: TObject);
 var
@@ -311,7 +311,7 @@ end;
 
 
 //=========================================================
-{ЗАПОЛНЯЕМ СУЩЕСТВУЮЩИЕ РАЗДЕЛЫ}
+{Р—РђРџРћР›РќРЇР•Рњ РЎРЈР©Р•РЎРўР’РЈР®Р©РР• Р РђР—Р”Р•Р›Р«}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.LoadSections;
 var
@@ -336,7 +336,7 @@ end;
 
 
 //======================================================
-{СКРЫТИЕ И РАСКРЫТИЕ ХЕЛПА}
+{РЎРљР Р«РўРР• Р Р РђРЎРљР Р«РўРР• РҐР•Р›РџРђ}
 procedure TfmRegistryCleaner1.ShowHideHelp(isShow: Boolean);
 var
  Reg1: TRegistry;
@@ -367,7 +367,7 @@ end;
 
 
 //======================================================
-{ЗАГРУЗКА ИЗОБРАЖЕНИЯ В ОБЛАСТЬ НА ФОРМЕ}
+{Р—РђР“Р РЈР—РљРђ РР—РћР‘Р РђР–Р•РќРРЇ Р’ РћР‘Р›РђРЎРўР¬ РќРђ Р¤РћР РњР•}
 //------------------------------------------------------
 procedure TfmRegistryCleaner1.LoadPNG2Prog(dllname, resname: string; imgobj: TImage);
 var
@@ -388,46 +388,46 @@ end;
 
 
 //=========================================================
-{ПРИМЕНЕНИЕ СКИНА}
+{РџР РРњР•РќР•РќРР• РЎРљРРќРђ}
 //=========================================================
 procedure TfmRegistryCleaner1.ApplyTheme;
 var
   ThemeFileName, StrTmp, ThemeName: string;
-  ThemeFile: TIniFile; //ini-файл темы оформления
+  ThemeFile: TIniFile; //ini-С„Р°Р№Р» С‚РµРјС‹ РѕС„РѕСЂРјР»РµРЅРёСЏ
 begin
-  //Языковые настройки
+  //РЇР·С‹РєРѕРІС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
   fmDataMod.RegClean.RootKey := HKEY_CURRENT_USER;
   fmDataMod.RegClean.OpenKey('\Software\WinTuning', true);
   ThemeName := GetProgParam('theme');
-  //Разделы
+  //Р Р°Р·РґРµР»С‹
   ThemeFileName := ExtractFilePath(paramstr(0)) + 'Themes\' + ThemeName + '\Theme.ini';
   if FileExists(ThemeFileName) then
   begin
     ThemeFile := TIniFile.Create(ThemeFileName);
 
-    //Цвет окна
+    //Р¦РІРµС‚ РѕРєРЅР°
     Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'WndColor', '240,240,240')));
-    //Фон логотипа
+    //Р¤РѕРЅ Р»РѕРіРѕС‚РёРїР°
     imgLogoBack.Visible := ThemeFile.ReadBool('Utilities', 'LogoBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'LogoBackImagePath', '')), PChar(ThemeName));
     if FileExists(StrTmp) then imgLogoBack.Picture.LoadFromFile(StrTmp);
 
-    //Фон заголовка утилиты
+    //Р¤РѕРЅ Р·Р°РіРѕР»РѕРІРєР° СѓС‚РёР»РёС‚С‹
     ThemeImgMainCaption.Visible := ThemeFile.ReadBool('Utilities', 'UtilCaptionBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackImagePath', '')), PChar(ThemeName));
     if FileExists(StrTmp) then ThemeImgMainCaption.Picture.LoadFromFile(StrTmp);
-    //Цвет шрифта заголовка
+    //Р¦РІРµС‚ С€СЂРёС„С‚Р° Р·Р°РіРѕР»РѕРІРєР°
     albLogoText.Font.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionFontColor', '53,65,79')));
-    //Цвет фона загловка утилиты в случае, если НЕТ картинки
+    //Р¦РІРµС‚ С„РѕРЅР° Р·Р°РіР»РѕРІРєР° СѓС‚РёР»РёС‚С‹ РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РќР•Рў РєР°СЂС‚РёРЅРєРё
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
-    //Цвет борюда загловка утилиты
+    //Р¦РІРµС‚ Р±РѕСЂСЋРґР° Р·Р°РіР»РѕРІРєР° СѓС‚РёР»РёС‚С‹
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
     ThemeShapeMainCaption.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeLeft.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeBottom.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     agbLogo.BorderColor := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
 
-    //Левая картинка (левый фон)
+    //Р›РµРІР°СЏ РєР°СЂС‚РёРЅРєР° (Р»РµРІС‹Р№ С„РѕРЅ)
     ThemeImgLeft.Visible := ThemeFile.ReadBool('Utilities', 'ImageLeftShow', False);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'ImageLeftPath', '')), PChar(ThemeName));
     if FileExists(StrTmp) then
@@ -436,22 +436,22 @@ begin
       ThemeImgLeftTemp.Picture.LoadFromFile(StrTmp);
     end;
 
-    //Фон заголовков слева
+    //Р¤РѕРЅ Р·Р°РіРѕР»РѕРІРєРѕРІ СЃР»РµРІР°
     ThemeImgSubCaptionSettings.Visible := ThemeFile.ReadBool('Utilities', 'LeftCaptionsBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'LeftCaptionsBackImagePath', '')), PChar(ThemeName));
     if FileExists(StrTmp) then ThemeImgSubCaptionSettings.Picture.LoadFromFile(StrTmp);
-    //Цвет шрифта заголовков слева
+    //Р¦РІРµС‚ С€СЂРёС„С‚Р° Р·Р°РіРѕР»РѕРІРєРѕРІ СЃР»РµРІР°
     lbAdditional.Font.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'LeftCaptionsFontColor', '65,85,105')));
-    //Цвет фона загловков слева в случае, если НЕТ картинки
+    //Р¦РІРµС‚ С„РѕРЅР° Р·Р°РіР»РѕРІРєРѕРІ СЃР»РµРІР° РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РќР•Рў РєР°СЂС‚РёРЅРєРё
     ThemeShapeSubCaptionSettings.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'LeftCaptionsBackgroundColor', '243,245,248')));
-    //Цвет борюда загловков слева - и рамок тоже
+    //Р¦РІРµС‚ Р±РѕСЂСЋРґР° Р·Р°РіР»РѕРІРєРѕРІ СЃР»РµРІР° - Рё СЂР°РјРѕРє С‚РѕР¶Рµ
     ThemeShapeSubCaptionSettings.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'LeftCaptionBorderColor', '210,220,227')));
     agbSettings.BorderColor := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'LeftCaptionBorderColor', '210,220,227')));
 
-    //Нижний бордюрчик
+    //РќРёР¶РЅРёР№ Р±РѕСЂРґСЋСЂС‡РёРє
     ShapeBottom.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'BorderBottomColor', '243,245,248')));
 
-    //Фон для подсказки
+    //Р¤РѕРЅ РґР»СЏ РїРѕРґСЃРєР°Р·РєРё
     shapeDescription.Visible := ThemeFile.ReadBool('Utilities', 'QuickTipBackShow', True);
     shapeDescription.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'QuickTipBackColorBrush', '251,252,253')));
     lbQuickHelp.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'QuickTipBackColorBrush', '251,252,253')));
@@ -474,26 +474,26 @@ end;
 
 
 //=========================================================
-{ГЛАВНОЕ МЕНЮ}
+{Р“Р›РђР’РќРћР• РњР•РќР®}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.mmExitClick(Sender: TObject);
 var
   MenuName: string;
 begin
   MenuName := TMenuItem(Sender).Name;
-  //Файл -> Сканировать
+  //Р¤Р°Р№Р» -> РЎРєР°РЅРёСЂРѕРІР°С‚СЊ
   if MenuName = 'mmScan' then btStart.OnClick(Self);
-  //Файл -> Нашли ошибку?
+  //Р¤Р°Р№Р» -> РќР°С€Р»Рё РѕС€РёР±РєСѓ?
   if MenuName = 'mmFoundAnError' then ShellExecute(Handle, 'open', PChar(ExtractFilePath(paramstr(0)) + 'ErrorReport.exe'), nil, nil, SW_SHOW);
-  //Файл -> Выход
+  //Р¤Р°Р№Р» -> Р’С‹С…РѕРґ
   if MenuName = 'mmExit' then Close;
-  //Справка -> Открыть справку
+  //РЎРїСЂР°РІРєР° -> РћС‚РєСЂС‹С‚СЊ СЃРїСЂР°РІРєСѓ
   if MenuName = 'mmOpenHelp' then imgQuickHelp.OnClick(Self);
-  //Справка -> Быстрая подсказка
+  //РЎРїСЂР°РІРєР° -> Р‘С‹СЃС‚СЂР°СЏ РїРѕРґСЃРєР°Р·РєР°
   if MenuName = 'mmQuickHelp' then ShowHideHelp(not agbHelp.Visible);
-  //Справка -> WebSite
+  //РЎРїСЂР°РІРєР° -> WebSite
   if MenuName = 'mmWebSite' then ShellExecute(handle,'open', GetProgParam('webindex'),nil,nil,SW_SHOW);
-  //Справка -> О программе
+  //РЎРїСЂР°РІРєР° -> Рћ РїСЂРѕРіСЂР°РјРјРµ
   if MenuName = 'mmAbout' then CreateTheForm(PChar(Caption), PChar(paramstr(0)), '');
 end;
 //=========================================================
@@ -501,10 +501,10 @@ end;
 
 
 //=========================================================
-{ПРИМЕНЕНИЕ ЯЗЫКА}
+{РџР РРњР•РќР•РќРР• РЇР—Р«РљРђ}
 procedure TfmRegistryCleaner1.ApplyLang;
 begin
-  {Применение языкового файла}
+  {РџСЂРёРјРµРЅРµРЅРёРµ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р°}
   Caption :=                                    'WinTuning: '+ ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'Registry Cleaner');
   albLogoText.Caption :=                        ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'Registry Cleaner');
   GridSectionList.ColumnHeaders.Strings[2] :=   ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'Category');
@@ -519,7 +519,7 @@ begin
   imgQuickHelp.Hint :=                          ReadLangStr('WinTuning_Common.lng', 'Common', 'OpenHelp');
   lbQuickHelp.Hint :=                           ReadLangStr('WinTuning_Common.lng', 'Common', 'OpenHelp');
 
-  //Главное меню - первая форма
+  //Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ - РїРµСЂРІР°СЏ С„РѕСЂРјР°
   mmMainFile.Caption :=                         ReadLangStr('WinTuning_Common.lng', 'Common', 'File');
   mmFoundAnError.Caption :=                     ReadLangStr('WinTuning_Common.lng', 'Common', 'ErrorReport');
   mmExit.Caption :=                             ReadLangStr('WinTuning_Common.lng', 'Common', 'Exit');
@@ -536,7 +536,7 @@ end;
 
 
 //=========================================================
-{ПРИ ЗАКРЫТИИ ФОРМЫ}
+{РџР Р Р—РђРљР Р«РўРР Р¤РћР РњР«}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -547,7 +547,7 @@ end;
 
 
 //=========================================================
-{АКТИВАЦИЯ ФОРМЫ}
+{РђРљРўРР’РђР¦РРЇ Р¤РћР РњР«}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.FormActivate(Sender: TObject);
 begin
@@ -559,7 +559,7 @@ end;
 
 
 //=========================================================
-{СОЗДАНИЕ ФОРМЫ}
+{РЎРћР—Р”РђРќРР• Р¤РћР РњР«}
 //---------------------------------------------------------
 procedure TfmRegistryCleaner1.FormCreate(Sender: TObject);
 var
@@ -567,7 +567,7 @@ var
   Screen: TScreen;
 begin
   isLoaded := False;
-  // ДЕЛАЕМ ФОРМУ ОДИНАКОВОЙ ПО РАЗМЕРУ ПРИ РАЗЛИЧНЫХ РАСРЕШЕНИЯХ И РАЗМЕРАХ ШРИФТА
+  // Р”Р•Р›РђР•Рњ Р¤РћР РњРЈ РћР”РРќРђРљРћР’РћР™ РџРћ Р РђР—РњР•Р РЈ РџР Р Р РђР—Р›РР§РќР«РҐ Р РђРЎР Р•РЁР•РќРРЇРҐ Р Р РђР—РњР•Р РђРҐ РЁР РР¤РўРђ
   scaled := True;
   Screen := TScreen.Create(nil);
   for i := componentCount - 1 downto 0 do
@@ -576,7 +576,7 @@ begin
        if GetPropInfo(ClassInfo, 'font') <> nil then Font.Size := (ScreenWidth div screen.width) * Font.Size;
     end;
 
-  //ЗАГРУЖАЕМ ГРАФИКУ
+  //Р—РђР“Р РЈР–РђР•Рњ Р“Р РђР¤РРљРЈ
   LoadPNG2Prog('logo.dll', 'logo_wt_small', imgWinTuning);
 
   fmDataMod.RegClean.RootKey := HKEY_CURRENT_USER;

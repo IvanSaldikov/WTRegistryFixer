@@ -1,11 +1,11 @@
-unit Previnst;
+п»їunit Previnst;
 
 interface
 
 uses Windows;
 
 var
-  IsAlreadyRunning: boolean; //эта переменная если true то программа уже запущена
+  IsAlreadyRunning: boolean; //СЌС‚Р° РїРµСЂРµРјРµРЅРЅР°СЏ РµСЃР»Рё true С‚Рѕ РїСЂРѕРіСЂР°РјРјР° СѓР¶Рµ Р·Р°РїСѓС‰РµРЅР°
 
 implementation
 
@@ -13,8 +13,8 @@ var
   hMutex: integer;
 begin
   IsAlreadyRunning := false;
-  hMutex := CreateMutex(nil, TRUE, 'RegistryCleaner'); // Создаем семафор
-  if GetLastError <> 0 then IsAlreadyRunning := true; // Ошибка семафор уже создан
+  hMutex := CreateMutex(nil, TRUE, 'RegistryCleaner'); // РЎРѕР·РґР°РµРј СЃРµРјР°С„РѕСЂ
+  if GetLastError <> 0 then IsAlreadyRunning := true; // РћС€РёР±РєР° СЃРµРјР°С„РѕСЂ СѓР¶Рµ СЃРѕР·РґР°РЅ
   ReleaseMutex(hMutex);
 end.
 

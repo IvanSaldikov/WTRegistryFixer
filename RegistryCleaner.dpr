@@ -1,4 +1,4 @@
-program RegistryCleaner;
+пїњprogram RegistryCleaner;
 
 {$R *.dres}
 
@@ -22,16 +22,16 @@ uses
 
 label L1, LRe;
 
-{¬џ¬ќƒ»ћ –ј«Ќ”ё »Ќ‘” ќ ¬≈–—»» WINTUNING: »Ќƒ≈ —, √ќƒ ќ ќЌ„јЌ»я »—ѕќЋ№«ќ¬јЌ»я » “ƒ.}
+{–Т–Ђ–Т–Ю–Ф–Ш–Ь –†–Р–Ч–Э–£–Ѓ –Ш–Э–§–£ –Ю –Т–Х–†–°–Ш–Ш WINTUNING: –Ш–Э–Ф–Х–Ъ–°, –У–Ю–Ф –Ю–Ъ–Ю–Э–І–Р–Э–Ш–ѓ –Ш–°–Я–Ю–Ы–ђ–Ч–Ю–Т–Р–Э–Ш–ѓ –Ш –Ґ–Ф.}
 function GetWTVerInfo(info_id: integer): integer; external 'Functions.dll';
 
-{¬џ¬ќƒ»ћ Ќј«¬јЌ»≈ ¬≈–—»» WINTUNING: [XP, VISTER, 7]}
+{–Т–Ђ–Т–Ю–Ф–Ш–Ь –Э–Р–Ч–Т–Р–Э–Ш–Х –Т–Х–†–°–Ш–Ш WINTUNING: [XP, VISTER, 7]}
 function GetCapInfo(WTVerID, info_id: integer): shortstring; external 'Functions.dll';
 
-{„“≈Ќ»≈ я«џ ќ¬ќ… —“–ќ » »« ќѕ–≈ƒ≈Ћ®ЌЌќ√ќ ‘ј…Ћј}
+{–І–Ґ–Х–Э–Ш–Х –ѓ–Ч–Ђ–Ъ–Ю–Т–Ю–Щ –°–Ґ–†–Ю–Ъ–Ш –Ш–Ч –Ю–Я–†–Х–Ф–Х–Ы–Б–Э–Э–Ю–У–Ю –§–Р–Щ–Ы–Р}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
-{ѕќ–ј Ћ» »ƒ“» ё«≈–” Ќј ¬ЁЅ—ј…“ ƒЋя ќЅЌќ¬Ћ≈Ќ»я (ƒј“ј, ƒќ  ќ“ќ–ќ… Ѕ”ƒ≈“ –јЅќ“ј“№ ѕ–ќ√ј)}
+{–Я–Ю–†–Р –Ы–Ш –Ш–Ф–Ґ–Ш –Ѓ–Ч–Х–†–£ –Э–Р –Т–≠–С–°–Р–Щ–Ґ –Ф–Ы–ѓ –Ю–С–Э–Ю–Т–Ы–Х–Э–Ш–ѓ (–Ф–Р–Ґ–Р, –Ф–Ю –Ъ–Ю–Ґ–Ю–†–Ю–Щ –С–£–Ф–Х–Ґ –†–Р–С–Ю–Ґ–Р–Ґ–ђ –Я–†–Ю–У–Р)}
 function IsGoToWebSite: boolean; external 'Functions.dll';
 
 
@@ -40,7 +40,7 @@ var
   IsOKCommon: boolean;
 begin
   //=========================================================
-  //ѕровер€ем вторую копию программы при запуске
+  //–Я—А–Њ–≤–µ—А—П–µ–Љ –≤—В–Њ—А—Г—О –Ї–Њ–њ–Є—О –њ—А–Њ–≥—А–∞–Љ–Љ—Л –њ—А–Є –Ј–∞–њ—Г—Б–Ї–µ
   if IsAlreadyRunning then
   begin
     WindowCaption := 'WinTuning: '+ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'Registry Cleaner');
@@ -54,7 +54,7 @@ begin
 
 
   //=========================================================
-  //ѕровер€ем нужно ли обновитьс€?
+  //–Я—А–Њ–≤–µ—А—П–µ–Љ –љ—Г–ґ–љ–Њ –ї–Є –Њ–±–љ–Њ–≤–Є—В—М—Б—П?
   if IsGoToWebSite then
   begin
     Application.MessageBox(ReadLangStr('WinTuning_Common.lng', 'Common', 'RestrictToRun'),
@@ -71,9 +71,9 @@ begin
   Application.Title := WindowCaption;
 //  Application.Run;
   LRe:
-  fmDataMod := TfmDataMod.Create(nil); //модуль, в кот. содержитс€ вс€ информаци€ дл€ проверки
+  fmDataMod := TfmDataMod.Create(nil); //–Љ–Њ–і—Г–ї—М, –≤ –Ї–Њ—В. —Б–Њ–і–µ—А–ґ–Є—В—Б—П –≤—Б—П –Є–љ—Д–Њ—А–Љ–∞—Ж–Є—П –і–ї—П –њ—А–Њ–≤–µ—А–Ї–Є
 
-  //окно выбора дисков
+  //–Њ–Ї–љ–Њ –≤—Л–±–Њ—А–∞ –і–Є—Б–Ї–Њ–≤
   fmRegistryCleaner1 := TfmRegistryCleaner1.Create(nil);
   fmRegistryCleaner1.ShowModal;
   fmRegistryCleaner1.Free;

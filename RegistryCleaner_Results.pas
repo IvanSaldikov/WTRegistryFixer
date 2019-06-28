@@ -1,4 +1,4 @@
-unit RegistryCleaner_Results;
+Ôªøunit RegistryCleaner_Results;
 
 interface
 
@@ -113,16 +113,16 @@ type
 
   private
     { Private declarations }
-    isLoaded: boolean; //œÂÂÏÂÌÌ‡ˇ ÌÛÊÌ‡, ˜ÚÓ·˚ ÌÂ ·˚ÎÓ ËÁÏÂÌÂÌËÈ Ì‡ÒÚÓÂÍ ÔË Á‡ÔÛÒÍÂ ÔÓ„‡ÏÏ˚
+    isLoaded: boolean; //–ü–µ—Ä–µ–º–µ–Ω–Ω–∞—è –Ω—É–∂–Ω–∞, —á—Ç–æ–±—ã –Ω–µ –±—ã–ª–æ –∏–∑–º–µ–Ω–µ–Ω–∏–π –Ω–∞—Å—Ç—Ä–æ–µ–∫ –ø—Ä–∏ –∑–∞–ø—É—Å–∫–µ –ø—Ä–æ–≥—Ä–∞–º–º—ã
   public
     { Public declarations }
-    ThemeName: string; //Ì‡Á‚‡ÌËÂ ÚÂÏ˚ ÓÙÓÏÎÂÌËˇ
-    ThemeFile: TIniFile; //ini-Ù‡ÈÎ ÚÂÏ˚ ÓÙÓÏÎÂÌËˇ
-    last_index: integer; //ÔÓÒÎÂ‰Ìˇˇ ‰Ó·‡‚ÎÂÌÌ‡ˇ ÒÚÓÍ‡
+    ThemeName: string; //–Ω–∞–∑–≤–∞–Ω–∏–µ —Ç–µ–º—ã –æ—Ñ–æ—Ä–º–ª–µ–Ω–∏—è
+    ThemeFile: TIniFile; //ini-—Ñ–∞–π–ª —Ç–µ–º—ã –æ—Ñ–æ—Ä–º–ª–µ–Ω–∏—è
+    last_index: integer; //–ø–æ—Å–ª–µ–¥–Ω—è—è –¥–æ–±–∞–≤–ª–µ–Ω–Ω–∞—è —Å—Ç—Ä–æ–∫–∞
     SelectedDir: string;
-    FileTypes: array of string; //Ï‡ÒÒË‚ ÚËÔÓ‚ Ù‡ÈÎÓ‚
-    SelectedSectionIndex: integer; //‚˚·‡ÌÌ˚È ËÌ‰ÂÍÒ ‡Á‰ÂÎ‡
-    SelectedErrorIndex: integer; //‚˚·‡ÌÌ˚È ËÌ‰ÂÍÒ Ó¯Ë·ÍË
+    FileTypes: array of string; //–º–∞—Å—Å–∏–≤ —Ç–∏–ø–æ–≤ —Ñ–∞–π–ª–æ–≤
+    SelectedSectionIndex: integer; //–≤—ã–±—Ä–∞–Ω–Ω—ã–π –∏–Ω–¥–µ–∫—Å —Ä–∞–∑–¥–µ–ª–∞
+    SelectedErrorIndex: integer; //–≤—ã–±—Ä–∞–Ω–Ω—ã–π –∏–Ω–¥–µ–∫—Å –æ—à–∏–±–∫–∏
   protected
     { Protected declarations }
     procedure CreateParams(var Params: TCreateParams); override;
@@ -144,41 +144,41 @@ const
 {$R *.dfm}
 
 
-{—Œ’–¿Õ»“‹ œŒ«»÷»ﬁ Œ Õ¿ œ–» «¿ –€“»»}
+{–°–û–•–†–ê–ù–ò–¢–¨ –ü–û–ó–ò–¶–ò–Æ –û–ö–ù–ê –ü–†–ò –ó–ê–ö–†–´–¢–ò–ò}
 procedure SaveWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{¬Œ——“¿ÕŒ¬»“‹ œŒ«»÷»ﬁ Œ Õ¿ œ–» «¿œ”— ≈}
+{–í–û–°–°–¢–ê–ù–û–í–ò–¢–¨ –ü–û–ó–ò–¶–ò–Æ –û–ö–ù–ê –ü–†–ò –ó–ê–ü–£–°–ö–ï}
 procedure RestoreWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{¬€¬Œƒ»Ã –¿«Õ”ﬁ »Õ‘” Œ ¬≈–—»» WINTUNING: »Õƒ≈ —, √Œƒ Œ ŒÕ◊¿Õ»ﬂ »—œŒÀ‹«Œ¬¿Õ»ﬂ » “ƒ.}
+{–í–´–í–û–î–ò–ú –†–ê–ó–ù–£–Æ –ò–ù–§–£ –û –í–ï–†–°–ò–ò WINTUNING: –ò–ù–î–ï–ö–°, –ì–û–î –û–ö–û–ù–ß–ê–ù–ò–Ø –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–Ø –ò –¢–î.}
 function GetWTVerInfo(info_id: integer): integer; external 'Functions.dll';
 
-{œ–≈Œ¡–¿«Œ¬¿Õ»≈ —“–Œ » ¬»ƒ¿ R,G,B ¬ TCOLOR}
+{–ü–†–ï–û–ë–†–ê–ó–û–í–ê–ù–ò–ï –°–¢–†–û–ö–ò –í–ò–î–ê R,G,B –í TCOLOR}
 function ReadRBG(instr: PChar): TColor; external 'Functions.dll';
 
-{œ–≈Œ¡–¿«Œ¬¿Õ»≈ —“–Œ » ¬»ƒ¿ %WinTuning_PATH% ¬ C:\Program Files\WinTuning 7}
+{–ü–†–ï–û–ë–†–ê–ó–û–í–ê–ù–ò–ï –°–¢–†–û–ö–ò –í–ò–î–ê %WinTuning_PATH% –í C:\Program Files\WinTuning 7}
 function ThemePathConvert(InStr, InThemeName: PChar): PChar; external 'Functions.dll';
 
-{Œ“ –€“‹ Œœ–≈ƒ≈À®ÕÕ€… –¿«ƒ≈À —œ–¿¬ »}
+{–û–¢–ö–†–´–¢–¨ –û–ü–†–ï–î–ï–õ–Å–ù–ù–´–ô –†–ê–ó–î–ï–õ –°–ü–†–ê–í–ö–ò}
 procedure ViewHelp(page: PChar); stdcall; external 'Functions.dll';
 
-{Œ œ–Œ√–¿ÃÃ≈}
+{–û –ü–†–û–ì–†–ê–ú–ú–ï}
 function CreateTheForm(S1, S2, S3: PChar): integer; stdcall export; external 'About.dll';
 
-{◊“≈Õ»≈ ﬂ«€ Œ¬Œ… —“–Œ » »« Œœ–≈ƒ≈À®ÕÕŒ√Œ ‘¿…À¿}
+{–ß–¢–ï–ù–ò–ï –Ø–ó–´–ö–û–í–û–ô –°–¢–†–û–ö–ò –ò–ó –û–ü–†–ï–î–ï–õ–Å–ù–ù–û–ì–û –§–ê–ô–õ–ê}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
-{¬€¬Œƒ»Ã Õ¿«¬¿Õ»≈ ¬≈–—»» WINTUNING: [XP, VISTER, 7]}
+{–í–´–í–û–î–ò–ú –ù–ê–ó–í–ê–ù–ò–ï –í–ï–†–°–ò–ò WINTUNING: [XP, VISTER, 7]}
 function GetCapInfo(WTVerID, info_id: integer): shortstring; external 'Functions.dll';
 
-{◊“≈Õ»≈ Õ¿—“–Œ≈  œ–Œ√–¿ÃÃ€}
+{–ß–¢–ï–ù–ò–ï –ù–ê–°–¢–†–û–ï–ö –ü–†–û–ì–†–ê–ú–ú–´}
 function GetProgParam(paramname: PChar): PChar; external 'Functions.dll';
 
 
 
 
 //=========================================================
-{Œ“Œ¡–¿∆¿≈“ ‘Œ–Ã” Õ¿ œ¿Õ≈À» «¿ƒ¿◊}
+{–û–¢–û–ë–†–ê–ñ–ê–ï–¢ –§–û–†–ú–£ –ù–ê –ü–ê–ù–ï–õ–ò –ó–ê–î–ê–ß}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.CreateParams(var Params: TCreateParams);
 begin
@@ -194,7 +194,7 @@ end;
 
 
 //=========================================================
-{Œ“Ã≈◊≈Õ À» ’Œ“ﬂ ¡€ Œƒ»Õ œ”Õ “}
+{–û–¢–ú–ï–ß–ï–ù –õ–ò –•–û–¢–Ø –ë–´ –û–î–ò–ù –ü–£–ù–ö–¢}
 //---------------------------------------------------------
 function TfmRegistryCleanerResults.IsCheckedSomething: boolean;
 var
@@ -215,7 +215,7 @@ end;
 
 
 //=========================================================
-{œ–» œŒ—“¿¬ÕŒ ≈/—Õﬂ“»» ‘À¿∆ ¿ Õ¿œ–Œ“»¬ Œÿ»¡ »}
+{–ü–†–ò –ü–û–°–¢–ê–í–ù–û–ö–ï/–°–ù–Ø–¢–ò–ò –§–õ–ê–ñ–ö–ê –ù–ê–ü–†–û–¢–ò–í –û–®–ò–ë–ö–ò}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfEntriesCheckBoxClick(Sender: TObject; ACol, ARow: Integer; State: Boolean);
 var
@@ -227,7 +227,7 @@ begin
     for i := 1 to GridListOfEntries.RowCount-1 do
     begin
       GridListOfEntries.SetCheckBoxState(1,i,State);
-      j := StrToInt(GridListOfEntries.Cells[2,i]); //ÔÓÎÛ˜‡ÂÏ ID
+      j := StrToInt(GridListOfEntries.Cells[2,i]); //–ø–æ–ª—É—á–∞–µ–º ID
       fmDataMod.RegErrors[j].Enabled := State;
     end;
   end;
@@ -243,7 +243,7 @@ end;
 
 
 //=========================================================
-{œ–» Ÿ≈À◊ ≈ œŒ ﬂ◊≈… ≈ —œ»— ¿ Œÿ»¡Œ }
+{–ü–†–ò –©–ï–õ–ß–ö–ï –ü–û –Ø–ß–ï–ô–ö–ï –°–ü–ò–°–ö–ê –û–®–ò–ë–û–ö}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfEntriesClickCell(Sender: TObject; ARow, ACol: Integer);
 var
@@ -335,7 +335,7 @@ end;
 
 
 //=========================================================
-{œ–» Ÿ≈À◊ ≈ œ–¿¬Œ…  ÕŒœ Œ… Ã€ÿ» œŒ ﬂ◊≈… ≈ —œ»— ¿ Œÿ»¡Œ }
+{–ü–†–ò –©–ï–õ–ß–ö–ï –ü–†–ê–í–û–ô –ö–ù–û–ü–ö–û–ô –ú–´–®–ò –ü–û –Ø–ß–ï–ô–ö–ï –°–ü–ò–°–ö–ê –û–®–ò–ë–û–ö}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfEntriesRightClickCell(Sender: TObject; ARow, ACol: Integer);
 begin
@@ -346,7 +346,7 @@ end;
 
 
 //=========================================================
-{‘”Õ ÷»ﬂ ƒÀﬂ «¿ –€“»ﬂ œ–»ÀŒ∆≈Õ»ﬂ œŒ »Ã≈Õ» ‘¿…À¿}
+{–§–£–ù–ö–¶–ò–Ø –î–õ–Ø –ó–ê–ö–†–´–¢–ò–Ø –ü–†–ò–õ–û–ñ–ï–ù–ò–Ø –ü–û –ò–ú–ï–ù–ò –§–ê–ô–õ–ê}
 //---------------------------------------------------------
 function TfmRegistryCleanerResults.KillTask(ExeFileName: string): integer;
 const PROCESS_TERMINATE=$0001;
@@ -380,7 +380,7 @@ end;
 
 
 //=========================================================
-{œ–» ƒ¬Œ…ÕŒÃ Ÿ≈À◊ ≈ œŒ —œ»— ” Œÿ»¡Œ }
+{–ü–†–ò –î–í–û–ô–ù–û–ú –©–ï–õ–ß–ö–ï –ü–û –°–ü–ò–°–ö–£ –û–®–ò–ë–û–ö}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfEntriesDblClickCell(Sender: TObject; ARow, ACol: Integer);
 var
@@ -399,10 +399,10 @@ begin
   fmDataMod.RegClean.RootKey := HKEY_CURRENT_USER;
   fmDataMod.RegClean.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit', True);
   if fmDataMod.RegClean.ValueExists('LastKey') then LastKey := fmDataMod.RegClean.ReadString('LastKey');
-  t := TStringList.Create; // ÒÓÁ‰‡∏Ï ÍÎ‡ÒÒ
+  t := TStringList.Create; // —Å–æ–∑–¥–∞—ë–º –∫–ª–∞—Å—Å
   t.text := stringReplace(LastKey, '\', #13#10, [rfReplaceAll, rfIgnoreCase]);
   TempStr := '';
-  if t.Count > 1 then TempStr := t[0]; //Ò‡Ï˚È-Ò‡Ï˚È ÍÓÂÌ¸ (ÒÎÓ‚Ó " ÓÏÔ¸˛ÚÂ" ËÎË "Computer" - ÎÓÍ‡ÎËÁÓ‚‡ÌÌ‡ˇ ÒÚÓÍ‡)
+  if t.Count > 1 then TempStr := t[0]; //—Å–∞–º—ã–π-—Å–∞–º—ã–π –∫–æ—Ä–µ–Ω—å (—Å–ª–æ–≤–æ "–ö–æ–º–ø—å—é—Ç–µ—Ä" –∏–ª–∏ "Computer" - –ª–æ–∫–∞–ª–∏–∑–æ–≤–∞–Ω–Ω–∞—è —Å—Ç—Ä–æ–∫–∞)
   if TempStr <> '' then NewLastKey := TempStr + '\' +NewLastKey;
   fmDataMod.RegClean.WriteString('LastKey', NewLastKey);
   ShellExecute(Application.Handle, 'open', 'regedit.exe', nil, nil, SW_SHOW);
@@ -413,7 +413,7 @@ end;
 
 
 //=========================================================
-{œ–» Ÿ≈À◊ ≈ Õ¿  ÕŒœ ≈ "œŒƒ–Œ¡ÕŒ" —œ»— ¿ Œÿ»¡Œ  œŒ  ¿“≈√Œ–»ﬂÃ}
+{–ü–†–ò –©–ï–õ–ß–ö–ï –ù–ê –ö–ù–û–ü–ö–ï "–ü–û–î–†–û–ë–ù–û" –°–ü–ò–°–ö–ê –û–®–ò–ë–û–ö –ü–û –ö–ê–¢–ï–ì–û–†–ò–Ø–ú}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfSectionsButtonClick(Sender: TObject; ACol, ARow: Integer);
 var
@@ -435,7 +435,7 @@ end;
 
 
 //=========================================================
-{œ–» »«Ã≈Õ≈Õ»» –¿«Ã≈–¿ ÷≈Õ“–¿À‹ÕŒ√Œ —œ»— ¿  ¿“≈√Œ–»… Œÿ»¡Œ }
+{–ü–†–ò –ò–ó–ú–ï–ù–ï–ù–ò–ò –†–ê–ó–ú–ï–†–ê –¶–ï–ù–¢–†–ê–õ–¨–ù–û–ì–û –°–ü–ò–°–ö–ê –ö–ê–¢–ï–ì–û–†–ò–ô –û–®–ò–ë–û–ö}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridListOfSectionsResize(Sender: TObject);
 begin
@@ -447,7 +447,7 @@ end;
 
 
 //=========================================================
-{œ–» Ÿ≈À◊ ≈ Õ¿ —œ»— ≈  ¿“≈√Œ–»…}
+{–ü–†–ò –©–ï–õ–ß–ö–ï –ù–ê –°–ü–ò–°–ö–ï –ö–ê–¢–ï–ì–û–†–ò–ô}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridCategoriesClickCell(Sender: TObject; ARow, ACol: Integer);
 var
@@ -463,7 +463,7 @@ begin
     agbErrorsList.Visible := True;
     agbErrorsList.Enabled := True;
     btAllCategories.Enabled := agbErrorsList.Enabled;
-    if (SelectedSectionIndex = StrToInt(GridCategories.GridCells[1, ARow])) AND (SelectedSectionIndex <> -1) then exit; //˜ÚÓ·˚ ÌÂ Ó·ÌÓ‚ÎˇÚ¸ Ë Ú‡Í ÛÊÂ ‚˚·‡ÌÌÛ˛ Í‡ÚÂ„ÓË˛
+    if (SelectedSectionIndex = StrToInt(GridCategories.GridCells[1, ARow])) AND (SelectedSectionIndex <> -1) then exit; //—á—Ç–æ–±—ã –Ω–µ –æ–±–Ω–æ–≤–ª—è—Ç—å –∏ —Ç–∞–∫ —É–∂–µ –≤—ã–±—Ä–∞–Ω–Ω—É—é –∫–∞—Ç–µ–≥–æ—Ä–∏—é
     SelectedSectionIndex := StrToInt(GridCategories.GridCells[1, ARow]);
     GridListOfEntries.BeginUpdate;
     isAllEnabled := True;
@@ -523,7 +523,7 @@ end;
 
 
 //=========================================================
-{œ–»  À» ≈ Õ¿ —œ»— ≈ œ¿–¿Ã≈“–Œ¬ » »’ «Õ¿◊≈Õ… ¬Õ»«”}
+{–ü–†–ò –ö–õ–ò–ö–ï –ù–ê –°–ü–ò–°–ö–ï –ü–ê–†–ê–ú–ï–¢–†–û–í –ò –ò–• –ó–ù–ê–ß–ï–ù–ô –í–ù–ò–ó–£}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.GridDetailsClickCell(Sender: TObject; ARow, ACol: Integer);
 begin
@@ -536,13 +536,13 @@ end;
 
 
 //=========================================================
-{œ”Õ “ ¬  ŒÕ“≈ —“ÕŒÃ Ã≈Õﬁ}
+{–ü–£–ù–ö–¢ –í –ö–û–ù–¢–ï–ö–°–¢–ù–û–ú –ú–ï–ù–Æ}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.popupMenuOpenKeyClick(Sender: TObject);
 begin
   GridListOfEntries.OnDblClickCell(Self, GridListOfEntries.RealRow, 2);
 end;
-{œ”Õ “ Ã≈Õﬁ ƒŒ¡¿¬»“‹ ¬ »— Àﬁ◊≈Õ»ﬂ}
+{–ü–£–ù–ö–¢ –ú–ï–ù–Æ –î–û–ë–ê–í–ò–¢–¨ –í –ò–°–ö–õ–Æ–ß–ï–ù–ò–Ø}
 procedure TfmRegistryCleanerResults.popupMenuAddToExclusionClick(Sender: TObject);
 var
   ErrorIndex, LastExceptionIndex: integer;
@@ -550,7 +550,7 @@ var
   ExceptionFile: TIniFile;
   TempStr: string;
 begin
-  //ÒÓı‡ÌˇÂÏ ‰‡ÌÌÓÂ ËÒÍÎ˛˜ÂÌËÂ ‚ ÒÔËÒÓÍ ËÒÍÎ˛˜ÂÌËÈ Ë ‚ Ù‡ÈÎ
+  //—Å–æ—Ö—Ä–∞–Ω—è–µ–º –¥–∞–Ω–Ω–æ–µ –∏—Å–∫–ª—é—á–µ–Ω–∏–µ –≤ —Å–ø–∏—Å–æ–∫ –∏—Å–∫–ª—é—á–µ–Ω–∏–π –∏ –≤ —Ñ–∞–π–ª
   ErrorIndex := StrToInt(GridListOfEntries.GridCells[2, GridListOfEntries.RealRow]);
   SetLength(fmDataMod.RegExceptions, Length(fmDataMod.RegExceptions)+1);
   LastExceptionIndex := Length(fmDataMod.RegExceptions)-1;
@@ -589,7 +589,7 @@ begin
     end;
   end;
 
-  //Û‰‡ÎˇÂÏ ËÁ ÒÔËÒÍ‡ Ó¯Ë·ÍÛ Ë Ó·ÌÓ‚ÎˇÂÏ Ò˜∏Ú˜ËÍË:
+  //—É–¥–∞–ª—è–µ–º –∏–∑ —Å–ø–∏—Å–∫–∞ –æ—à–∏–±–∫—É –∏ –æ–±–Ω–æ–≤–ª—è–µ–º —Å—á—ë—Ç—á–∏–∫–∏:
   inc(fmDataMod.RegErrorsFound, -1);
   inc(fmDataMod.RegSections[SelectedSectionIndex].ErrorsCount, -1);
   fmDataMod.RegErrors[ErrorIndex].Enabled := False;
@@ -607,7 +607,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ - "Œ¡Ÿ»≈ –≈«”À‹“¿“€ œŒ»— ¿"}
+{–ö–ù–û–ü–ö–ê - "–û–ë–©–ò–ï –†–ï–ó–£–õ–¨–¢–ê–¢–´ –ü–û–ò–°–ö–ê"}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.btAllCategoriesClick(Sender: TObject);
 begin
@@ -626,7 +626,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ - "Õ¿«¿ƒ"}
+{–ö–ù–û–ü–ö–ê - "–ù–ê–ó–ê–î"}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.btBackClick(Sender: TObject);
 begin
@@ -638,7 +638,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ - "¬€’Œƒ"}
+{–ö–ù–û–ü–ö–ê - "–í–´–•–û–î"}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.btCloseClick(Sender: TObject);
 begin
@@ -650,7 +650,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ - "Œ“Ã≈Õ»“‹ — ¿Õ»–Œ¬¿Õ»≈"}
+{–ö–ù–û–ü–ö–ê - "–û–¢–ú–ï–ù–ò–¢–¨ –°–ö–ê–ù–ò–†–û–í–ê–ù–ò–ï"}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.btCancelClick(Sender: TObject);
 begin
@@ -661,7 +661,7 @@ end;
 
 
 //=========================================================
-{‘Œ–Ã»–Œ¬¿Õ»≈ —œ»— ¿  ¿“≈√Œ–»… — Œÿ»¡ ¿Ã»}
+{–§–û–†–ú–ò–†–û–í–ê–ù–ò–ï –°–ü–ò–°–ö–ê –ö–ê–¢–ï–ì–û–†–ò–ô –° –û–®–ò–ë–ö–ê–ú–ò}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.ShowRegSections;
 var
@@ -706,7 +706,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ "Œ◊»—“»“‹"}
+{–ö–ù–û–ü–ö–ê "–û–ß–ò–°–¢–ò–¢–¨"}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.btCleanClick(Sender: TObject);
 begin
@@ -730,7 +730,7 @@ end;
 
 
 //======================================================
-{«¿√–”« ¿ »«Œ¡–¿∆≈Õ»ﬂ ¬ Œ¡À¿—“‹ Õ¿ ‘Œ–Ã≈}
+{–ó–ê–ì–†–£–ó–ö–ê –ò–ó–û–ë–†–ê–ñ–ï–ù–ò–Ø –í –û–ë–õ–ê–°–¢–¨ –ù–ê –§–û–†–ú–ï}
 //------------------------------------------------------
 procedure TfmRegistryCleanerResults.LoadPNG2Prog(dllname, resname: string; imgobj: TImage);
 var
@@ -751,42 +751,42 @@ end;
 
 
 //=========================================================
-{œ–»Ã≈Õ≈Õ»≈ — »Õ¿}
+{–ü–†–ò–ú–ï–ù–ï–ù–ò–ï –°–ö–ò–ù–ê}
 //=========================================================
 procedure TfmRegistryCleanerResults.ApplyTheme;
 var
   ThemeFileName, StrTmp: string;
 begin
-  //ﬂÁ˚ÍÓ‚˚Â Ì‡ÒÚÓÈÍË
+  //–Ø–∑—ã–∫–æ–≤—ã–µ –Ω–∞—Å—Ç—Ä–æ–π–∫–∏
   fmDataMod.RegClean.RootKey := HKEY_CURRENT_USER;
   fmDataMod.RegClean.OpenKey('\Software\WinTuning', true);
   ThemeName := GetProgParam('theme');
-  //–‡Á‰ÂÎ˚
+  //–†–∞–∑–¥–µ–ª—ã
   ThemeFileName := ExtractFilePath(paramstr(0)) + 'Themes\' + ThemeName + '\Theme.ini';
   if FileExists(ThemeFileName) then
   begin
     ThemeFile := TIniFile.Create(ThemeFileName);
   end;
 
-  //÷‚ÂÚ ÓÍÌ‡
+  //–¶–≤–µ—Ç –æ–∫–Ω–∞
   Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'WndColor', '240,240,240')));
 
-  //‘ÓÌ Á‡„ÓÎÓ‚Í‡ ÛÚËÎËÚ˚
+  //–§–æ–Ω –∑–∞–≥–æ–ª–æ–≤–∫–∞ —É—Ç–∏–ª–∏—Ç—ã
 //  ThemeImgMainCaption.Visible := ThemeFile.ReadBool('Utilities', 'UtilCaptionBackImageShow', True);
   StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackImagePath', '')), PChar(ThemeName));
   if FileExists(StrTmp) then ThemeImgMainCaption.Picture.LoadFromFile(StrTmp);
-  //÷‚ÂÚ ¯ËÙÚ‡ Á‡„ÓÎÓ‚Í‡
+  //–¶–≤–µ—Ç —à—Ä–∏—Ñ—Ç–∞ –∑–∞–≥–æ–ª–æ–≤–∫–∞
   albLogoText.Font.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionFontColor', '53,65,79')));
-  //÷‚ÂÚ ÙÓÌ‡ Á‡„ÎÓ‚Í‡ ÛÚËÎËÚ˚ ‚ ÒÎÛ˜‡Â, ÂÒÎË Õ≈“ Í‡ÚËÌÍË
+  //–¶–≤–µ—Ç —Ñ–æ–Ω–∞ –∑–∞–≥–ª–æ–≤–∫–∞ —É—Ç–∏–ª–∏—Ç—ã –≤ —Å–ª—É—á–∞–µ, –µ—Å–ª–∏ –ù–ï–¢ –∫–∞—Ä—Ç–∏–Ω–∫–∏
   ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
-  lbStatus.Color := ThemeShapeMainCaption.Brush.Color; //ÒÚ‡ÚÛÒ ‚ÓÒÒÚ‡ÌÓ‚ÎÂÌËˇ
-  //÷‚ÂÚ ·Ó˛‰‡ Á‡„ÎÓ‚Í‡ ÛÚËÎËÚ˚
+  lbStatus.Color := ThemeShapeMainCaption.Brush.Color; //—Å—Ç–∞—Ç—É—Å –≤–æ—Å—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω–∏—è
+  //–¶–≤–µ—Ç –±–æ—Ä—é–¥–∞ –∑–∞–≥–ª–æ–≤–∫–∞ —É—Ç–∏–ª–∏—Ç—ã
   ThemeShapeMainCaption.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
   ShapeLeft.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
   ShapeBottom.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
   agbLogo.BorderColor := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
 
-  //ÕËÊÌËÈ ·Ó‰˛˜ËÍ
+  //–ù–∏–∂–Ω–∏–π –±–æ—Ä–¥—é—Ä—á–∏–∫
   ShapeBottom.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'BorderBottomColor', '243,245,248')));
 
   ThemeFile.Free;
@@ -797,18 +797,18 @@ end;
 
 
 //=========================================================
-{√À¿¬ÕŒ≈ Ã≈Õﬁ}
+{–ì–õ–ê–í–ù–û–ï –ú–ï–ù–Æ}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.mmExitClick(Sender: TObject);
 var
   MenuName: string;
 begin
   MenuName := TMenuItem(Sender).Name;
-  //‘‡ÈÎ -> »ÒÔ‡‚ËÚ¸ (Ó˜ËÒËÚ¸)
+  //–§–∞–π–ª -> –ò—Å–ø—Ä–∞–≤–∏—Ç—å (–æ—á–∏—Å–∏—Ç—å)
   if MenuName = 'mmFix' then btClean.OnClick(Self);
-  //‘‡ÈÎ -> —Í‡ÌËÓ‚‡Ú¸
+  //–§–∞–π–ª -> –°–∫–∞–Ω–∏—Ä–æ–≤–∞—Ç—å
   if MenuName = 'mmNewScan' then btBack.OnClick(Self);
-  //‘‡ÈÎ -> Õ‡ÒÚÓÈÍË
+  //–§–∞–π–ª -> –ù–∞—Å—Ç—Ä–æ–π–∫–∏
   if MenuName = 'mmSettings' then
   begin
     fmSettings := TfmSettings.Create(Application);
@@ -816,19 +816,19 @@ begin
     fmSettings.Free;
   end;
 
-  //‘‡ÈÎ -> Õ‡¯ÎË Ó¯Ë·ÍÛ?
+  //–§–∞–π–ª -> –ù–∞—à–ª–∏ –æ—à–∏–±–∫—É?
   if MenuName = 'mmFoundAnError' then ShellExecute(Handle, 'open', PChar(ExtractFilePath(paramstr(0))+'ErrorReport.exe'), nil, nil, SW_SHOW);
-  //‘‡ÈÎ -> ¬˚ıÓ‰
+  //–§–∞–π–ª -> –í—ã—Ö–æ–¥
   if MenuName = 'mmExit' then Close;
-  //¬˚‰ÂÎÂÌÌÓÂ -> ŒÚÍ˚Ú¸ ÍÎ˛˜ ‚ ÔÓ„‡ÏÏÂ Regedit
+  //–í—ã–¥–µ–ª–µ–Ω–Ω–æ–µ -> –û—Ç–∫—Ä—ã—Ç—å –∫–ª—é—á –≤ –ø—Ä–æ–≥—Ä–∞–º–º–µ Regedit
   if MenuName = 'mmOpenKey' then popupMenuOpenKey.OnClick(Self);
-  //¬˚‰ÂÎÂÌÌÓÂ -> ƒÓ·‡‚ËÚ¸ ‚ ËÒÍÎ˛˜ÂÌËˇ
+  //–í—ã–¥–µ–ª–µ–Ω–Ω–æ–µ -> –î–æ–±–∞–≤–∏—Ç—å –≤ –∏—Å–∫–ª—é—á–µ–Ω–∏—è
   if MenuName = 'mmAddToExclusion' then popupMenuAddToExclusion.OnClick(Self);
-  //—Ô‡‚Í‡ -> ŒÚÍ˚Ú¸ ÒÔ‡‚ÍÛ
+  //–°–ø—Ä–∞–≤–∫–∞ -> –û—Ç–∫—Ä—ã—Ç—å —Å–ø—Ä–∞–≤–∫—É
   if MenuName = 'mmOpenHelp' then ViewHelp('UtilRegistryCleaner');
-  //—Ô‡‚Í‡ -> WebSite
+  //–°–ø—Ä–∞–≤–∫–∞ -> WebSite
   if MenuName = 'mmWebSite' then ShellExecute(handle,'open', GetProgParam('webindex'),nil,nil,SW_SHOW);
-  //—Ô‡‚Í‡ -> Œ ÔÓ„‡ÏÏÂ
+  //–°–ø—Ä–∞–≤–∫–∞ -> –û –ø—Ä–æ–≥—Ä–∞–º–º–µ
   if MenuName = 'mmAbout' then CreateTheForm(PChar(Caption), PChar(paramstr(0)), '');
 end;
 //=========================================================
@@ -836,7 +836,7 @@ end;
 
 
 //=========================================================
-{œ–» Õ¿∆¿“»» Õ¿ √Œ–ﬂ◊»≈  À¿¬»ÿ»}
+{–ü–†–ò –ù–ê–ñ–ê–¢–ò–ò –ù–ê –ì–û–†–Ø–ß–ò–ï –ö–õ–ê–í–ò–®–ò}
 procedure TfmRegistryCleanerResults.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if Ord(Key) = 112 then //F1
@@ -849,7 +849,7 @@ end;
 
 
 //=========================================================
-{Œ¡ÕŒ¬»“‹ —“¿“”— “≈ ”Ÿ≈… œ–Œ¬≈– »}
+{–û–ë–ù–û–í–ò–¢–¨ –°–¢–ê–¢–£–° –¢–ï–ö–£–©–ï–ô –ü–†–û–í–ï–†–ö–ò}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.UpdateStatus;
 begin
@@ -864,7 +864,7 @@ end;
 
 
 //=========================================================
-{ƒŒ¡¿¬Àﬂ≈Ã —”Ÿ≈—“¬”ﬁŸ»≈ –¿«ƒ≈À€ —À≈¬¿}
+{–î–û–ë–ê–í–õ–Ø–ï–ú –°–£–©–ï–°–¢–í–£–Æ–©–ò–ï –†–ê–ó–î–ï–õ–´ –°–õ–ï–í–ê}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.LoadSections;
 var
@@ -885,7 +885,7 @@ end;
 
 
 //=========================================================
-{œ–» «¿ –€“»» ‘Œ–Ã€}
+{–ü–†–ò –ó–ê–ö–†–´–¢–ò–ò –§–û–†–ú–´}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.FormClose(Sender: TObject; var Action: TCloseAction);
 var
@@ -909,7 +909,7 @@ end;
 
 
 //=========================================================
-{ﬂ«€ Œ¬€… ‘¿…À}
+{–Ø–ó–´–ö–û–í–´–ô –§–ê–ô–õ}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.ApplyLang;
 begin
@@ -930,7 +930,7 @@ begin
   lbDetailsCaption.Caption :=         ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'Result_lbDetailsCaption');
   btClose.Caption :=                  ReadLangStr('WinTuning_Common.lng', 'Common', 'Exit');
 
-  //√Î‡‚ÌÓÂ ÏÂÌ˛ - ‚ÚÓ‡ˇ ÙÓÏ‡
+  //–ì–ª–∞–≤–Ω–æ–µ –º–µ–Ω—é - –≤—Ç–æ—Ä–∞—è —Ñ–æ—Ä–º–∞
   mmMainFile.Caption :=                              ReadLangStr('WinTuning_Common.lng', 'Common', 'File');
   mmFoundAnError.Caption :=                          ReadLangStr('WinTuning_Common.lng', 'Common', 'ErrorReport');
   mmSettings.Caption :=                              ReadLangStr('WinTuning_Common.lng', 'Common', 'Settings');
@@ -952,7 +952,7 @@ end;
 
 
 //=========================================================
-{¿ “»¬¿÷»ﬂ ‘Œ–Ã€}
+{–ê–ö–¢–ò–í–ê–¶–ò–Ø –§–û–†–ú–´}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.FormActivate(Sender: TObject);
 begin
@@ -964,7 +964,7 @@ end;
 
 
 //=========================================================
-{œ–» —Œ«ƒ¿Õ»» ‘Œ–Ã€}
+{–ü–†–ò –°–û–ó–î–ê–ù–ò–ò –§–û–†–ú–´}
 //---------------------------------------------------------
 procedure TfmRegistryCleanerResults.FormCreate(Sender: TObject);
 var
@@ -972,7 +972,7 @@ var
   Screen: TScreen;
 begin
   isLoaded := False;
-  // ƒ≈À¿≈Ã ‘Œ–Ã” Œƒ»Õ¿ Œ¬Œ… œŒ –¿«Ã≈–” œ–» –¿«À»◊Õ€’ –¿—–≈ÿ≈Õ»ﬂ’ » –¿«Ã≈–¿’ ÿ–»‘“¿
+  // –î–ï–õ–ê–ï–ú –§–û–†–ú–£ –û–î–ò–ù–ê–ö–û–í–û–ô –ü–û –†–ê–ó–ú–ï–†–£ –ü–†–ò –†–ê–ó–õ–ò–ß–ù–´–• –†–ê–°–†–ï–®–ï–ù–ò–Ø–• –ò –†–ê–ó–ú–ï–†–ê–• –®–†–ò–§–¢–ê
   scaled := True;
   Screen := TScreen.Create(nil);
   for i := componentCount - 1 downto 0 do
@@ -981,7 +981,7 @@ begin
       if GetPropInfo(ClassInfo, 'font') <> nil then Font.Size := (ScreenWidth div screen.width) * Font.Size;
     end;
 
-  //«¿√–”∆¿≈Ã √–¿‘» ”
+  //–ó–ê–ì–†–£–ñ–ê–ï–ú –ì–†–ê–§–ò–ö–£
   LoadPNG2Prog('logo.dll', 'logo_wt_small', imgWinTuning);
 
   SelectedSectionIndex := -1;

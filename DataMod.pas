@@ -1,4 +1,4 @@
-unit DataMod;
+п»їunit DataMod;
 
 interface
 
@@ -10,7 +10,7 @@ uses
 const
   CSIDL_PROFILE: Integer = $5;
 
-{ТИП ДЛЯ ОШИБОК}
+{РўРРџ Р”Р›РЇ РћРЁРР‘РћРљ}
 type
   ArrOfStr = array of string;
   TRegSections = record
@@ -101,18 +101,18 @@ type
     Wow64FsEnableRedirection: LongBool;
     RegErrorsFile: TStringList;
 
-    isStop: boolean; //прервать сканирование
-    is_back: boolean; //прервать сканирование
-    isSecondWindowShowNeeded: boolean; //нужно ли показывать второе окно (окно результатов)
+    isStop: boolean; //РїСЂРµСЂРІР°С‚СЊ СЃРєР°РЅРёСЂРѕРІР°РЅРёРµ
+    is_back: boolean; //РїСЂРµСЂРІР°С‚СЊ СЃРєР°РЅРёСЂРѕРІР°РЅРёРµ
+    isSecondWindowShowNeeded: boolean; //РЅСѓР¶РЅРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ РІС‚РѕСЂРѕРµ РѕРєРЅРѕ (РѕРєРЅРѕ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ)
 
     LNGChecking, LNGCheckingKey: string;
 
-    RegErrorsFound, RegErrorsFixed: integer; //общее кол-во найденных ошибок, общее кол-во исправленных ошибок
-    ActKeyName: string; //текущий ключ
+    RegErrorsFound, RegErrorsFixed: integer; //РѕР±С‰РµРµ РєРѕР»-РІРѕ РЅР°Р№РґРµРЅРЅС‹С… РѕС€РёР±РѕРє, РѕР±С‰РµРµ РєРѕР»-РІРѕ РёСЃРїСЂР°РІР»РµРЅРЅС‹С… РѕС€РёР±РѕРє
+    ActKeyName: string; //С‚РµРєСѓС‰РёР№ РєР»СЋС‡
     RegClean: TRegistry;
-    RegSections: array of TRegSections; //переменная для хранения всех разделов
-    RegErrors: array of TRegError; //переменная для хранения ошибок
-    RegExceptions: array of TRegExceptions; //переменная для хранения список исключений
+    RegSections: array of TRegSections; //РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РІСЃРµС… СЂР°Р·РґРµР»РѕРІ
+    RegErrors: array of TRegError; //РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РѕС€РёР±РѕРє
+    RegExceptions: array of TRegExceptions; //РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЃРїРёСЃРѕРє РёСЃРєР»СЋС‡РµРЅРёР№
 
   end;
 
@@ -128,19 +128,19 @@ uses RegistryCleaner_FirstForm, RegistryCleaner_Results;
 {$R *.dfm}
 
 
-{ЧТЕНИЕ ЯЗЫКОВОЙ СТРОКИ ИЗ ОПРЕДЕЛЁННОГО ФАЙЛА}
+{Р§РўР•РќРР• РЇР—Р«РљРћР’РћР™ РЎРўР РћРљР РР— РћРџР Р•Р”Р•Р›РЃРќРќРћР“Рћ Р¤РђР™Р›Рђ}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
-{ПЕРЕВОД ИЗ БАЙТОВ В НОРМАЛЬНУЮ СТРОКУ}
+{РџР•Р Р•Р’РћР” РР— Р‘РђР™РўРћР’ Р’ РќРћР РњРђР›Р¬РќРЈР® РЎРўР РћРљРЈ}
 function BytesToStr(const i64Size: Int64): PChar; external 'Functions.dll';
 
-{ЗАПУЩЕНА ЛИ 64-Х БИТНАЯ СИСТЕМА}
+{Р—РђРџРЈР©Р•РќРђ Р›Р 64-РҐ Р‘РРўРќРђРЇ РЎРРЎРўР•РњРђ}
 function IsWOW64: Boolean; external 'Functions.dll';
 
 
 
 //=========================================================
-{ФУНКЦИЯ ДЛЯ РАЗДЕЛЕНИЯ СТРОКИ С РАЗДЕЛИТЕЛЕМ НА МАССИВ СТРОК}
+{Р¤РЈРќРљР¦РРЇ Р”Р›РЇ Р РђР—Р”Р•Р›Р•РќРРЇ РЎРўР РћРљР РЎ Р РђР—Р”Р•Р›РРўР•Р›Р•Рњ РќРђ РњРђРЎРЎРР’ РЎРўР РћРљ}
 //---------------------------------------------------------
 function explode(sPart, sInput: string): ArrOfStr;
 begin
@@ -168,7 +168,7 @@ end;
 
 
 //=========================================================
-{СОЕДИНИТЬ ЭЛЕМЕНТЫ МАССИВА В ОДНУ СТРОКУ}
+{РЎРћР•Р”РРќРРўР¬ Р­Р›Р•РњР•РќРўР« РњРђРЎРЎРР’Рђ Р’ РћР”РќРЈ РЎРўР РћРљРЈ}
 //---------------------------------------------------------
 function implode(sPart: string; arrInp: ArrOfStr): string;
 var
@@ -186,7 +186,7 @@ end;
 
 
 //=========================================================
-{УДАЛИТЬ ЭЛЕМЕНТ ИЗ МАССИВА С ЗАДАННЫМ НОМЕРОМ}
+{РЈР”РђР›РРўР¬ Р­Р›Р•РњР•РќРў РР— РњРђРЎРЎРР’Рђ РЎ Р—РђР”РђРќРќР«Рњ РќРћРњР•Р РћРњ}
 //---------------------------------------------------------
 procedure ArrDeleteElement(var anArray: ArrOfStr; const aPosition: integer);
 var
@@ -208,7 +208,7 @@ end;
 
 
 //=========================================================
-{ПОЛУЧЕНИЕ ИНФОРМАЦИИ О ЯРЛЫКЕ}
+{РџРћР›РЈР§Р•РќРР• РРќР¤РћР РњРђР¦РР Рћ РЇР Р›Р«РљР•}
 //---------------------------------------------------------
 procedure TfmDataMod.GetLinkInfo(lpShellLinkInfoStruct: PShellLinkInfoStruct);
 var
@@ -247,7 +247,7 @@ end;
 
 
 //=========================================================
-{ФОРМИРОВАНИЕ КАТЕГОРИЙ}
+{Р¤РћР РњРР РћР’РђРќРР• РљРђРўР•Р“РћР РР™}
 //---------------------------------------------------------
 procedure TfmDataMod.FormRegSections;
 var
@@ -257,59 +257,59 @@ begin
   RegClean.OpenKey('\Software\WinTuning\RegistryCleaner\RegSections\DefaultChecked', True);
   SetLength(RegSections, 27);
 
-  RegSections[0].Name := 'EmptyKeysInHKCR'; //Типы файлов: совершенно пустой ключ HKCR
+  RegSections[0].Name := 'EmptyKeysInHKCR'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: СЃРѕРІРµСЂС€РµРЅРЅРѕ РїСѓСЃС‚РѕР№ РєР»СЋС‡ HKCR
   RegSections[0].OrderID := 0;
-  RegSections[1].Name := 'NoDefaultIconFileFound'; //Типы файлов: Не найдены файлы значков
+  RegSections[1].Name := 'NoDefaultIconFileFound'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РќРµ РЅР°Р№РґРµРЅС‹ С„Р°Р№Р»С‹ Р·РЅР°С‡РєРѕРІ
   RegSections[1].OrderID := 1;
-  RegSections[2].Name := 'EmptyContextMenuEntry'; //Типы файлов: пустой пункт в контекстном меню
+  RegSections[2].Name := 'EmptyContextMenuEntry'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РїСѓСЃС‚РѕР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ
   RegSections[2].OrderID := 2;
-  RegSections[3].Name := 'InvalidContextMenuEntry'; //Типы файлов: нерабочий пункт в контекстном меню
+  RegSections[3].Name := 'InvalidContextMenuEntry'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РЅРµСЂР°Р±РѕС‡РёР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ
   RegSections[3].OrderID := 3;
-  RegSections[4].Name := 'InvalidFileTypeID'; //Типы файлов: Потеряна информация о типе файла
+  RegSections[4].Name := 'InvalidFileTypeID'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РџРѕС‚РµСЂСЏРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚РёРїРµ С„Р°Р№Р»Р°
   RegSections[4].OrderID := 4;
-  RegSections[5].Name := 'InvalidFileTypeIDHKCU'; //Типы файлов: Пустой пользовательский тип файла
+  RegSections[5].Name := 'InvalidFileTypeIDHKCU'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РџСѓСЃС‚РѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ С‚РёРї С„Р°Р№Р»Р°
   RegSections[5].OrderID := 5;
-  RegSections[6].Name := 'CLSIDisNotEmpty'; //Типы файлов: Не задан CLSID для пункта меню
+  RegSections[6].Name := 'CLSIDisNotEmpty'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: РќРµ Р·Р°РґР°РЅ CLSID РґР»СЏ РїСѓРЅРєС‚Р° РјРµРЅСЋ
   RegSections[6].OrderID := 6;
-  RegSections[7].Name := 'CLSIDisNotExists'; //Типы файлов: CLSID для пункта меню не существует
+  RegSections[7].Name := 'CLSIDisNotExists'; //РўРёРїС‹ С„Р°Р№Р»РѕРІ: CLSID РґР»СЏ РїСѓРЅРєС‚Р° РјРµРЅСЋ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
   RegSections[7].OrderID := 7;
-  RegSections[8].Name := 'HelpFiles'; //Файлы справки
+  RegSections[8].Name := 'HelpFiles'; //Р¤Р°Р№Р»С‹ СЃРїСЂР°РІРєРё
   RegSections[8].OrderID := 8;
-  RegSections[9].Name := 'RecentFilesWindows'; //Недавние док-ты Windows
+  RegSections[9].Name := 'RecentFilesWindows'; //РќРµРґР°РІРЅРёРµ РґРѕРє-С‚С‹ Windows
   RegSections[9].OrderID := 9;
-  RegSections[10].Name := 'RecentProgs'; //Программы из списка "открыть с помощью"
+  RegSections[10].Name := 'RecentProgs'; //РџСЂРѕРіСЂР°РјРјС‹ РёР· СЃРїРёСЃРєР° "РѕС‚РєСЂС‹С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ"
   RegSections[10].OrderID := 10;
-  RegSections[11].Name := 'RecentFilesPaint'; //Недавние документы Paint
+  RegSections[11].Name := 'RecentFilesPaint'; //РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Paint
   RegSections[11].OrderID := 11;
-  RegSections[12].Name := 'RecentFilesWordPad'; //Недавние док-ты WordPad
+  RegSections[12].Name := 'RecentFilesWordPad'; //РќРµРґР°РІРЅРёРµ РґРѕРє-С‚С‹ WordPad
   RegSections[12].OrderID := 12;
-  RegSections[13].Name := 'RecentFilesOffice'; //Недавние док-ты Office
+  RegSections[13].Name := 'RecentFilesOffice'; //РќРµРґР°РІРЅРёРµ РґРѕРє-С‚С‹ Office
   RegSections[13].OrderID := 13;
-  RegSections[14].Name := 'RecentFilesWinRAR'; //Недавние док-ты WinRAR
+  RegSections[14].Name := 'RecentFilesWinRAR'; //РќРµРґР°РІРЅРёРµ РґРѕРє-С‚С‹ WinRAR
   RegSections[14].OrderID := 14;
-  RegSections[15].Name := 'RecentFilesOpenSaveMRUList'; //Недавние документы Media Player Classic
+  RegSections[15].Name := 'RecentFilesOpenSaveMRUList'; //РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Media Player Classic
   RegSections[15].OrderID := 15;
-  RegSections[16].Name := 'Autorun'; //Автозапуск
+  RegSections[16].Name := 'Autorun'; //РђРІС‚РѕР·Р°РїСѓСЃРє
   RegSections[16].OrderID := 16;
-  RegSections[17].Name := 'Firewall'; //Брандмауэр
+  RegSections[17].Name := 'Firewall'; //Р‘СЂР°РЅРґРјР°СѓСЌСЂ
   RegSections[17].OrderID := 17;
-  RegSections[18].Name := 'InstalledPrograms'; //Удаление программ
+  RegSections[18].Name := 'InstalledPrograms'; //РЈРґР°Р»РµРЅРёРµ РїСЂРѕРіСЂР°РјРј
   RegSections[18].OrderID := 18;
-  RegSections[19].Name := 'ApplicationPaths'; //Пути к программам
+  RegSections[19].Name := 'ApplicationPaths'; //РџСѓС‚Рё Рє РїСЂРѕРіСЂР°РјРјР°Рј
   RegSections[19].OrderID := 19;
-  RegSections[20].Name := 'Fonts'; //Шрифты
+  RegSections[20].Name := 'Fonts'; //РЁСЂРёС„С‚С‹
   RegSections[20].OrderID := 20;
-  RegSections[21].Name := 'SystemExtensions'; //Расширения програм
+  RegSections[21].Name := 'SystemExtensions'; //Р Р°СЃС€РёСЂРµРЅРёСЏ РїСЂРѕРіСЂР°Рј
   RegSections[21].OrderID := 21;
-  RegSections[22].Name := 'DatabaseDrivers'; //Драйверы БД
+  RegSections[22].Name := 'DatabaseDrivers'; //Р”СЂР°Р№РІРµСЂС‹ Р‘Р”
   RegSections[22].OrderID := 22;
-  RegSections[23].Name := 'SharedFiles'; //Общие файлы
+  RegSections[23].Name := 'SharedFiles'; //РћР±С‰РёРµ С„Р°Р№Р»С‹
   RegSections[23].OrderID := 23;
-  RegSections[24].Name := 'ActiveXInterfaces'; //Настройки программ
+  RegSections[24].Name := 'ActiveXInterfaces'; //РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕРіСЂР°РјРј
   RegSections[24].OrderID := 24;
-  RegSections[25].Name := 'COMLibraries'; //Компоненты программ (ActiveX, COM)
+  RegSections[25].Name := 'COMLibraries'; //РљРѕРјРїРѕРЅРµРЅС‚С‹ РїСЂРѕРіСЂР°РјРј (ActiveX, COM)
   RegSections[25].OrderID := 25;
-  RegSections[26].Name := 'Sounds'; //Звуки
+  RegSections[26].Name := 'Sounds'; //Р—РІСѓРєРё
   RegSections[26].OrderID := 26;
   for i := 0 to Length(RegSections)-1 do
   begin
@@ -326,7 +326,7 @@ end;
 
 
 //=========================================================
-{ РАСШИРЕННАЯ ФУНКЦИЯ ПРОВЕРКИ СУЩЕСТВОВАНИЯ ПАПКИ (ДЕЙСТВУЕТ И НА x32 И НА x64) }
+{ Р РђРЎРЁРР Р•РќРќРђРЇ Р¤РЈРќРљР¦РРЇ РџР РћР’Р•Р РљР РЎРЈР©Р•РЎРўР’РћР’РђРќРРЇ РџРђРџРљР (Р”Р•Р™РЎРўР’РЈР•Рў Р РќРђ x32 Р РќРђ x64) }
 //---------------------------------------------------------
 function TfmDataMod.DirExistsExt(DirPath: string): boolean;
 var
@@ -364,7 +364,7 @@ end;
 
 
 //=========================================================
-{ПОЛУЧЕНИЕ ГЛОБАЛЬНЫХ ПЕРЕМЕННЫХ 1-я версия}
+{РџРћР›РЈР§Р•РќРР• Р“Р›РћР‘РђР›Р¬РќР«РҐ РџР•Р Р•РњР•РќРќР«РҐ 1-СЏ РІРµСЂСЃРёСЏ}
 //---------------------------------------------------------
 function TfmDataMod.ExpandEnvVars(const str: string): string;
 var
@@ -385,7 +385,7 @@ end;
 
 
 //=========================================================
-{ПОЛУЧАЕМ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ 2-я версия}
+{РџРћР›РЈР§РђР•Рњ Р“Р›РћР‘РђР›Р¬РќР«Р• РџР•Р Р•РњР•РќРќР«Р• 2-СЏ РІРµСЂСЃРёСЏ}
 //---------------------------------------------------------
 function TfmDataMod.SystemEnvRep(s: string): string;
 var
@@ -400,7 +400,7 @@ end;
 
 
 //=========================================================
-{ЕСТЬ ЛИ В КЛЮЧЕ ХОТЬ ОДИН КЛЮЧ С КАКИМ-ЛИБО ЗНАЧЕНИЕМ (ХОТЬ ОДНИМ)}
+{Р•РЎРўР¬ Р›Р Р’ РљР›Р®Р§Р• РҐРћРўР¬ РћР”РРќ РљР›Р®Р§ РЎ РљРђРљРРњ-Р›РР‘Рћ Р—РќРђР§Р•РќРР•Рњ (РҐРћРўР¬ РћР”РќРРњ)}
 //---------------------------------------------------------
 function TfmDataMod.isKeyFilled(RootK: HKEY; keynm: string): boolean;
 label
@@ -447,7 +447,7 @@ end;
 
 
 //=========================================================
-{ Преобразуме различные сложные шифры имен файлов в реестре в нормальный вид }
+{ РџСЂРµРѕР±СЂР°Р·СѓРјРµ СЂР°Р·Р»РёС‡РЅС‹Рµ СЃР»РѕР¶РЅС‹Рµ С€РёС„СЂС‹ РёРјРµРЅ С„Р°Р№Р»РѕРІ РІ СЂРµРµСЃС‚СЂРµ РІ РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РІРёРґ }
 //---------------------------------------------------------
 function TfmDataMod.CleanFileName64(filename: string): string;
 label
@@ -477,7 +477,7 @@ begin
   if t.Count > 1 then NewName := t[0];
   t.free;
 
-  //преобразуем переменные окружения
+  //РїСЂРµРѕР±СЂР°Р·СѓРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ РѕРєСЂСѓР¶РµРЅРёСЏ
   if IsWOW64 then
   begin
     NewName := stringReplace(NewName, '%ProgramFiles%', '%ProgramW6432%', [rfReplaceAll, rfIgnoreCase]);
@@ -485,7 +485,7 @@ begin
   end;
 
   NewName := SystemEnvRep(NewName);
-  // заменяем все глобальные переменные на их настоящие значения
+  // Р·Р°РјРµРЅСЏРµРј РІСЃРµ РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ РЅР° РёС… РЅР°СЃС‚РѕСЏС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ
   NewName := stringReplace(NewName,'"','', [rfReplaceAll]);
   NewName := stringReplace(NewName, ' cryptext.dll', '', [rfReplaceAll]);
   t := TStringList.Create;
@@ -498,9 +498,9 @@ begin
   t.free;
 {  TempName := stringReplace(NewName, '\', NewName, []);
   if NewName = TempName then
-    // значит в строке нет обратного слэша (\) - дописываем строку
+    // Р·РЅР°С‡РёС‚ РІ СЃС‚СЂРѕРєРµ РЅРµС‚ РѕР±СЂР°С‚РЅРѕРіРѕ СЃР»СЌС€Р° (\) - РґРѕРїРёСЃС‹РІР°РµРј СЃС‚СЂРѕРєСѓ
     NewName := SystemFolder + '\' + NewName;}
-  // убираем проценты, которые идут ПОСЛЕ имени файла и являются лишь кандикапом
+  // СѓР±РёСЂР°РµРј РїСЂРѕС†РµРЅС‚С‹, РєРѕС‚РѕСЂС‹Рµ РёРґСѓС‚ РџРћРЎР›Р• РёРјРµРЅРё С„Р°Р№Р»Р° Рё СЏРІР»СЏСЋС‚СЃСЏ Р»РёС€СЊ РєР°РЅРґРёРєР°РїРѕРј
   t := TStringList.Create;
   t.text := stringReplace(NewName, ' %', #13#10, [rfReplaceAll]);
   if t.Count > 1 then NewName := t[0];
@@ -528,7 +528,7 @@ end;
 
 
 //=========================================================
-{ВЫТАСКИВАЕМ ИЗ DLL СТРОКУ}
+{Р’Р«РўРђРЎРљРР’РђР•Рњ РР— DLL РЎРўР РћРљРЈ}
 //---------------------------------------------------------
 function TfmDataMod.GetDLLString(filename: string; str_number: Integer): string;
 var
@@ -557,7 +557,7 @@ end;
 
 
 //=========================================================
-{ ДЛЯ ИЗВЛЕЧЕНИЯ ИЗ СТРОКИ-АДРЕСА DLL ФАЙЛА ИНФОРМАЦИИ О НОМЕРЕ РЕСУРСА }
+{ Р”Р›РЇ РР—Р’Р›Р•Р§Р•РќРРЇ РР— РЎРўР РћРљР-РђР”Р Р•РЎРђ DLL Р¤РђР™Р›Рђ РРќР¤РћР РњРђР¦РР Рћ РќРћРњР•Р Р• Р Р•РЎРЈР РЎРђ }
 //---------------------------------------------------------
 function TfmDataMod.GetDLLResIndex(filename: string): Integer;
 label
@@ -604,7 +604,7 @@ end;
 
 
 //=========================================================
-{ ДЛЯ ИЗВЛЕЧЕНИЯ ИЗ СТРОКИ-АДРЕСА DLL ФАЙЛА ИНФОРМАЦИИ О РАСПОЛОЖЕНИИ ФАЙЛА DLL }
+{ Р”Р›РЇ РР—Р’Р›Р•Р§Р•РќРРЇ РР— РЎРўР РћРљР-РђР”Р Р•РЎРђ DLL Р¤РђР™Р›Рђ РРќР¤РћР РњРђР¦РР Рћ Р РђРЎРџРћР›РћР–Р•РќРР Р¤РђР™Р›Рђ DLL }
 //---------------------------------------------------------
 function TfmDataMod.GetDLLResFileAddress(filename: string): string;
 label
@@ -634,7 +634,7 @@ end;
 
 
 //=========================================================
-{ ДЛЯ ПОЛУЧЕНИЯ СТРОКИ ВИДА "ICON" ИЗ СТРОКИ ВИДА "@%ProgramFiles(x86)%\Windows Live\Photo Gallery\regres.dll,-3077;en-us.8081.0709" }
+{ Р”Р›РЇ РџРћР›РЈР§Р•РќРРЇ РЎРўР РћРљР Р’РР”Рђ "ICON" РР— РЎРўР РћРљР Р’РР”Рђ "@%ProgramFiles(x86)%\Windows Live\Photo Gallery\regres.dll,-3077;en-us.8081.0709" }
 //---------------------------------------------------------
 function TfmDataMod.GetDLLStr(filename: string): string;
 var
@@ -657,7 +657,7 @@ end;
 
 
 //=========================================================
-{ ПОЛУЧЕНИЕ ПАПКИ WINDOWS }
+{ РџРћР›РЈР§Р•РќРР• РџРђРџРљР WINDOWS }
 //---------------------------------------------------------
 function GetSpecialFolderPath(folder: Integer): string;
 const
@@ -672,7 +672,7 @@ end;
 
 
 //=========================================================
-{ РАСШИРЕННАЯ ФУНКЦИЯ ПРОВЕРКИ СУЩЕСТВОВАНИЯ ФАЙЛА (ДЕЙСТВУЕТ И НА x32 И НА x64) }
+{ Р РђРЎРЁРР Р•РќРќРђРЇ Р¤РЈРќРљР¦РРЇ РџР РћР’Р•Р РљР РЎРЈР©Р•РЎРўР’РћР’РђРќРРЇ Р¤РђР™Р›Рђ (Р”Р•Р™РЎРўР’РЈР•Рў Р РќРђ x32 Р РќРђ x64) }
 //---------------------------------------------------------
 function TfmDataMod.FileExistsExt(filename: string): boolean;
 var
@@ -703,7 +703,7 @@ begin
     Result := True;
     Exit;
   end;
-  // we must ignore MTROS Style icons (потому что они читаются особым образом)
+  // we must ignore MTROS Style icons (РїРѕС‚РѕРјСѓ С‡С‚Рѕ РѕРЅРё С‡РёС‚Р°СЋС‚СЃСЏ РѕСЃРѕР±С‹Рј РѕР±СЂР°Р·РѕРј)
   if AnsiPos('@{', AnsiLowerCase(filename)) <> 0 then
   begin
     Result := True;
@@ -765,7 +765,7 @@ end;
 
 
 //=========================================================
-{ПРИ СОЗДАНИИ МОДУЛЯ}
+{РџР Р РЎРћР—Р”РђРќРР РњРћР”РЈР›РЇ}
 //---------------------------------------------------------
 procedure TfmDataMod.DataModuleCreate(Sender: TObject);
 begin
@@ -788,7 +788,7 @@ begin
   RegClean.RootKey := HKEY_CURRENT_USER;
   RegClean.OpenKey('\Software\WinTuning\RegistryCleaner', True);
 
-  //инициализация переменных
+  //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРјРµРЅРЅС‹С…
   is_back := false;
   RegErrorsFound := 0;
   RegErrorsFixed := 0;
@@ -796,7 +796,7 @@ begin
   FormRegSections;
   FormRegExceptions;
 
-  //языковые "константы"
+  //СЏР·С‹РєРѕРІС‹Рµ "РєРѕРЅСЃС‚Р°РЅС‚С‹"
   LNGChecking :=              ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'lbStatFound');
   LNGCheckingKey :=           ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'LNGCheckingKey');
 end;
@@ -805,7 +805,7 @@ end;
 
 
 //=========================================================
-{ПРИ ЗАКРЫТИИ МОДУЛЯ}
+{РџР Р Р—РђРљР Р«РўРР РњРћР”РЈР›РЇ}
 //---------------------------------------------------------
 procedure TfmDataMod.DataModuleDestroy(Sender: TObject);
 begin
@@ -818,14 +818,14 @@ end;
 
 
 //=========================================================
-{ОТДЕЛЬНЫЙ ПОТОК}
+{РћРўР”Р•Р›Р¬РќР«Р™ РџРћРўРћРљ}
 //---------------------------------------------------------
 procedure TfmDataMod.JvThreadScanBegin(Sender: TObject);
 begin
   with fmRegistryCleanerResults do
   begin
     lbStatus.Caption := ReadLangStr('WinTuning_Common.lng', 'Common', 'Status');
-    ProgressBarScanning.Visible := True; //показываем прогресс
+    ProgressBarScanning.Visible := True; //РїРѕРєР°Р·С‹РІР°РµРј РїСЂРѕРіСЂРµСЃСЃ
     btClean.Enabled := False;
     btCancel.Visible := True;
     btCancel.Enabled := True;
@@ -845,7 +845,7 @@ begin
   begin
     lbDesc.Caption := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ResultsAfter');
     lbStatFound.Caption := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'lbStatFound')+': '+IntToStr(RegErrorsFound);
-    ProgressBarScanning.Visible := False; //скрываем прогресс
+    ProgressBarScanning.Visible := False; //СЃРєСЂС‹РІР°РµРј РїСЂРѕРіСЂРµСЃСЃ
     btClean.Enabled := True;
     mmFix.Enabled := True;
     btCancel.Visible := False;
@@ -869,7 +869,7 @@ end;
 
 
 //=========================================================
-{ФОРМИРОВАНИЕ СПИСКА ИСКЛЮЧЕНИЙ}
+{Р¤РћР РњРР РћР’РђРќРР• РЎРџРРЎРљРђ РРЎРљР›Р®Р§Р•РќРР™}
 //---------------------------------------------------------
 procedure TfmDataMod.FormRegExceptions;
 var
@@ -943,7 +943,7 @@ end;
 
 
 //=========================================================
-{ПРОВЕРКА НА ИСКЛЮЧЕНИЕ}
+{РџР РћР’Р•Р РљРђ РќРђ РРЎРљР›Р®Р§Р•РќРР•}
 //---------------------------------------------------------
 function TfmDataMod.IsExcluded(ErrorIndex: integer): boolean;
 var
@@ -974,7 +974,7 @@ end;
 
 
 //=========================================================
-{ДОБАВЛЕНИЕ ОШИБКИ В СПИСОК НАЙДЕННЫХ ОШИБОК РЕЕСТРА НА КОМПЬЮТЕРЕ}
+{Р”РћР‘РђР’Р›Р•РќРР• РћРЁРР‘РљР Р’ РЎРџРРЎРћРљ РќРђР™Р”Р•РќРќР«РҐ РћРЁРР‘РћРљ Р Р•Р•РЎРўР Рђ РќРђ РљРћРњРџР¬Р®РўР•Р Р•}
 //---------------------------------------------------------
 procedure TfmDataMod.AddError(    SectionCode: Integer;
                                   HKEY_Caption: HKEY;
@@ -1014,7 +1014,7 @@ end;
 
 
 //=========================================================
-{ИМЕЕТСЯ ЛИ ТОЧНО ТАКАЯ ЖЕ ОШИБКА В СПИСКЕ ОШИБОК}
+{РРњР•Р•РўРЎРЇ Р›Р РўРћР§РќРћ РўРђРљРђРЇ Р–Р• РћРЁРР‘РљРђ Р’ РЎРџРРЎРљР• РћРЁРР‘РћРљ}
 //---------------------------------------------------------
 function TfmDataMod.isAlreadyInTheList(TextIn: string): boolean;
 var
@@ -1045,7 +1045,7 @@ end;
 
 
 //=========================================================
-{ПРОЦЕДУРА ПРЕОБРАЗОВАНИЯ REG_BINARY В СТРОКУ, КОТОРАЯ ПОДДЕРЖИВАЕТ ЮНИКОДНЫЙ ФОРМАТ (НУЖНО ДЛЯ ПАРАМЕТРОВ ИЗ HKEY_USERS\S-1-5-21-2805367877-1970857023-2369310724-1000\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU\)}
+{РџР РћР¦Р•Р”РЈР Рђ РџР Р•РћР‘Р РђР—РћР’РђРќРРЇ REG_BINARY Р’ РЎРўР РћРљРЈ, РљРћРўРћР РђРЇ РџРћР”Р”Р•Р Р–РР’РђР•Рў Р®РќРРљРћР”РќР«Р™ Р¤РћР РњРђРў (РќРЈР–РќРћ Р”Р›РЇ РџРђР РђРњР•РўР РћР’ РР— HKEY_USERS\S-1-5-21-2805367877-1970857023-2369310724-1000\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU\)}
 //---------------------------------------------------------
 function InvertHexStr(HexStr: string): string;
 var
@@ -1054,8 +1054,8 @@ var
   ResStr, OutStr, InStr: string;
 begin
   tstr := TStringList.Create;
-  tstr.text := stringReplace(HexStr, ',', #13#10, [rfReplaceAll]); //разделяем на байты
-  HEXBytes := tstr.Count; //размер
+  tstr.text := stringReplace(HexStr, ',', #13#10, [rfReplaceAll]); //СЂР°Р·РґРµР»СЏРµРј РЅР° Р±Р°Р№С‚С‹
+  HEXBytes := tstr.Count; //СЂР°Р·РјРµСЂ
   ResStr := '';
   i := 0;
   while i < HEXBytes-1 do
@@ -1069,12 +1069,12 @@ begin
     InStr[4] := tstr.Strings[i+1][2];
     inc(i,2);
     OutStr := '0000';
-    //смещение
+    //СЃРјРµС‰РµРЅРёРµ
     OutStr[1] := InStr[3];
     OutStr[2] := InStr[4];
     OutStr[3] := InStr[1];
     OutStr[4] := InStr[2];
-    SymbolNum := StrToInt('x'+OutStr); //получаем номер символа преобразованием Hex-строки к Integer
+    SymbolNum := StrToInt('x'+OutStr); //РїРѕР»СѓС‡Р°РµРј РЅРѕРјРµСЂ СЃРёРјРІРѕР»Р° РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµРј Hex-СЃС‚СЂРѕРєРё Рє Integer
     ResStr := ResStr + Chr(SymbolNum);
   end;
   tstr.Free;
@@ -1085,7 +1085,7 @@ end;
 
 
 //=========================================================
-{ФУНКЦИЯ СКАНИРОВАНИЯ РЕЕСТРА}
+{Р¤РЈРќРљР¦РРЇ РЎРљРђРќРР РћР’РђРќРРЇ Р Р•Р•РЎРўР Рђ}
 //---------------------------------------------------------
 procedure TfmDataMod.ScanRegistry;
 label
@@ -1110,7 +1110,7 @@ begin
 
 
   //============================================
-  //File Types (ТИПЫ ФАЙЛОВ)=>0,1,2,3,4
+  //File Types (РўРРџР« Р¤РђР™Р›РћР’)=>0,1,2,3,4
   if RegSections[0].Enabled
   OR RegSections[1].Enabled
   OR RegSections[2].Enabled
@@ -1122,25 +1122,25 @@ begin
   begin
     RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
     RegCleanIn.OpenKey('\', false);
-    SubKeys := TStringList.Create; // создаем пустой список для подключей
-    RegCleanIn.GetKeyNames(SubKeys); // Записываем список подключей}
+    SubKeys := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+    RegCleanIn.GetKeyNames(SubKeys); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№}
 
-    for i := 0 to SubKeys.Count - 1 do // для каждого подключа
+    for i := 0 to SubKeys.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
     begin
-      if isStop then goto 14; // выход, если что
-      KeyName := SubKeys.Strings[i]; // сохраняем имя активного подключа, например ".doc"
+      if isStop then goto 14; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+      KeyName := SubKeys.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ ".doc"
       ActKeyName := KeyName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
 
-      //0. Типы файлов: совершенно пустой ключ HKCR
+      //0. РўРёРїС‹ С„Р°Р№Р»РѕРІ: СЃРѕРІРµСЂС€РµРЅРЅРѕ РїСѓСЃС‚РѕР№ РєР»СЋС‡ HKCR
       if RegSections[0].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-        RegCleanIn.OpenKeyReadOnly('\' + KeyName); // заходим в активный подключ => HKCR\.doc
-        ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // удаляем все пробелы из строки, чтобы корректно определить пустую строку
-        BoolVal := RegCleanIn.ValueExists('ShellFolder'); //используется далее при проверке HKCR\.doc\shell
-        Values := TStringList.Create; // создаем список для значений активного подключа
-        RegCleanIn.GetValueNames(Values); // заполняем список значений для активного подключа
+        RegCleanIn.OpenKeyReadOnly('\' + KeyName); // Р·Р°С…РѕРґРёРј РІ Р°РєС‚РёРІРЅС‹Р№ РїРѕРґРєР»СЋС‡ => HKCR\.doc
+        ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // СѓРґР°Р»СЏРµРј РІСЃРµ РїСЂРѕР±РµР»С‹ РёР· СЃС‚СЂРѕРєРё, С‡С‚РѕР±С‹ РєРѕСЂСЂРµРєС‚РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
+        BoolVal := RegCleanIn.ValueExists('ShellFolder'); //РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР°Р»РµРµ РїСЂРё РїСЂРѕРІРµСЂРєРµ HKCR\.doc\shell
+        Values := TStringList.Create; // СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
+        RegCleanIn.GetValueNames(Values); // Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
         if (Values.Count >= 1) then TempStrVal := Values.Strings[0];
         if (
              (not RegCleanIn.HasSubKeys)
@@ -1149,7 +1149,7 @@ begin
                   (Values.Count = 0)
                   OR
                   (
-                      (Values.Count = 1)               //на случай, если значению по умолчанию присвоено какое-то значение, но пустое
+                      (Values.Count = 1)               //РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё Р·РЅР°С‡РµРЅРёСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїСЂРёСЃРІРѕРµРЅРѕ РєР°РєРѕРµ-С‚Рѕ Р·РЅР°С‡РµРЅРёРµ, РЅРѕ РїСѓСЃС‚РѕРµ
                       AND
                       (trim(TempStrVal) = '')
                   )
@@ -1158,23 +1158,23 @@ begin
              (ValueName = '')
            )
         then
-        begin // если пустой ключ (нет подключей и количество значений = 0)
+        begin // РµСЃР»Рё РїСѓСЃС‚РѕР№ РєР»СЋС‡ (РЅРµС‚ РїРѕРґРєР»СЋС‡РµР№ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ = 0)
           StrCaption := '%1';
           StrCaption := stringReplace(StrCaption, '%1', KeyName, [rfReplaceAll, rfIgnoreCase]);
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_0_0');
           StrText := stringReplace(StrText, '%1', KeyName, [rfReplaceAll, rfIgnoreCase]);
-          AddError(0, HKEY_CLASSES_ROOT, '\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(0, HKEY_CLASSES_ROOT, '\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
           goto 12;
         end;
         Values.Free;
 
-        //то же самое, но для "ключ/shell"
+        //С‚Рѕ Р¶Рµ СЃР°РјРѕРµ, РЅРѕ РґР»СЏ "РєР»СЋС‡/shell"
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-        if RegCleanIn.OpenKey('\'+KeyName+'\shell', False) then // заходим в активный подключ => HKCR\.doc
+        if RegCleanIn.OpenKey('\'+KeyName+'\shell', False) then // Р·Р°С…РѕРґРёРј РІ Р°РєС‚РёРІРЅС‹Р№ РїРѕРґРєР»СЋС‡ => HKCR\.doc
         begin
-          ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // удаляем все пробелы из строки, чтобы корректно определить пустую строку
-          Values := TStringList.Create; // создаем список для значений активного подключа
-          RegCleanIn.GetValueNames(Values); // заполняем список значений для активного подключа
+          ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // СѓРґР°Р»СЏРµРј РІСЃРµ РїСЂРѕР±РµР»С‹ РёР· СЃС‚СЂРѕРєРё, С‡С‚РѕР±С‹ РєРѕСЂСЂРµРєС‚РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
+          Values := TStringList.Create; // СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
+          RegCleanIn.GetValueNames(Values); // Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           if (
                (not RegCleanIn.HasSubKeys)
              AND
@@ -1182,7 +1182,7 @@ begin
                     (Values.Count = 0)
                     OR
                     (
-                        (Values.Count = 1)               //на случай, если значению по умолчанию присвоено какое-то значение, но пустое
+                        (Values.Count = 1)               //РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё Р·РЅР°С‡РµРЅРёСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїСЂРёСЃРІРѕРµРЅРѕ РєР°РєРѕРµ-С‚Рѕ Р·РЅР°С‡РµРЅРёРµ, РЅРѕ РїСѓСЃС‚РѕРµ
                         AND
                         (trim(Values.Strings[0]) = '')
                     )
@@ -1193,38 +1193,38 @@ begin
                (not BoolVal)
              )
           then
-          begin // если пустой ключ (нет подключей и количество значений = 0)
+          begin // РµСЃР»Рё РїСѓСЃС‚РѕР№ РєР»СЋС‡ (РЅРµС‚ РїРѕРґРєР»СЋС‡РµР№ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ = 0)
             StrCaption := '%1\shell';
             StrCaption := stringReplace(StrCaption, '%1', KeyName, [rfReplaceAll, rfIgnoreCase]);
             StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_0_0');
             StrText := stringReplace(StrText, '%1', KeyName+'\shell', [rfReplaceAll, rfIgnoreCase]);
-            AddError(0, HKEY_CLASSES_ROOT, '\'+KeyName+'\shell', '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+            AddError(0, HKEY_CLASSES_ROOT, '\'+KeyName+'\shell', '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             goto 12;
           end;
           Values.Free;
         end; //if RegCleanIn.OpenKey('\'+KeyName+'\shell', False)
       end; //if RegSections[0].Enabled
-      //0 => КОНЕЦ -------------------
+      //0 => РљРћРќР•Р¦ -------------------
 
 
       TRY
-      //1. Типы файлов: Не найдены файлы значков
+      //1. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РќРµ РЅР°Р№РґРµРЅС‹ С„Р°Р№Р»С‹ Р·РЅР°С‡РєРѕРІ
       if RegSections[1].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-        Values := TStringList.Create; // создаем список для значений активного подключа
-        if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\OpenWithProgids') then // это если есть дополнительные программы для открытия этого типа файлов
+        Values := TStringList.Create; // СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
+        if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\OpenWithProgids') then // СЌС‚Рѕ РµСЃР»Рё РµСЃС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ
         begin
-          RegCleanIn.OpenKey('\'+KeyName+'\OpenWithProgids', False); // октрываем этот ключ
-          RegCleanIn.GetValueNames(Values); //заполняем список значений для активного подключа
+          RegCleanIn.OpenKey('\'+KeyName+'\OpenWithProgids', False); // РѕРєС‚СЂС‹РІР°РµРј СЌС‚РѕС‚ РєР»СЋС‡
+          RegCleanIn.GetValueNames(Values); //Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
         end;
-        RegCleanIn.OpenKey('\'+KeyName, False); //октрываем этот ключ
+        RegCleanIn.OpenKey('\'+KeyName, False); //РѕРєС‚СЂС‹РІР°РµРј СЌС‚РѕС‚ РєР»СЋС‡
         if KeyName[1] = '.' then Values.Add(RegCleanIn.ReadString(''))
-        else Values.Add(KeyName); // добавляем ещё одно значение, которое соответствует программе по умолчанию
-        for l := 0 to Values.Count - 1 do // теперь для каждой строки - программы для открытия этого типа файлов ищем значения
+        else Values.Add(KeyName); // РґРѕР±Р°РІР»СЏРµРј РµС‰С‘ РѕРґРЅРѕ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РїСЂРѕРіСЂР°РјРјРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+        for l := 0 to Values.Count - 1 do // С‚РµРїРµСЂСЊ РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё - РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ РёС‰РµРј Р·РЅР°С‡РµРЅРёСЏ
         begin
-          ValueName := Values[l]; // напр, ACDSee Pro 3.ace
-          if ValueName = '' then Continue; //если пусто пропускаем ход
+          ValueName := Values[l]; // РЅР°РїСЂ, ACDSee Pro 3.ace
+          if ValueName = '' then Continue; //РµСЃР»Рё РїСѓСЃС‚Рѕ РїСЂРѕРїСѓСЃРєР°РµРј С…РѕРґ
           if ((AnsiPos('exefile', ValueName) <> 0) or
               (AnsiPos('cmdfile', ValueName) <> 0) or
               (AnsiPos('batfile', ValueName) <> 0) or
@@ -1233,18 +1233,18 @@ begin
               (AnsiPos('comfile', ValueName) <> 0) or
               (AnsiPos('AppX', ValueName) <> 0)
               ) then Continue;
-          RegCleanIn.OpenKey('\'+ValueName, False); // открываем этот ключ
+          RegCleanIn.OpenKey('\'+ValueName, False); // РѕС‚РєСЂС‹РІР°РµРј СЌС‚РѕС‚ РєР»СЋС‡
           if RegCleanIn.ValueExists('FriendlyTypeName') then
           begin
             ValueName2 := GetDLLStr(RegCleanIn.ReadString('FriendlyTypeName'));
             if ValueName2 = '' then ValueName2 := RegCleanIn.ReadString('');
           end
-          else ValueName2 := RegCleanIn.ReadString('');// записываем название этой программы, которая открывает данный тип файлов
+          else ValueName2 := RegCleanIn.ReadString('');// Р·Р°РїРёСЃС‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјС‹, РєРѕС‚РѕСЂР°СЏ РѕС‚РєСЂС‹РІР°РµС‚ РґР°РЅРЅС‹Р№ С‚РёРї С„Р°Р№Р»РѕРІ
           if ValueName2 = '' then ValueName2 := ValueName;
-          if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\DefaultIcon') then // напр, "\ACDSee Pro 3.ace\DefaultIcon"
+          if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\DefaultIcon') then // РЅР°РїСЂ, "\ACDSee Pro 3.ace\DefaultIcon"
           begin
-            RegCleanIn.OpenKey('\'+ValueName+'\DefaultIcon', False); // открываем этот ключ
-            FileNameCap := RegCleanIn.ReadString(''); // читаем путь до файла
+            RegCleanIn.OpenKey('\'+ValueName+'\DefaultIcon', False); // РѕС‚РєСЂС‹РІР°РµРј СЌС‚РѕС‚ РєР»СЋС‡
+            FileNameCap := RegCleanIn.ReadString(''); // С‡РёС‚Р°РµРј РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°
             if not FileExistsExt(CleanFileName64(FileNameCap)) then
             begin
               if KeyName = ValueName then StrCaption := ValueName2
@@ -1252,20 +1252,20 @@ begin
               StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_1_0');
               StrText := stringReplace(StrText,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',CleanFileName64(FileNameCap),[rfReplaceAll, rfIgnoreCase]);
-              AddError(1, HKEY_CLASSES_ROOT, '\'+ValueName+'\DefaultIcon', '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(1, HKEY_CLASSES_ROOT, '\'+ValueName+'\DefaultIcon', '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end;
           end;
         end;
-        Values.Free; //не забываем очищать память
+        Values.Free; //РЅРµ Р·Р°Р±С‹РІР°РµРј РѕС‡РёС‰Р°С‚СЊ РїР°РјСЏС‚СЊ
       end;
-      //1 => КОНЕЦ -------------------
+      //1 => РљРћРќР•Р¦ -------------------
       EXCEPT
       END;
 
 
 
       TRY
-      //2. Типы файлов: пустой пункт в контекстном меню
+      //2. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РїСѓСЃС‚РѕР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ
       if RegSections[2].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
@@ -1277,13 +1277,13 @@ begin
             ValueName2 := GetDLLStr(RegCleanIn.ReadString('FriendlyTypeName'));
             if ValueName2 = '' then ValueName2 := RegCleanIn.ReadString('');
           end
-          else ValueName2 := RegCleanIn.ReadString(''); // записываем название этой программы, которая открывает данный тип файлов
+          else ValueName2 := RegCleanIn.ReadString(''); // Р·Р°РїРёСЃС‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјС‹, РєРѕС‚РѕСЂР°СЏ РѕС‚РєСЂС‹РІР°РµС‚ РґР°РЅРЅС‹Р№ С‚РёРї С„Р°Р№Р»РѕРІ
           if ValueName2 = '' then ValueName2 := ValueName;
           RegCleanIn.OpenKey('\'+KeyName+'\shell', False);
           if RegCleanIn.HasSubKeys then
           begin
-            SubKeys2 := TStringList.Create; //создаем пустой список для подключей
-            RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
+            SubKeys2 := TStringList.Create; //СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+            RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
             for l := 0 to SubKeys2.Count - 1 do
             begin
               ValueName := SubKeys2.Strings[l];
@@ -1303,7 +1303,7 @@ begin
                   StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
                   StrText := stringReplace(StrText,'%2',ValueName,[rfReplaceAll, rfIgnoreCase]);
                   StrText := stringReplace(StrText,'%3',ValueName3,[rfReplaceAll, rfIgnoreCase]);
-                  AddError(2, HKEY_CLASSES_ROOT, '\'+KeyName+'\shell\'+ValueName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+                  AddError(2, HKEY_CLASSES_ROOT, '\'+KeyName+'\shell\'+ValueName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
                 end;
               end; //if (not RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\shell\'+ValueName+'\DropTarget'))
             end; //for l
@@ -1311,28 +1311,28 @@ begin
           end; //if RegCleanIn.HasSubKeys
         end; //if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\shell')
       end; //if RegSections[2].Enabled
-      //2 => КОНЕЦ--------------------
+      //2 => РљРћРќР•Р¦--------------------
       EXCEPT
       END;
 
 
       TRY
-      //3. Типы файлов: нерабочий пункт в контекстном меню
+      //3. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РЅРµСЂР°Р±РѕС‡РёР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ
       if RegSections[3].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-        Values := TStringList.Create; //создаем список для значений активного подключа
-        if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\OpenWithProgids') then //это если есть дополнительные программы для открытия этого типа файлов
+        Values := TStringList.Create; //СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
+        if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\OpenWithProgids') then //СЌС‚Рѕ РµСЃР»Рё РµСЃС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ
         begin
-          RegCleanIn.OpenKey('\'+KeyName+'\OpenWithProgids', False); //октрываем этот ключ
-          RegCleanIn.GetValueNames(Values); //заполняем список значений для активного подключа
+          RegCleanIn.OpenKey('\'+KeyName+'\OpenWithProgids', False); //РѕРєС‚СЂС‹РІР°РµРј СЌС‚РѕС‚ РєР»СЋС‡
+          RegCleanIn.GetValueNames(Values); //Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
         end;
-        RegCleanIn.OpenKey('\'+KeyName, False); // октрываем ключ по умолчанию
+        RegCleanIn.OpenKey('\'+KeyName, False); // РѕРєС‚СЂС‹РІР°РµРј РєР»СЋС‡ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
         if KeyName[1] = '.' then Values.Add(RegCleanIn.ReadString(''))
-        else Values.Add(KeyName); //добавляем ещё одно значение, которое соответствует программе по умолчанию
-        for l := 0 to Values.Count - 1 do // теперь для каждой строки - программы для открытия этого типа файлов ищем значения
+        else Values.Add(KeyName); //РґРѕР±Р°РІР»СЏРµРј РµС‰С‘ РѕРґРЅРѕ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РїСЂРѕРіСЂР°РјРјРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+        for l := 0 to Values.Count - 1 do // С‚РµРїРµСЂСЊ РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё - РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ РёС‰РµРј Р·РЅР°С‡РµРЅРёСЏ
         begin
-          ValueName := Values[l]; // напр, ACDSee Pro 3.ace
+          ValueName := Values[l]; // РЅР°РїСЂ, ACDSee Pro 3.ace
           if ((AnsiPos('exefile', ValueName) <> 0) or
               (AnsiPos('cmdfile', ValueName) <> 0) or
               (AnsiPos('batfile', ValueName) <> 0) or
@@ -1345,18 +1345,18 @@ begin
             ValueName2 := GetDLLStr(RegCleanIn.ReadString('FriendlyTypeName'));
             if ValueName2 = '' then ValueName2 := RegCleanIn.ReadString('');
           end
-          else ValueName2 := RegCleanIn.ReadString(''); //записываем название этой программы, которая открывает данный тип файлов
+          else ValueName2 := RegCleanIn.ReadString(''); //Р·Р°РїРёСЃС‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјС‹, РєРѕС‚РѕСЂР°СЏ РѕС‚РєСЂС‹РІР°РµС‚ РґР°РЅРЅС‹Р№ С‚РёРї С„Р°Р№Р»РѕРІ
           if ValueName2 = '' then ValueName2 := ValueName;
-          if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\shell') then //напр, \ACDSee Pro 3.ace\shell
+          if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\shell') then //РЅР°РїСЂ, \ACDSee Pro 3.ace\shell
           begin
             RegCleanIn.OpenKey('\'+ValueName+'\shell', False); //\ACDSee Pro 3.ace\shell
-            if RegCleanIn.HasSubKeys then // если есть подключи
+            if RegCleanIn.HasSubKeys then // РµСЃР»Рё РµСЃС‚СЊ РїРѕРґРєР»СЋС‡Рё
             begin
-              SubKeys2 := TStringList.Create; //создаем пустой список для подключей
-              RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-              for m := 0 to SubKeys2.Count - 1 do //для каждого подключа (Open/Edit/Print и т.д.)
+              SubKeys2 := TStringList.Create; //СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+              RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+              for m := 0 to SubKeys2.Count - 1 do //РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р° (Open/Edit/Print Рё С‚.Рґ.)
               begin
-                ValueName4 := SubKeys2.Strings[m]; // читаем название подключа (Open/Edit/Print и т.д.)
+                ValueName4 := SubKeys2.Strings[m]; // С‡РёС‚Р°РµРј РЅР°Р·РІР°РЅРёРµ РїРѕРґРєР»СЋС‡Р° (Open/Edit/Print Рё С‚.Рґ.)
                 if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\shell\'+ValueName4 + '\command') then
                 begin
                   RegCleanIn.OpenKey('\'+ValueName+'\shell\'+ValueName4, False);
@@ -1369,9 +1369,9 @@ begin
                   if RegCleanIn.ValueExists('MUIVerb') then ValueName3 := GetDLLStr(RegCleanIn.ReadString('MUIVerb'));
                   if ValueName3 = '' then ValueName3 := ValueName4;
                   RegCleanIn.OpenKey('\'+ValueName+'\shell\'+ValueName4+'\command',False);
-                  FileNameCap := RegCleanIn.ReadString(''); // читаем путь до исполняемого файла
+                  FileNameCap := RegCleanIn.ReadString(''); // С‡РёС‚Р°РµРј РїСѓС‚СЊ РґРѕ РёСЃРїРѕР»РЅСЏРµРјРѕРіРѕ С„Р°Р№Р»Р°
                   if not RegCleanIn.ValueExists('DelegateExecute') then
-                    if not FileExistsExt(CleanFileName64(FileNameCap)) then // если файла не существует
+                    if not FileExistsExt(CleanFileName64(FileNameCap)) then // РµСЃР»Рё С„Р°Р№Р»Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
                     begin
                       if KeyName = ValueName then StrCaption := '%1'
                       else StrCaption := '%1 (%2)';
@@ -1382,7 +1382,7 @@ begin
                       StrText := stringReplace(StrText,'%2',ValueName4,[rfReplaceAll, rfIgnoreCase]);
                       StrText := stringReplace(StrText,'%3',ValueName3,[rfReplaceAll, rfIgnoreCase]);
                       StrText := stringReplace(StrText,'%4',CleanFileName64(RegCleanIn.ReadString('')),[rfReplaceAll, rfIgnoreCase]);
-                      AddError(3, HKEY_CLASSES_ROOT, '\'+ValueName+'\shell\'+ValueName4+'\command', '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+                      AddError(3, HKEY_CLASSES_ROOT, '\'+ValueName+'\shell\'+ValueName4+'\command', '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
                     end;
                 end; //if RegCleanIn.OpenKeyReadOnly('\'+ValueName+'\shell\'+ValueName4 + '\command')
               end; //for m := 0 to SubKeys2.Count - 1 do
@@ -1392,20 +1392,20 @@ begin
         end; //for l := 0 to Values.Count - 1 do
         Values.Free;
       end; //if RegSections[3].Enabled
-      //3. => КОНЕЦ ------------------
+      //3. => РљРћРќР•Р¦ ------------------
       EXCEPT
       END;
 
 
       TRY
-      //4. Типы файлов: Потеряна информация о типе файла
+      //4. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РџРѕС‚РµСЂСЏРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚РёРїРµ С„Р°Р№Р»Р°
       if RegSections[4].Enabled then
       begin
-        if (KeyName[1] = '.') OR (KeyName = '*') then // если первый символ - точка (или *), то это тип файла и проверяем ошибку
+        if (KeyName[1] = '.') OR (KeyName = '*') then // РµСЃР»Рё РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» - С‚РѕС‡РєР° (РёР»Рё *), С‚Рѕ СЌС‚Рѕ С‚РёРї С„Р°Р№Р»Р° Рё РїСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєСѓ
         begin
           RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-          RegCleanIn.OpenKey('\' + KeyName, False); // заходим в активный подключ => HKCR\.doc
-          ValueName := RegCleanIn.ReadString(''); // читаем значение по умолчанию
+          RegCleanIn.OpenKey('\' + KeyName, False); // Р·Р°С…РѕРґРёРј РІ Р°РєС‚РёРІРЅС‹Р№ РїРѕРґРєР»СЋС‡ => HKCR\.doc
+          ValueName := RegCleanIn.ReadString(''); // С‡РёС‚Р°РµРј Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
           if (ValueName <> '') then
           begin
             RegCleanIn.OpenKey('\', False);
@@ -1417,31 +1417,31 @@ begin
               StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_4_0');
               StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',ValueName,[rfReplaceAll, rfIgnoreCase]);
-              AddError(4, HKEY_CLASSES_ROOT, '\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(4, HKEY_CLASSES_ROOT, '\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end; //if not RegCleanIn.KeyExists(ValueName)
           end; //if ((RegCleanIn.HasSubKeys = false) AND (ValueName <> '')) OR ((RegCleanIn.HasSubKeys) AND (RegCleanIn.OpenKeyReadOnly('ShellEx')))
         end; //if (KeyName[1] = '.') OR (KeyName = '*')
       end; //if RegSections[4].Enabled
-      //4 => КОНЕЦ------------
+      //4 => РљРћРќР•Р¦------------
       EXCEPT
       END;
 
 
 
       TRY
-      //6. Типы файлов: в ключе HKEY_CLASSES_ROOT\%1\shellex\%2 пустой CLSID------------------
-      //6. Типы файлов: в ключе HKEY_CLASSES_ROOT\%1\shellex\ContextMenuHandlers\%2 пустой CLSID------------------
+      //6. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РІ РєР»СЋС‡Рµ HKEY_CLASSES_ROOT\%1\shellex\%2 РїСѓСЃС‚РѕР№ CLSID------------------
+      //6. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РІ РєР»СЋС‡Рµ HKEY_CLASSES_ROOT\%1\shellex\ContextMenuHandlers\%2 РїСѓСЃС‚РѕР№ CLSID------------------
       if RegSections[6].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
         if RegCleanIn.OpenKey('\'+KeyName+'\shellex\',false) then
         begin
-          SubKeys2 := TStringList.Create; // создаем пустой список для подключей
-          RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-          for l := 0 to SubKeys2.Count - 1 do // для каждого подключа
+          SubKeys2 := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+          RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+          for l := 0 to SubKeys2.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           begin
-            if isStop then exit; // выход, если что
-            KeyName2 := SubKeys2.Strings[l]; // сохраняем имя активного подключа, например "5adfasdf16a5-adf1a65df-ads5f1a" или "CopyTo"
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+            KeyName2 := SubKeys2.Strings[l]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ "5adfasdf16a5-adf1a65df-ads5f1a" РёР»Рё "CopyTo"
             ActKeyName := '\'+KeyName+'\shellex\'+KeyName2;
             if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
             FriendlyName := '';
@@ -1454,7 +1454,7 @@ begin
             AND (KeyName2 <> 'PropertySheetHandlers')
             AND (KeyName2 <> 'DragDropHandlers')
             AND (KeyName2 <> 'FolderExtensions')
-            then //отедельно будет для этого подключа
+            then //РѕС‚РµРґРµР»СЊРЅРѕ Р±СѓРґРµС‚ РґР»СЏ СЌС‚РѕРіРѕ РїРѕРґРєР»СЋС‡Р°
             begin
               RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
               if RegCleanIn.OpenKey('\'+KeyName+'\shellex\'+KeyName2,false) then
@@ -1464,7 +1464,7 @@ begin
                 begin
                   if KeyName2<>'' then
                   begin
-                    if KeyName2[1]='{' then //если это CLSID, то сохраняем его, если нет, то ищем дальше
+                    if KeyName2[1]='{' then //РµСЃР»Рё СЌС‚Рѕ CLSID, С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ, РµСЃР»Рё РЅРµС‚, С‚Рѕ РёС‰РµРј РґР°Р»СЊС€Рµ
                      ValueName := KeyName2
                   end;
                 end;
@@ -1482,7 +1482,7 @@ begin
           end; //for l := 0 to SubKeys2.Count - 1
           SubKeys2.Free;
         end;
-        //далее проверяем ту же ошибку, но для подключей ContextMenuHandlers, PropertySheetHandlers, DragDropHandlers, FolderExtensions
+        //РґР°Р»РµРµ РїСЂРѕРІРµСЂСЏРµРј С‚Сѓ Р¶Рµ РѕС€РёР±РєСѓ, РЅРѕ РґР»СЏ РїРѕРґРєР»СЋС‡РµР№ ContextMenuHandlers, PropertySheetHandlers, DragDropHandlers, FolderExtensions
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
         m := 1;
         10:
@@ -1492,12 +1492,12 @@ begin
         if m = 4 then ValueName3 := 'FolderExtensions';
         if RegCleanIn.OpenKey('\'+KeyName+'\shellex\'+ValueName3+'\',false) then
         begin
-          SubKeys2 := TStringList.Create; // создаем пустой список для подключей
-          RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-          for l := 0 to SubKeys2.Count - 1 do // для каждого подключа
+          SubKeys2 := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+          RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+          for l := 0 to SubKeys2.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           begin
-            if isStop then exit; // выход, если что
-            KeyName2 := SubKeys2.Strings[l]; // сохраняем имя активного подключа, например "5adfasdf16a5-adf1a65df-ads5f1a" или "CopyTo"
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+            KeyName2 := SubKeys2.Strings[l]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ "5adfasdf16a5-adf1a65df-ads5f1a" РёР»Рё "CopyTo"
             ActKeyName := '\'+KeyName+'\shellex\'+ValueName3+'\'+KeyName2;
             if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
             FriendlyName := '';
@@ -1514,7 +1514,7 @@ begin
               begin
                 if KeyName2<>'' then
                 begin
-                  if KeyName2[1]='{' then //если это CLSID, то сохраняем его, если нет, то ищем дальше
+                  if KeyName2[1]='{' then //РµСЃР»Рё СЌС‚Рѕ CLSID, С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ, РµСЃР»Рё РЅРµС‚, С‚Рѕ РёС‰РµРј РґР°Р»СЊС€Рµ
                    ValueName := KeyName2
                 end;
               end;
@@ -1534,26 +1534,26 @@ begin
           if m <= 4 then goto 10;
        end;
       end;
-      //6. => КОНЕЦ------------------
+      //6. => РљРћРќР•Р¦------------------
       EXCEPT
       END;
 
 
 
       TRY
-      //7. Типы файлов: в ключе HKEY_CLASSES_ROOT\%1\shellex\ContextMenuHandlers\%2 неверный CLSID------------------
-      //7. Типы файлов: в ключе HKEY_CLASSES_ROOT\%1\shellex\%2 неверный CLSID------------------
+      //7. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РІ РєР»СЋС‡Рµ HKEY_CLASSES_ROOT\%1\shellex\ContextMenuHandlers\%2 РЅРµРІРµСЂРЅС‹Р№ CLSID------------------
+      //7. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РІ РєР»СЋС‡Рµ HKEY_CLASSES_ROOT\%1\shellex\%2 РЅРµРІРµСЂРЅС‹Р№ CLSID------------------
       if RegSections[7].Enabled then
       begin
         RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
         if RegCleanIn.OpenKey('\'+KeyName+'\shellex\',false) then
         begin
-          SubKeys2 := TStringList.Create; // создаем пустой список для подключей
-          RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-          for l := 0 to SubKeys2.Count - 1 do // для каждого подключа
+          SubKeys2 := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+          RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+          for l := 0 to SubKeys2.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           begin
-            if isStop then exit; // выход, если что
-            KeyName2 := SubKeys2.Strings[l]; // сохраняем имя активного подключа, например "{5adfasdf16a5-adf1a65df-ads5f1a}" или "CopyTo"
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+            KeyName2 := SubKeys2.Strings[l]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ "{5adfasdf16a5-adf1a65df-ads5f1a}" РёР»Рё "CopyTo"
             ActKeyName := '\'+KeyName+'\shellex\'+KeyName2;
             if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
             FriendlyName := '';
@@ -1563,12 +1563,12 @@ begin
             if FriendlyName = '' then FriendlyName := RegCleanIn.ReadString('');
             if FriendlyName = '' then FriendlyName := KeyName;
             ValueName := '';
-            //получаем CLSID для проверки
+            //РїРѕР»СѓС‡Р°РµРј CLSID РґР»СЏ РїСЂРѕРІРµСЂРєРё
              if (KeyName2 <> 'ContextMenuHandlers')
             AND (KeyName2 <> 'PropertySheetHandlers')
             AND (KeyName2 <> 'DragDropHandlers')
             AND (KeyName2 <> 'FolderExtensions')
-            then //отедельно будет для этого подключа
+            then //РѕС‚РµРґРµР»СЊРЅРѕ Р±СѓРґРµС‚ РґР»СЏ СЌС‚РѕРіРѕ РїРѕРґРєР»СЋС‡Р°
             begin
               RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
               if RegCleanIn.OpenKey('\'+KeyName+'\shellex\'+KeyName2,false) then ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]);
@@ -1583,7 +1583,7 @@ begin
               begin
                 if KeyName2<>'' then
                 begin
-                  if KeyName2[1]='{' then //если это CLSID, то сохраняем его, если нет, то ищем дальше
+                  if KeyName2[1]='{' then //РµСЃР»Рё СЌС‚Рѕ CLSID, С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ, РµСЃР»Рё РЅРµС‚, С‚Рѕ РёС‰РµРј РґР°Р»СЊС€Рµ
                    ValueName := KeyName2
                 end;
               end;
@@ -1614,12 +1614,12 @@ begin
         if m = 4 then ValueName3 := 'FolderExtensions';
         if RegCleanIn.OpenKey('\'+KeyName+'\shellex\'+ValueName3+'\',false) then
         begin
-          SubKeys2 := TStringList.Create; // создаем пустой список для подключей
-          RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-          for l := 0 to SubKeys2.Count - 1 do // для каждого подключа
+          SubKeys2 := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+          RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+          for l := 0 to SubKeys2.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           begin
-            if isStop then exit; // выход, если что
-            KeyName2 := SubKeys2.Strings[l]; // сохраняем имя активного подключа, например "{5adfasdf16a5-adf1a65df-ads5f1a}" или "CopyTo"
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+            KeyName2 := SubKeys2.Strings[l]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ "{5adfasdf16a5-adf1a65df-ads5f1a}" РёР»Рё "CopyTo"
             ActKeyName := '\'+KeyName+'\shellex\'+ValueName3+'\'+KeyName2;
             if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
             FriendlyName := '';
@@ -1642,7 +1642,7 @@ begin
             begin
               if KeyName2<>'' then
               begin
-                if KeyName2[1]='{' then //если это CLSID, то сохраняем его, если нет, то ищем дальше
+                if KeyName2[1]='{' then //РµСЃР»Рё СЌС‚Рѕ CLSID, С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ, РµСЃР»Рё РЅРµС‚, С‚Рѕ РёС‰РµРј РґР°Р»СЊС€Рµ
                  ValueName := KeyName2
               end;
             end;
@@ -1664,7 +1664,7 @@ begin
           SubKeys2.Free;
         end;
       end;
-      //7. => КОНЕЦ------------------
+      //7. => РљРћРќР•Р¦------------------
       EXCEPT
       END;
 
@@ -1675,18 +1675,18 @@ begin
 
 
   TRY
-  //5. Типы файлов: Потеряна информация о типе файла------------------
+  //5. РўРёРїС‹ С„Р°Р№Р»РѕРІ: РџРѕС‚РµСЂСЏРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚РёРїРµ С„Р°Р№Р»Р°------------------
   if RegSections[5].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts',True);
-    SubKeys := TStringList.Create; // создаем пустой список для подключей
-    RegCleanIn.GetKeyNames(SubKeys); // Записываем список подключей
-    for i := 0 to SubKeys.Count - 1 do // для каждого подключа
+    SubKeys := TStringList.Create; // СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+    RegCleanIn.GetKeyNames(SubKeys); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+    for i := 0 to SubKeys.Count - 1 do // РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
     begin
-      if isStop then exit; // выход, если что
-      KeyName := SubKeys.Strings[i]; // сохраняем имя активного подключа, например ".doc"
-      if KeyName[1] <> '.' then Continue; //пропускаем те, которые начинаются НЕ с точки
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+      KeyName := SubKeys.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°, РЅР°РїСЂРёРјРµСЂ ".doc"
+      if KeyName[1] <> '.' then Continue; //РїСЂРѕРїСѓСЃРєР°РµРј С‚Рµ, РєРѕС‚РѕСЂС‹Рµ РЅР°С‡РёРЅР°СЋС‚СЃСЏ РќР• СЃ С‚РѕС‡РєРё
       ActKeyName := '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       if AnsiCompareText(KeyName, 'DDECache') = 0 then Continue;
@@ -1696,30 +1696,30 @@ begin
         StrCaption := stringReplace(StrCaption,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_5_0');
         StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
-        AddError(5, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(5, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end;
     end;
     SubKeys.Free;
     RegCleanIn.CloseKey;
   end;
-  //5. => КОНЕЦ------------------
+  //5. => РљРћРќР•Р¦------------------
   EXCEPT
   END;
 
 
   TRY
-  //3. (ДОП) Типы файлов: нерабочий пункт в контекстном меню (для ключа HKEY_CLASSES_ROOT\Applications\)
+  //3. (Р”РћРџ) РўРёРїС‹ С„Р°Р№Р»РѕРІ: РЅРµСЂР°Р±РѕС‡РёР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ (РґР»СЏ РєР»СЋС‡Р° HKEY_CLASSES_ROOT\Applications\)
   if RegSections[3].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
     if RegCleanIn.OpenKey('\Applications\', False) then
     begin
-      Subkeys := TStringList.Create; //создаем список для значений активного подключа
+      Subkeys := TStringList.Create; //СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
       RegCleanIn.GetKeyNames(Subkeys);
-      for l := 0 to Subkeys.Count - 1 do // теперь для каждой строки - программы для открытия этого типа файлов ищем значения
+      for l := 0 to Subkeys.Count - 1 do // С‚РµРїРµСЂСЊ РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё - РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ РёС‰РµРј Р·РЅР°С‡РµРЅРёСЏ
       begin
-        if isStop then exit; // выход, если что
-        KeyName := Subkeys[l]; // напр, perl.exe
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+        KeyName := Subkeys[l]; // РЅР°РїСЂ, perl.exe
         RegCleanIn.OpenKey('\Applications\'+KeyName, False);
         ActKeyName := '\Applications\'+KeyName;
         if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -1727,16 +1727,16 @@ begin
         if RegCleanIn.ValueExists('FriendlyTypeName') then FriendlyName := GetDLLStr(RegCleanIn.ReadString('FriendlyTypeName'));
         if FriendlyName = '' then FriendlyName := RegCleanIn.ReadString('');
         if FriendlyName = '' then FriendlyName := KeyName;
-        if RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell', False) then //напр, \ACDSee Pro 3.ace\shell
+        if RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell', False) then //РЅР°РїСЂ, \ACDSee Pro 3.ace\shell
         begin
           RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell', False); //\ACDSee Pro 3.ace\shell
-          if RegCleanIn.HasSubKeys then // если есть подключи
+          if RegCleanIn.HasSubKeys then // РµСЃР»Рё РµСЃС‚СЊ РїРѕРґРєР»СЋС‡Рё
           begin
-            SubKeys2 := TStringList.Create; //создаем пустой список для подключей
-            RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
-            for m := 0 to SubKeys2.Count - 1 do //для каждого подключа (Open/Edit/Print и т.д.)
+            SubKeys2 := TStringList.Create; //СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+            RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
+            for m := 0 to SubKeys2.Count - 1 do //РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р° (Open/Edit/Print Рё С‚.Рґ.)
             begin
-              ValueName4 := SubKeys2.Strings[m]; // читаем название подключа (Open/Edit/Print и т.д.)
+              ValueName4 := SubKeys2.Strings[m]; // С‡РёС‚Р°РµРј РЅР°Р·РІР°РЅРёРµ РїРѕРґРєР»СЋС‡Р° (Open/Edit/Print Рё С‚.Рґ.)
               if RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell\'+ValueName4+'\command', False) then
               begin
                 RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell\'+ValueName4, False);
@@ -1749,9 +1749,9 @@ begin
                 if RegCleanIn.ValueExists('MUIVerb') then ValueName3 := GetDLLStr(RegCleanIn.ReadString('MUIVerb'));
                 if ValueName3 = '' then ValueName3 := ValueName4;
                 RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell\'+ValueName4+'\command',False);
-                FileNameCap := RegCleanIn.ReadString(''); // читаем путь до исполняемого файла
+                FileNameCap := RegCleanIn.ReadString(''); // С‡РёС‚Р°РµРј РїСѓС‚СЊ РґРѕ РёСЃРїРѕР»РЅСЏРµРјРѕРіРѕ С„Р°Р№Р»Р°
                 if not RegCleanIn.ValueExists('DelegateExecute') then
-                  if not FileExistsExt(CleanFileName64(FileNameCap)) then // если файла не существует
+                  if not FileExistsExt(CleanFileName64(FileNameCap)) then // РµСЃР»Рё С„Р°Р№Р»Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
                   begin
                     StrCaption := '%1';
                     StrCaption := stringReplace(StrCaption,'%1',FriendlyName,[rfReplaceAll, rfIgnoreCase]);
@@ -1760,7 +1760,7 @@ begin
                     StrText := stringReplace(StrText,'%2',ValueName4,[rfReplaceAll, rfIgnoreCase]);
                     StrText := stringReplace(StrText,'%3',ValueName3,[rfReplaceAll, rfIgnoreCase]);
                     StrText := stringReplace(StrText,'%4',CleanFileName64(RegCleanIn.ReadString('')),[rfReplaceAll, rfIgnoreCase]);
-                    AddError(3, HKEY_CLASSES_ROOT, '\Applications\'+KeyName+'\shell\'+ValueName4+'\command', '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+                    AddError(3, HKEY_CLASSES_ROOT, '\Applications\'+KeyName+'\shell\'+ValueName4+'\command', '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
                   end;
                end; //if RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\shell\'+ValueName4 + '\command')
             end; //for m := 0 to SubKeys2.Count - 1 do
@@ -1771,34 +1771,34 @@ begin
       Subkeys.Free;
     end; //if RegCleanIn.OpenKey('\Applications\', False)
   end;
-  //3. (ДОП) => КОНЕЦ------------------
+  //3. (Р”РћРџ) => РљРћРќР•Р¦------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //4. (ДОП) Типы файлов: Потеряна информация о типе файла
+  //4. (Р”РћРџ) РўРёРїС‹ С„Р°Р№Р»РѕРІ: РџРѕС‚РµСЂСЏРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚РёРїРµ С„Р°Р№Р»Р°
   if RegSections[4].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
     if RegCleanIn.OpenKey('\SystemFileAssociations\', False) then
     begin
-      Subkeys := TStringList.Create; //создаем список для значений активного подключа
+      Subkeys := TStringList.Create; //СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
       RegCleanIn.GetKeyNames(Subkeys);
-      for l := 0 to Subkeys.Count - 1 do // теперь для каждой строки - программы для открытия этого типа файлов ищем значения
+      for l := 0 to Subkeys.Count - 1 do // С‚РµРїРµСЂСЊ РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё - РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ РёС‰РµРј Р·РЅР°С‡РµРЅРёСЏ
       begin
-        if isStop then exit; // выход, если что
-        KeyName := Subkeys[l]; // напр, perl.exe
-        if (KeyName[1] = '.') then // если первый символ - точка (или *), то это тип файла и проверяем ошибку
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+        KeyName := Subkeys[l]; // РЅР°РїСЂ, perl.exe
+        if (KeyName[1] = '.') then // РµСЃР»Рё РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» - С‚РѕС‡РєР° (РёР»Рё *), С‚Рѕ СЌС‚Рѕ С‚РёРї С„Р°Р№Р»Р° Рё РїСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєСѓ
         begin
           RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
-          RegCleanIn.OpenKey('\SystemFileAssociations\'+KeyName, False); // заходим в активный подключ => HKCR\.doc
+          RegCleanIn.OpenKey('\SystemFileAssociations\'+KeyName, False); // Р·Р°С…РѕРґРёРј РІ Р°РєС‚РёРІРЅС‹Р№ РїРѕРґРєР»СЋС‡ => HKCR\.doc
           ActKeyName := '\SystemFileAssociations\'+KeyName;
           if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
-          ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // удаляем все пробелы из строки, чтобы корректно определить пустую строку
-          Values := TStringList.Create; // создаем список для значений активного подключа
-          RegCleanIn.GetValueNames(Values); // заполняем список значений для активного подключа
+          ValueName := StringReplace(RegCleanIn.ReadString(''),' ', '', [rfReplaceAll,rfIgnoreCase]); // СѓРґР°Р»СЏРµРј РІСЃРµ РїСЂРѕР±РµР»С‹ РёР· СЃС‚СЂРѕРєРё, С‡С‚РѕР±С‹ РєРѕСЂСЂРµРєС‚РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
+          Values := TStringList.Create; // СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
+          RegCleanIn.GetValueNames(Values); // Р·Р°РїРѕР»РЅСЏРµРј СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
           if (Values.Count >= 1) then TempStrVal := Values.Strings[0];
           if (
                (not RegCleanIn.HasSubKeys)
@@ -1807,7 +1807,7 @@ begin
                     (Values.Count = 0)
                     OR
                     (
-                        (Values.Count = 1)               //на случай, если значению по умолчанию присвоено какое-то значение, но пустое
+                        (Values.Count = 1)               //РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё Р·РЅР°С‡РµРЅРёСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїСЂРёСЃРІРѕРµРЅРѕ РєР°РєРѕРµ-С‚Рѕ Р·РЅР°С‡РµРЅРёРµ, РЅРѕ РїСѓСЃС‚РѕРµ
                         AND
                         (trim(TempStrVal) = '')
                     )
@@ -1816,13 +1816,13 @@ begin
                (ValueName = '')
              )
           then
-          begin // если пустой ключ (нет подключей и количество значений = 0)
+          begin // РµСЃР»Рё РїСѓСЃС‚РѕР№ РєР»СЋС‡ (РЅРµС‚ РїРѕРґРєР»СЋС‡РµР№ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ = 0)
               StrCaption := '%1';
               StrCaption := stringReplace(StrCaption,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_4_1');
               StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',ValueName,[rfReplaceAll, rfIgnoreCase]);
-              AddError(4, HKEY_CLASSES_ROOT, '\SystemFileAssociations\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(4, HKEY_CLASSES_ROOT, '\SystemFileAssociations\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
           end;
           Values.Free;
         end; //if (KeyName[1] = '.')
@@ -1830,24 +1830,24 @@ begin
       Subkeys.Free;
     end; //if RegCleanIn.OpenKey('\SystemFileAssociations\', False)
   end; //if RegSections[4].Enabled
-  //4 (ДОП) => КОНЕЦ------------
+  //4 (Р”РћРџ) => РљРћРќР•Р¦------------
   EXCEPT
   END;
 
 
   TRY
-  //2. (ДОП) Типы файлов: пустой пункт в контекстном меню (для ключа HKEY_CLASSES_ROOT\Applications\)
+  //2. (Р”РћРџ) РўРёРїС‹ С„Р°Р№Р»РѕРІ: РїСѓСЃС‚РѕР№ РїСѓРЅРєС‚ РІ РєРѕРЅС‚РµРєСЃС‚РЅРѕРј РјРµРЅСЋ (РґР»СЏ РєР»СЋС‡Р° HKEY_CLASSES_ROOT\Applications\)
   if RegSections[2].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
     if RegCleanIn.OpenKey('\Applications\', False) then
     begin
-      Subkeys := TStringList.Create; //создаем список для значений активного подключа
+      Subkeys := TStringList.Create; //СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє РґР»СЏ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡Р°
       RegCleanIn.GetKeyNames(Subkeys);
-      for l := 0 to Subkeys.Count - 1 do // теперь для каждой строки - программы для открытия этого типа файлов ищем значения
+      for l := 0 to Subkeys.Count - 1 do // С‚РµРїРµСЂСЊ РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё - РїСЂРѕРіСЂР°РјРјС‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ С‚РёРїР° С„Р°Р№Р»РѕРІ РёС‰РµРј Р·РЅР°С‡РµРЅРёСЏ
       begin
-        if isStop then exit; // выход, если что
-        KeyName := Subkeys[l]; // напр, perl.exe
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+        KeyName := Subkeys[l]; // РЅР°РїСЂ, perl.exe
         ActKeyName := '\Applications\'+KeyName;
         if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
         if RegCleanIn.OpenKeyReadOnly('\Applications\'+KeyName+'\shell') then
@@ -1858,13 +1858,13 @@ begin
             ValueName2 := GetDLLStr(RegCleanIn.ReadString('FriendlyTypeName'));
             if ValueName2 = '' then ValueName2 := RegCleanIn.ReadString('');
           end
-          else ValueName2 := RegCleanIn.ReadString(''); // записываем название этой программы, которая открывает данный тип файлов
+          else ValueName2 := RegCleanIn.ReadString(''); // Р·Р°РїРёСЃС‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјС‹, РєРѕС‚РѕСЂР°СЏ РѕС‚РєСЂС‹РІР°РµС‚ РґР°РЅРЅС‹Р№ С‚РёРї С„Р°Р№Р»РѕРІ
           if ValueName2 = '' then ValueName2 := ValueName;
           RegCleanIn.OpenKey('\Applications\'+KeyName+'\shell', False);
           if RegCleanIn.HasSubKeys then
           begin
-            SubKeys2 := TStringList.Create; //создаем пустой список для подключей
-            RegCleanIn.GetKeyNames(SubKeys2); // Записываем список подключей
+            SubKeys2 := TStringList.Create; //СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РґР»СЏ РїРѕРґРєР»СЋС‡РµР№
+            RegCleanIn.GetKeyNames(SubKeys2); // Р—Р°РїРёСЃС‹РІР°РµРј СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡РµР№
             for m := 0 to SubKeys2.Count - 1 do
             begin
               ValueName := SubKeys2.Strings[m];
@@ -1884,7 +1884,7 @@ begin
                   StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
                   StrText := stringReplace(StrText,'%2',ValueName,[rfReplaceAll, rfIgnoreCase]);
                   StrText := stringReplace(StrText,'%3',ValueName3,[rfReplaceAll, rfIgnoreCase]);
-                  AddError(2, HKEY_CLASSES_ROOT, '\Applications\'+KeyName+'\shell\'+ValueName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+                  AddError(2, HKEY_CLASSES_ROOT, '\Applications\'+KeyName+'\shell\'+ValueName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
                 end;
               end; //if (not RegCleanIn.OpenKeyReadOnly('\'+KeyName+'\shell\'+ValueName+'\DropTarget'))
             end; //for l
@@ -1895,14 +1895,14 @@ begin
       Subkeys.Free;
     end; //if RegCleanIn.OpenKey('\Applications\', False)
   end;
-  //2. (ДОП) => КОНЕЦ------------------
+  //2. (Р”РћРџ) => РљРћРќР•Р¦------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //8. Утерян файл справки
+  //8. РЈС‚РµСЂСЏРЅ С„Р°Р№Р» СЃРїСЂР°РІРєРё
   if RegSections[8].Enabled then
   begin
     //HTML Help
@@ -1912,8 +1912,8 @@ begin
     RegCleanIn.GetValueNames(Values);
     for i := 0 to Values.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
-      ValueName := Values.Strings[i]; // сохраняем имя активного
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+      ValueName := Values.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ
       ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\HTML Help -> '+ValueName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       ValueData := RegCleanIn.GetDataAsString(ValueName);
@@ -1923,7 +1923,7 @@ begin
         StrCaption := stringReplace(StrCaption,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_8_0');
         StrText := stringReplace(StrText,'%1',IncludeTrailingPathDelimiter(ValueData)+ValueName,[rfReplaceAll, rfIgnoreCase]);
-        AddError(8, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\HTML Help', ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(8, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\HTML Help', ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end;
     end;
     Values.Free;
@@ -1934,7 +1934,7 @@ begin
     RegCleanIn.GetValueNames(Values);
     for i := 0 to Values.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ValueName := Values.Strings[i];
       ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\HTML Help -> '+ValueName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -1945,19 +1945,19 @@ begin
         StrCaption := stringReplace(StrCaption,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_8_1');
         StrText := stringReplace(StrText,'%1',IncludeTrailingPathDelimiter(ValueData)+ValueName,[rfReplaceAll, rfIgnoreCase]);
-        AddError(8, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\Help', ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(8, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\Help', ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end;
     end;
     Values.Free;
   end;
-  //8. => КОНЕЦ------------------
+  //8. => РљРћРќР•Р¦------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //9. Недавние док-ты ОС Windows
+  //9. РќРµРґР°РІРЅРёРµ РґРѕРє-С‚С‹ РћРЎ Windows
   //C:\Users\Alexei\Recent
   if RegSections[9].Enabled then
   begin
@@ -1967,7 +1967,7 @@ begin
     SubKeys := TStringList.Create;
     16:
     RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs'+KeyName, False);
-    if KeyName = '' then //в перовй итерации
+    if KeyName = '' then //РІ РїРµСЂРѕРІР№ РёС‚РµСЂР°С†РёРё
     begin
       RegCleanIn.GetKeyNames(SubKeys);
     end;
@@ -1975,8 +1975,8 @@ begin
     RegCleanIn.GetValueNames(Values);
     for i := 0 to Values.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
-      ValueName := Values.Strings[i]; // сохраняем имя активного
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+      ValueName := Values.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ
       ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs'+KeyName+' -> '+ValueName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       if ValueName = 'MRUListEx' then Continue;
@@ -2004,7 +2004,7 @@ begin
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_9_0');
         StrText := stringReplace(StrText,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
         StrText := stringReplace(StrText,'%2',sFile,[rfReplaceAll, rfIgnoreCase]);
-        AddError(9, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs'+KeyName, ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(9, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs'+KeyName, ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end;
     end;
     Values.Free;
@@ -2012,18 +2012,18 @@ begin
     begin
       KeyName := '\'+SubKeys.Strings[l];
       inc(l);
-      goto 16; //для каждого подключа делаем то же самое
+      goto 16; //РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРґРєР»СЋС‡Р° РґРµР»Р°РµРј С‚Рѕ Р¶Рµ СЃР°РјРѕРµ
     end;
     SubKeys.Free;
   end;
-  //9. => КОНЕЦ--------------------
+  //9. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //10. Программы из списка "открыть с помощью"
+  //10. РџСЂРѕРіСЂР°РјРјС‹ РёР· СЃРїРёСЃРєР° "РѕС‚РєСЂС‹С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ"
   if RegSections[10].Enabled then
   begin
     // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\OpenWithList
@@ -2033,7 +2033,7 @@ begin
     RegCleanIn.GetKeyNames(SubKeys);
     for i := 0 to SubKeys.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       KeyName := SubKeys.Strings[i];
       ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName;
       if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2049,7 +2049,7 @@ begin
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_10_0');
           StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
           StrText := stringReplace(StrText,'%2',KeyName,[rfReplaceAll, rfIgnoreCase]);
-          AddError(10, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName+'\OpenWithList', '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(10, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName+'\OpenWithList', '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end;
       end;
 
@@ -2066,24 +2066,24 @@ begin
         StrCaption := stringReplace(StrCaption,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_10_1');
         StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
-        AddError(10, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(10, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end
     end;
     SubKeys.Free;
   end;
-  //10. => КОНЕЦ--------------------
+  //10. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //11. Недавние документы Paint
+  //11. РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Paint
   if RegSections[11].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Paint', False) then
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Paint';
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Paint\Recent File List', False) then
@@ -2099,26 +2099,26 @@ begin
               StrCaption := stringReplace(StrCaption,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
               StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_11_0');
               StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
-              AddError(11, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Applets\Paint\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(11, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Applets\Paint\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end;
           end;
           Values.Free;
       end; //if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Paint\Recent File List', False)
     end;//if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Paint', False)
   end;
-  //11. => КОНЕЦ--------------------
+  //11. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //12. Недавние документы Wordpad
+  //12. РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Wordpad
   if RegSections[12].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad', False) then
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad';
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Recent File List', False) then
@@ -2134,42 +2134,42 @@ begin
             StrCaption := stringReplace(StrCaption,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
             StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_12_0');
             StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
-            AddError(12, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // добавляем запись в таблицу
+            AddError(12, HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
           end;
         end;
         Values.Free;
       end; //if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Recent File List', False)
     end;//if RegCleanIn.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad', False)
   end;
-  //12. => КОНЕЦ--------------------
+  //12. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //13. Недавние документы Office
+  //13. РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Office
   if RegSections[13].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     //\Software\Microsoft\Office\12.0\Word\File MRU
-    if RegCleanIn.OpenKey('\Software\Microsoft\Office\', False) then  //если Office вообще установлен
+    if RegCleanIn.OpenKey('\Software\Microsoft\Office\', False) then  //РµСЃР»Рё Office РІРѕРѕР±С‰Рµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ
     begin
       SubKeys := TStringList.Create;
       RegCleanIn.GetKeyNames(SubKeys);
       for i := 0 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Office\'+KeyName;
         if (i mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
-        if AnsiPos('.', KeyName) <> 0 then //если это версия Office, то окей, открываем
+        if AnsiPos('.', KeyName) <> 0 then //РµСЃР»Рё СЌС‚Рѕ РІРµСЂСЃРёСЏ Office, С‚Рѕ РѕРєРµР№, РѕС‚РєСЂС‹РІР°РµРј
         begin
           SubKeys2 := TStringList.Create;
           RegCleanIn.GetKeyNames(SubKeys2);
           for l := 0 to SubKeys2.Count - 1 do
           begin
-            if isStop then exit; // выход, если что
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
             KeyName2 := SubKeys2.Strings[l];
             ActKeyName := 'HKEY_CURRENT_USER\Software\Microsoft\Office\'+KeyName+'\'+KeyName2;
             if (l mod 16) = 0 then JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2183,7 +2183,7 @@ begin
                 begin
                   ValueData := RegCleanIn.GetDataAsString(Values.Strings[j]);
                   t := TStringList.Create;
-                  t.text := stringReplace(ValueData, '*', #13#10, [rfReplaceAll]); //потому что строка вида "[F00000001][T01CD2C4A0EDEFFF0]*F:\WinTuning-7\ToDoList.xlsx"
+                  t.text := stringReplace(ValueData, '*', #13#10, [rfReplaceAll]); //РїРѕС‚РѕРјСѓ С‡С‚Рѕ СЃС‚СЂРѕРєР° РІРёРґР° "[F00000001][T01CD2C4A0EDEFFF0]*F:\WinTuning-7\ToDoList.xlsx"
                   if t.Count > 1 then ValueName := t[1];
                   t.free;
                   if ((ValueName = '') OR ((FileExistsExt(ValueName) = false))) then
@@ -2192,7 +2192,7 @@ begin
                     StrCaption := stringReplace(StrCaption,'%1',ExtractFileName(ValueName),[rfReplaceAll, rfIgnoreCase]);
                     StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_13_0');
                     StrText := stringReplace(StrText,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
-                    AddError(13, HKEY_CURRENT_USER, '\Software\Microsoft\Office\'+KeyName+'\'+KeyName2+'\File MRU', Values.Strings[j], regDel, StrCaption, StrText); // добавляем запись в таблицу
+                    AddError(13, HKEY_CURRENT_USER, '\Software\Microsoft\Office\'+KeyName+'\'+KeyName2+'\File MRU', Values.Strings[j], regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
                   end;
                 end;
               FINALLY
@@ -2206,21 +2206,21 @@ begin
       SubKeys.Free;
     end;//if RegCleanIn.OpenKey('\Software\Microsoft\Office\', False) ()
   end;
-  //13. => КОНЕЦ--------------------
+  //13. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
 
   TRY
-  //14. Недавние документы WinRAR
+  //14. РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ WinRAR
   if RegSections[14].Enabled then
   begin
     //HKEY_CURRENT_USER\Software\WinRAR\DialogEditHistory\ExtrPath
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     if RegCleanIn.OpenKey('\Software\WinRAR\DialogEditHistory\ExtrPath', False) then
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ActKeyName := 'HKEY_CURRENT_USER\Software\WinRAR\DialogEditHistory\ExtrPath';
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       Values := TStringList.Create;
@@ -2234,26 +2234,26 @@ begin
           StrCaption := stringReplace(StrCaption,'%1',ExtractFileName(ValueData),[rfReplaceAll, rfIgnoreCase]);
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_14_0');
           StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
-          AddError(14, HKEY_CURRENT_USER, '\Software\WinRAR\DialogEditHistory\ExtrPath', Values.Strings[j], regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(14, HKEY_CURRENT_USER, '\Software\WinRAR\DialogEditHistory\ExtrPath', Values.Strings[j], regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end;
       end;
       Values.Free;
     end;
   end;
-  //14. => КОНЕЦ--------------------
+  //14. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //15. Недавние документы Media Player Classic
+  //15. РќРµРґР°РІРЅРёРµ РґРѕРєСѓРјРµРЅС‚С‹ Media Player Classic
   if RegSections[15].Enabled then
   begin
     //HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List
     RegCleanIn.RootKey := HKEY_CURRENT_USER;
     if RegCleanIn.OpenKey('\Software\Gabest\Media Player Classic\Recent File List', False) then
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ActKeyName := 'HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List';
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       Values := TStringList.Create;
@@ -2267,19 +2267,19 @@ begin
           StrCaption := stringReplace(StrCaption,'%1',ExtractFileName(ValueData),[rfReplaceAll, rfIgnoreCase]);
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_15_0');
           StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
-          AddError(15, HKEY_CURRENT_USER, '\Software\Gabest\Media Player Classic\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(15, HKEY_CURRENT_USER, '\Software\Gabest\Media Player Classic\Recent File List', Values.Strings[j], regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end;
       end;
       Values.Free;
     end;
   end;
-  //15. => КОНЕЦ--------------------
+  //15. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //16. Автозапуск
+  //16. РђРІС‚РѕР·Р°РїСѓСЃРє
   if RegSections[16].Enabled then
   begin
     m := 0;
@@ -2293,8 +2293,8 @@ begin
       RegCleanIn.GetValueNames(Values);
       for i := 0 to Values.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
-        ValueName := Values.Strings[i]; // сохраняем имя активного
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
+        ValueName := Values.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ
         if TempHKEY = HKEY_CURRENT_USER then
         begin
           ValueName2 := 'HKEY_CURRENT_USER';
@@ -2316,7 +2316,7 @@ begin
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_16_0');
           StrText := stringReplace(StrText,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
           StrText := stringReplace(StrText,'%2',ValueData,[rfReplaceAll, rfIgnoreCase]);
-          AddError(16, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\'+KeyName, ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(16, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\'+KeyName, ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end;
       end;
       Values.Free;
@@ -2324,13 +2324,13 @@ begin
     inc(m);
     if m <= 3 then goto 17;
   end;
-  //16. => КОНЕЦ--------------------
+  //16. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //17. Брандмауэр
+  //17. Р‘СЂР°РЅРґРјР°СѓСЌСЂ
   if RegSections[17].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
@@ -2355,23 +2355,23 @@ begin
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_17_0');
           StrText := stringReplace(StrText,'%1',ValueData,[rfReplaceAll, rfIgnoreCase]);
           StrText := stringReplace(StrText,'%2',ValueName,[rfReplaceAll, rfIgnoreCase]);
-          AddError(17, HKEY_LOCAL_MACHINE, '\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules', ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(17, HKEY_LOCAL_MACHINE, '\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules', ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end;
       end;
     end;
     Values.Free;
   end;
-  //17. => КОНЕЦ--------------------
+  //17. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //18. Удаление программ
+  //18. РЈРґР°Р»РµРЅРёРµ РїСЂРѕРіСЂР°РјРј
   if RegSections[18].Enabled then
   begin
     m := 0;
-    //получаем список букв съёмных дисков
+    //РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє Р±СѓРєРІ СЃСЉС‘РјРЅС‹С… РґРёСЃРєРѕРІ
     RemovableDrivesArr := nil;
     for i := 65 to 90 do
     begin
@@ -2465,7 +2465,7 @@ begin
               StrText := stringReplace(StrText,'%1',ValueName2,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%3',ValueData,[rfReplaceAll, rfIgnoreCase]);
-              AddError(18, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\Uninstall\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(18, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\Uninstall\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end;
           end;
           ValueName := 'InstallSource';
@@ -2503,7 +2503,7 @@ begin
               StrText := stringReplace(StrText,'%1',ValueName2,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%3',ValueData,[rfReplaceAll, rfIgnoreCase]);
-              AddError(18, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\Uninstall\'+KeyName, ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(18, TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\Uninstall\'+KeyName, ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end; //if ((ValueData = '') or (not FileExistsExt(ValueData)))
           end; //if RegCleanIn.ValueExists(ValueName)
         end; //else OF if not isKeyFilled(TempHKEY, '\Software\Microsoft\Windows\CurrentVersion\Uninstall\' + KeyName)
@@ -2513,13 +2513,13 @@ begin
     inc(m);
     if m <= 1 then goto 18;
   end; //if RegSections[18].Enabled
-  //18. => КОНЕЦ--------------------
+  //18. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //19. Пути к программам
+  //19. РџСѓС‚Рё Рє РїСЂРѕРіСЂР°РјРјР°Рј
   if RegSections[19].Enabled then
   begin
     RegClean.RootKey := HKEY_LOCAL_MACHINE;
@@ -2550,7 +2550,7 @@ begin
     RegClean.GetKeyNames(SubKeys);
     for i := 0 to SubKeys.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       KeyName := SubKeys.Strings[i];
       ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\'+ KeyName+'';
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2592,13 +2592,13 @@ begin
     end; //for i := 0 to SubKeys.Count - 1 do
     SubKeys.Free;
   end;
-  //19. => КОНЕЦ
+  //19. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
   TRY
-  //20. Шрифты
+  //20. РЁСЂРёС„С‚С‹
   if RegSections[20].Enabled then
   begin
     //C:\Windows\Fonts HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts
@@ -2609,7 +2609,7 @@ begin
     for i := 0 to Values.Count - 1 do
     begin
       if isStop then exit;
-      ValueName := Values.Strings[i]; // сохраняем имя активного
+      ValueName := Values.Strings[i]; // СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ
       ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts -> '+ValueName;
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
       ValueData := RegClean.GetDataAsString(ValueName);
@@ -2621,18 +2621,18 @@ begin
         StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_20_0');
         StrText := stringReplace(StrText,'%1',ValueName,[rfReplaceAll, rfIgnoreCase]);
         StrText := stringReplace(StrText,'%2',ValueData,[rfReplaceAll, rfIgnoreCase]);
-        AddError(20, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts', ValueName, regDel, StrCaption, StrText); // добавляем запись в таблицу
+        AddError(20, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts', ValueName, regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
       end;
     end;
     Values.Free;
   end;
-  //20. => КОНЕЦ--------------------
+  //20. => РљРћРќР•Р¦--------------------
   EXCEPT
   END;
 
 
   TRY
-  //21. Расширения программ
+  //21. Р Р°СЃС€РёСЂРµРЅРёСЏ РїСЂРѕРіСЂР°РјРј
   if RegSections[21].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
@@ -2643,7 +2643,7 @@ begin
       RegCleanIn.RootKey := HKEY_CLASSES_ROOT;
       for i := 0 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2656,7 +2656,7 @@ begin
             StrCaption := stringReplace(StrCaption,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
             StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_21_0');
             StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
-            AddError(21, HKEY_CLASSES_ROOT, '\CLSID\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+            AddError(21, HKEY_CLASSES_ROOT, '\CLSID\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
           end
           else
           begin
@@ -2667,7 +2667,7 @@ begin
               StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_21_1');
               StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
               StrText := stringReplace(StrText,'%2',ValueData,[rfReplaceAll, rfIgnoreCase]);
-              AddError(21, HKEY_CLASSES_ROOT, '\CLSID\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+              AddError(21, HKEY_CLASSES_ROOT, '\CLSID\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
             end;
           end;//else if (ValueData = '')
         end
@@ -2677,12 +2677,12 @@ begin
           StrCaption := stringReplace(StrCaption,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
           StrText := ReadLangStr('RegistryCleaner.lng', 'Registry Cleaner', 'ErrorTip_21_2');
           StrText := stringReplace(StrText,'%1',KeyName,[rfReplaceAll, rfIgnoreCase]);
-          AddError(21, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\'+KeyName, '', regDel, StrCaption, StrText); // добавляем запись в таблицу
+          AddError(21, HKEY_LOCAL_MACHINE, '\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\'+KeyName, '', regDel, StrCaption, StrText); // РґРѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
         end; //else if RegCleanIn.OpenKey('\CLSID\'+KeyName+'\InprocServer32', false)
       end; //for i := 0 to SubKeys.Count - 1 do
       SubKeys.Free;
     end; //if RegCleanIn.OpenKey('\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects', False)
-    //-------второй тип ошибок
+    //-------РІС‚РѕСЂРѕР№ С‚РёРї РѕС€РёР±РѕРє
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
     if RegCleanIn.OpenKey('\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32', False) then
     begin
@@ -2690,7 +2690,7 @@ begin
       RegCleanIn.GetValueNames(Values);
       for i := 0 to Values.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         ValueName := Values.Strings[i];
         ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32 -> "'+ValueName+'"';
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2719,13 +2719,13 @@ begin
       Values.Free;
     end; //if RegCleanIn.OpenKey('\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32', False)
   end; //if RegSections[20].Enabled
-  //21. => КОНЕЦ
+  //21. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
   TRY
-  //22. Драйверы БД
+  //22. Р”СЂР°Р№РІРµСЂС‹ Р‘Р”
   if RegSections[22].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
@@ -2735,7 +2735,7 @@ begin
       RegClean.GetKeyNames(SubKeys);
       for i := 0 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\ODBC\ODBCINST.INI\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2770,13 +2770,13 @@ begin
       SubKeys.Free;
     end;//if RegCleanIn.OpenKey('\SOFTWARE\ODBC\ODBCINST.INI', False)
   end; //if RegSections[22].Enabled
-  //22. => КОНЕЦ
+  //22. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
   TRY
-  //23. Общие файлы
+  //23. РћР±С‰РёРµ С„Р°Р№Р»С‹
   if RegSections[23].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
@@ -2785,7 +2785,7 @@ begin
     RegCleanIn.GetValueNames(Values);
     for i := 0 to Values.Count - 1 do
     begin
-      if isStop then exit; // выход, если что
+      if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
       ValueName := Values.Strings[i];
       ActKeyName := 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs -> '+ValueName;
       JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2802,14 +2802,14 @@ begin
     end; //for i := 0 to Values.Count - 1 do
     Values.Free;
   end; //if RegSections[23].Enabled
-  //23. => КОНЕЦ
+  //23. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
 
   TRY
-  //24. Настройки программы
+  //24. РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕРіСЂР°РјРјС‹
   if RegSections[24].Enabled then
   begin
     RegCleanIn.RootKey := HKEY_LOCAL_MACHINE;
@@ -2850,17 +2850,17 @@ begin
     end; //for i := 0 to SubKeys.Count - 1 do
     SubKeys.Free;
   end;
-  //24. => КОНЕЦ
+  //24. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
 
-  // !!!!!!!!!!!СВЕРИТЬСЯ С TUNEUP
+  // !!!!!!!!!!!РЎР’Р•Р РРўР¬РЎРЇ РЎ TUNEUP
 
 
   TRY
-  //25. Компоненты программ (ActiveX, COM)
+  //25. РљРѕРјРїРѕРЅРµРЅС‚С‹ РїСЂРѕРіСЂР°РјРј (ActiveX, COM)
   if RegSections[25].Enabled then
   begin
     ValueName4 := '';
@@ -2872,7 +2872,7 @@ begin
       RegCleanIn.GetKeyNames(SubKeys);
       for i := 1 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_CLASSES_ROOT'+ValueName4+'\CLSID\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2908,7 +2908,7 @@ begin
       end; //for i := 1 to SubKeys.Count - 1
       SubKeys.Free;
     end; //if RegClean.OpenKey('\CLSID', False)
-    if ValueName4 = '' then //если мы ещё не делали для WOW64
+    if ValueName4 = '' then //РµСЃР»Рё РјС‹ РµС‰С‘ РЅРµ РґРµР»Р°Р»Рё РґР»СЏ WOW64
     begin
       ValueName4 := '\Wow6432Node';
       goto 19; //goback
@@ -2924,7 +2924,7 @@ begin
       RegCleanIn.GetKeyNames(SubKeys);
       for i := 1 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_CLASSES_ROOT'+ValueName4+'\Interface\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -2946,7 +2946,7 @@ begin
       end; //for i := 1 to SubKeys.Count - 1 do
       SubKeys.Free;
     end; //if RegCleanIn.OpenKey(ValueName4+'\Interface', False)
-    if ValueName4 = '' then //если мы ещё не делали для WOW64
+    if ValueName4 = '' then //РµСЃР»Рё РјС‹ РµС‰С‘ РЅРµ РґРµР»Р°Р»Рё РґР»СЏ WOW64
     begin
       ValueName4 := '\Wow6432Node';
       goto 20; //goback
@@ -2962,7 +2962,7 @@ begin
       RegClean.GetKeyNames(SubKeys);
       for i := 1 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_CLASSES_ROOT'+ValueName4+'\TypeLib\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -3014,19 +3014,19 @@ begin
       end; //for i := 1 to SubKeys.Count - 1 do
       SubKeys.Free;
     end; //if RegClean.OpenKey(ValueName4+'\TypeLib', False)
-    if ValueName4 = '' then //если мы ещё не делали для WOW64
+    if ValueName4 = '' then //РµСЃР»Рё РјС‹ РµС‰С‘ РЅРµ РґРµР»Р°Р»Рё РґР»СЏ WOW64
     begin
       ValueName4 := '\Wow6432Node';
       goto 21; //goback
     end;
   end;
-  //25. => КОНЕЦ
+  //25. => РљРћРќР•Р¦
   EXCEPT
   END;
 
 
   TRY
-  //26. Звуки
+  //26. Р—РІСѓРєРё
   if RegSections[26].Enabled then
   begin
     RegClean.RootKey := HKEY_CURRENT_USER;
@@ -3036,7 +3036,7 @@ begin
       RegClean.GetKeyNames(SubKeys);
       for i := 0 to SubKeys.Count - 1 do
       begin
-        if isStop then exit; // выход, если что
+        if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
         KeyName := SubKeys.Strings[i];
         ActKeyName := 'HKEY_CURRENT_USER\AppEvents\Schemes\Apps\'+KeyName;
         JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -3046,7 +3046,7 @@ begin
           RegClean.GetKeyNames(SubKeys2);
           for j := 0 to SubKeys2.Count - 1 do
           begin
-            if isStop then exit; // выход, если что
+            if isStop then exit; // РІС‹С…РѕРґ, РµСЃР»Рё С‡С‚Рѕ
             KeyName2 := SubKeys2.Strings[j];
             ActKeyName := 'HKEY_CURRENT_USER\AppEvents\Schemes\Apps\'+KeyName+'\'+KeyName2;
             JvThreadScan.Synchronize(fmRegistryCleanerResults.UpdateStatus);
@@ -3072,7 +3072,7 @@ begin
       SubKeys.Free;
     end; //if RegClean.OpenKey('\AppEvents\Schemes\Apps', False)
   end;
-  //26. => КОНЕЦ
+  //26. => РљРћРќР•Р¦
   EXCEPT
   END;
 

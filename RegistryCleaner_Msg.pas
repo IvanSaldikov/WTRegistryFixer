@@ -1,4 +1,4 @@
-unit RegistryCleaner_Msg;
+п»їunit RegistryCleaner_Msg;
 
 interface
 
@@ -9,26 +9,26 @@ uses
 
 
 const
-  BEGIN_SYSTEM_CHANGE = 100; // Тип события
+  BEGIN_SYSTEM_CHANGE = 100; // РўРёРї СЃРѕР±С‹С‚РёСЏ
   END_SYSTEM_CHANGE  = 101;
-  APPLICATION_INSTALL =  0; // Тип точки восстановления
+  APPLICATION_INSTALL =  0; // РўРёРї С‚РѕС‡РєРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ
   CANCELLED_OPERATION = 13;
   MAX_DESC = 64;
   MIN_EVENT = 100;
 
-  // Инфо о точки восстановления
+  // РРЅС„Рѕ Рѕ С‚РѕС‡РєРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ
   type
    PRESTOREPTINFOA = ^_RESTOREPTINFOA;
    _RESTOREPTINFOA = packed record
-      dwEventType: DWORD;  // Тип события - начало или конец
-      dwRestorePtType: DWORD;  // Тип контрольной точки - Установка или удалиние
+      dwEventType: DWORD;  // РўРёРї СЃРѕР±С‹С‚РёСЏ - РЅР°С‡Р°Р»Рѕ РёР»Рё РєРѕРЅРµС†
+      dwRestorePtType: DWORD;  // РўРёРї РєРѕРЅС‚СЂРѕР»СЊРЅРѕР№ С‚РѕС‡РєРё - РЈСЃС‚Р°РЅРѕРІРєР° РёР»Рё СѓРґР°Р»РёРЅРёРµ
       llSequenceNumber: INT64;  // Sequence Number - 0 for begin
-      szDescription: array [0..64] of ansichar; // Описание- название программы или операция
+      szDescription: array [0..64] of ansichar; // РћРїРёСЃР°РЅРёРµ- РЅР°Р·РІР°РЅРёРµ РїСЂРѕРіСЂР°РјРјС‹ РёР»Рё РѕРїРµСЂР°С†РёСЏ
   end;
   RESTOREPOINTINFO = _RESTOREPTINFOA;
   PRESTOREPOINTINFOA = ^_RESTOREPTINFOA;
 
-  // Статус, возвращаемый точкой восстановления
+  // РЎС‚Р°С‚СѓСЃ, РІРѕР·РІСЂР°С‰Р°РµРјС‹Р№ С‚РѕС‡РєРѕР№ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ
   PSMGRSTATUS = ^_SMGRSTATUS;
   _SMGRSTATUS = packed record
     nStatus: DWORD; // Status returned by State Manager Process
@@ -88,12 +88,12 @@ type
     function GetRegKeyType(HKEYName: HKEY; KeyName, ParameterName: PChar): TRegDataType;
   private
     { Private declarations }
-    IsLeftImgLoaded: Boolean; //загружена ли левая картинка в компонент ThemeImgLeftTemp - чтобы её оттуда каждый раз читать при изменении размера окна
+    IsLeftImgLoaded: Boolean; //Р·Р°РіСЂСѓР¶РµРЅР° Р»Рё Р»РµРІР°СЏ РєР°СЂС‚РёРЅРєР° РІ РєРѕРјРїРѕРЅРµРЅС‚ ThemeImgLeftTemp - С‡С‚РѕР±С‹ РµС‘ РѕС‚С‚СѓРґР° РєР°Р¶РґС‹Р№ СЂР°Р· С‡РёС‚Р°С‚СЊ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂР° РѕРєРЅР°
     isReady: boolean;
-    isLoaded: boolean; //Переменная нужна, чтобы не было изменений настроек при запуске программы
+    isLoaded: boolean; //РџРµСЂРµРјРµРЅРЅР°СЏ РЅСѓР¶РЅР°, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ РёР·РјРµРЅРµРЅРёР№ РЅР°СЃС‚СЂРѕРµРє РїСЂРё Р·Р°РїСѓСЃРєРµ РїСЂРѕРіСЂР°РјРјС‹
   public
     { Public declarations }
-    ThemeName: string; //название темы оформления
+    ThemeName: string; //РЅР°Р·РІР°РЅРёРµ С‚РµРјС‹ РѕС„РѕСЂРјР»РµРЅРёСЏ
   protected
     { Protected declarations }
     procedure CreateParams(var Params: TCreateParams); override;
@@ -117,43 +117,43 @@ const
 {$R *.dfm}
 
 
-{СОХРАНИТЬ ПОЗИЦИЮ ОКНА ПРИ ЗАКРЫТИИ}
+{РЎРћРҐР РђРќРРўР¬ РџРћР—РР¦РР® РћРљРќРђ РџР Р Р—РђРљР Р«РўРР}
 procedure SaveWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ВОССТАНОВИТЬ ПОЗИЦИЮ ОКНА ПРИ ЗАПУСКЕ}
+{Р’РћРЎРЎРўРђРќРћР’РРўР¬ РџРћР—РР¦РР® РћРљРќРђ РџР Р Р—РђРџРЈРЎРљР•}
 procedure RestoreWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ВЫВОДИМ РАЗНУЮ ИНФУ О ВЕРСИИ WINTUNING: ИНДЕКС, ГОД ОКОНЧАНИЯ ИСПОЛЬЗОВАНИЯ И ТД.}
+{Р’Р«Р’РћР”РРњ Р РђР—РќРЈР® РРќР¤РЈ Рћ Р’Р•Р РЎРР WINTUNING: РРќР”Р•РљРЎ, Р“РћР” РћРљРћРќР§РђРќРРЇ РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ Р РўР”.}
 function GetWTVerInfo(info_id: integer): integer; external 'Functions.dll';
 
-{ЧТЕНИЕ НАСТРОЕК ПРОГРАММЫ}
+{Р§РўР•РќРР• РќРђРЎРўР РћР•Рљ РџР РћР“Р РђРњРњР«}
 function GetProgParam(paramname: PChar): PChar; external 'Functions.dll';
 
-{ПРЕОБРАЗОВАНИЕ СТРОКИ ВИДА R,G,B В TCOLOR}
+{РџР Р•РћР‘Р РђР—РћР’РђРќРР• РЎРўР РћРљР Р’РР”Рђ R,G,B Р’ TCOLOR}
 function ReadRBG(instr: PChar): TColor; external 'Functions.dll';
 
-{ОТКРЫТЬ ОПРЕДЕЛЁННЫЙ РАЗДЕЛ СПРАВКИ}
+{РћРўРљР Р«РўР¬ РћРџР Р•Р”Р•Р›РЃРќРќР«Р™ Р РђР—Р”Р•Р› РЎРџР РђР’РљР}
 procedure ViewHelp(page: PChar); stdcall; external 'Functions.dll';
 
-{ПРЕОБРАЗОВАНИЕ СТРОКИ ВИДА %WinTuning_PATH% В C:\Program Files\WinTuning 7}
+{РџР Р•РћР‘Р РђР—РћР’РђРќРР• РЎРўР РћРљР Р’РР”Рђ %WinTuning_PATH% Р’ C:\Program Files\WinTuning 7}
 function ThemePathConvert(InStr, InThemeName: PChar): PChar; external 'Functions.dll';
 
-{ЧТЕНИЕ ЯЗЫКОВОЙ СТРОКИ ИЗ ОПРЕДЕЛЁННОГО ФАЙЛА}
+{Р§РўР•РќРР• РЇР—Р«РљРћР’РћР™ РЎРўР РћРљР РР— РћРџР Р•Р”Р•Р›РЃРќРќРћР“Рћ Р¤РђР™Р›Рђ}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
-{ЗАПУЩЕНА ЛИ 64-Х БИТНАЯ СИСТЕМА}
+{Р—РђРџРЈР©Р•РќРђ Р›Р 64-РҐ Р‘РРўРќРђРЇ РЎРРЎРўР•РњРђ}
 function IsWOW64: Boolean; external 'Functions.dll';
 
-{УЗНАЁМ ТИП ДАННЫХ В REGISTR}
+{РЈР—РќРђРЃРњ РўРРџ Р”РђРќРќР«РҐ Р’ REGISTR}
 //function GetRegKeyType(HKEYName: HKEY; KeyName, ParameterName: PChar): Cardinal; external 'RegistryExtendedFunctions.dll';
 
-{ВЫВОДИМ НАЗВАНИЕ ВЕРСИИ WINTUNING: [XP, VISTER, 7]}
+{Р’Р«Р’РћР”РРњ РќРђР—Р’РђРќРР• Р’Р•Р РЎРР WINTUNING: [XP, VISTER, 7]}
 function GetCapInfo(WTVerID, info_id: integer): shortstring; external 'Functions.dll';
 
 
 
 //=========================================================
-{ПРОДЕДУРА ПОЛУЧЕНИЯ ТИПА КЛЮЧА}
+{РџР РћР”Р•Р”РЈР Рђ РџРћР›РЈР§Р•РќРРЇ РўРРџРђ РљР›Р®Р§Рђ}
 //---------------------------------------------------------
 function TfmMsg.GetRegKeyType(HKEYName: HKEY; KeyName, ParameterName: PChar): TRegDataType;
 var
@@ -164,7 +164,7 @@ begin
   try
     reg.RootKey := HKEYName;
     reg.OpenKey(KeyName,true);
-    reg.GetDataInfo(ParameterName, info);//получаем о ней информацию
+    reg.GetDataInfo(ParameterName, info);//РїРѕР»СѓС‡Р°РµРј Рѕ РЅРµР№ РёРЅС„РѕСЂРјР°С†РёСЋ
   finally
     reg.free;
   end;
@@ -174,7 +174,7 @@ end;
 
 
 //=========================================================
-{ОТОБРАЖАЕТ ФОРМУ НА ПАНЕЛИ ЗАДАЧ}
+{РћРўРћР‘Р РђР–РђР•Рў Р¤РћР РњРЈ РќРђ РџРђРќР•Р›Р Р—РђР”РђР§}
 //---------------------------------------------------------
 procedure TfmMsg.CreateParams(var Params: TCreateParams);
 begin
@@ -190,7 +190,7 @@ end;
 
 
 //=========================================================
-{ЗАГРУЗКА ИЗОБРАЖЕНИЯ В ОБЛАСТЬ НА ФОРМЕ}
+{Р—РђР“Р РЈР—РљРђ РР—РћР‘Р РђР–Р•РќРРЇ Р’ РћР‘Р›РђРЎРўР¬ РќРђ Р¤РћР РњР•}
 //---------------------------------------------------------
 procedure TfmMsg.LoadPNG2Prog(dllname, resname: string; imgobj: TImage);
 var
@@ -211,11 +211,11 @@ end;
 
 
 //=========================================================
-{ЗАМОСТИТЬ ЛЕВУЮ ПАНЕЛЬ КАРТИНКОЙ}
+{Р—РђРњРћРЎРўРРўР¬ Р›Р•Р’РЈР® РџРђРќР•Р›Р¬ РљРђР РўРРќРљРћР™}
 //---------------------------------------------------------
 procedure TfmMsg.ThemeUpdateLeftIMG;
 var
-  x,y: integer; // левый верхний угол картинки
+  x,y: integer; // Р»РµРІС‹Р№ РІРµСЂС…РЅРёР№ СѓРіРѕР» РєР°СЂС‚РёРЅРєРё
   ImgObjLeft: TImage;
 begin
   if ThemeImgLeft.Picture <> nil then ThemeImgLeft.Picture := nil;
@@ -243,7 +243,7 @@ end;
 
 
 //=========================================================
-{ЗАПОЛНЯЕМ СУЩЕСТВУЮЩИЕ РАЗДЕЛЫ}
+{Р—РђРџРћР›РќРЇР•Рњ РЎРЈР©Р•РЎРўР’РЈР®Р©РР• Р РђР—Р”Р•Р›Р«}
 //---------------------------------------------------------
 procedure TfmMsg.LoadSections;
 var
@@ -283,29 +283,29 @@ end;
 
 
 //=========================================================
-{ПРИМЕНЕНИЕ СКИНА}
+{РџР РРњР•РќР•РќРР• РЎРљРРќРђ}
 //=========================================================
 procedure TfmMsg.ApplyTheme;
 var
   ThemeFileName, StrTmp, ThemeName: string;
-  ThemeFile: TIniFile; //ini-файл темы оформления
+  ThemeFile: TIniFile; //ini-С„Р°Р№Р» С‚РµРјС‹ РѕС„РѕСЂРјР»РµРЅРёСЏ
 begin
-  //Языковые настройки
+  //РЇР·С‹РєРѕРІС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
   ThemeName := GetProgParam('theme');
-  //Разделы
+  //Р Р°Р·РґРµР»С‹
   ThemeFileName := ExtractFilePath(paramstr(0)) + 'Themes\' + ThemeName + '\Theme.ini';
   if SysUtils.FileExists(ThemeFileName) then
   begin
     ThemeFile := TIniFile.Create(ThemeFileName);
 
-    //Цвет окна
+    //Р¦РІРµС‚ РѕРєРЅР°
     Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'WndColor', '240,240,240')));
-    //Фон логотипа
+    //Р¤РѕРЅ Р»РѕРіРѕС‚РёРїР°
     imgLogoBack.Visible := ThemeFile.ReadBool('Utilities', 'LogoBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'LogoBackImagePath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then imgLogoBack.Picture.LoadFromFile(StrTmp);
 
-    //Левая картинка (левый фон)
+    //Р›РµРІР°СЏ РєР°СЂС‚РёРЅРєР° (Р»РµРІС‹Р№ С„РѕРЅ)
     ThemeImgLeft.Visible := ThemeFile.ReadBool('Utilities', 'ImageLeftShow', False);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'ImageLeftPath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then
@@ -314,22 +314,22 @@ begin
       ThemeImgLeftTemp.Picture.LoadFromFile(StrTmp);
     end;
 
-    //Фон заголовка утилиты
+    //Р¤РѕРЅ Р·Р°РіРѕР»РѕРІРєР° СѓС‚РёР»РёС‚С‹
     ThemeImgMainCaption.Visible := ThemeFile.ReadBool('Utilities', 'UtilCaptionBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackImagePath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then ThemeImgMainCaption.Picture.LoadFromFile(StrTmp);
-    //Цвет шрифта заголовка
+    //Р¦РІРµС‚ С€СЂРёС„С‚Р° Р·Р°РіРѕР»РѕРІРєР°
     albLogoText.Font.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionFontColor', '53,65,79')));
-    //Цвет фона загловка утилиты в случае, если НЕТ картинки
+    //Р¦РІРµС‚ С„РѕРЅР° Р·Р°РіР»РѕРІРєР° СѓС‚РёР»РёС‚С‹ РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РќР•Рў РєР°СЂС‚РёРЅРєРё
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
-    //Цвет борюда загловка утилиты
+    //Р¦РІРµС‚ Р±РѕСЂСЋРґР° Р·Р°РіР»РѕРІРєР° СѓС‚РёР»РёС‚С‹
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
     ThemeShapeMainCaption.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeLeft.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeBottom.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     agbLogo.BorderColor := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
 
-    //Нижний бордюрчик
+    //РќРёР¶РЅРёР№ Р±РѕСЂРґСЋСЂС‡РёРє
     ShapeBottom.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'BorderBottomColor', '243,245,248')));
 
     ThemeFile.Free;
@@ -340,7 +340,7 @@ end;
 
 
 //=========================================================
-{ДОБАВЛЕНИЕ СТРОКИ ЛОГА}
+{Р”РћР‘РђР’Р›Р•РќРР• РЎРўР РћРљР Р›РћР“Рђ}
 //---------------------------------------------------------
 procedure TfmMsg.AddLog(str: string; id: integer);
 var
@@ -350,10 +350,10 @@ begin
   GridLog.Cells[1,GridLog.RowCount-1] := DateTimeToStr(now());
   GridLog.Cells[2,GridLog.RowCount-1] := str;
   iconindex := -1;
-  if id = 0 then iconindex := 0; //успешный пункт
-  if id = 1 then iconindex := 1; //важный пункт
-  if id = 2 then iconindex := 2; //просто пункт
-  if id = 3 then iconindex := 3; //восстановленный пункт
+  if id = 0 then iconindex := 0; //СѓСЃРїРµС€РЅС‹Р№ РїСѓРЅРєС‚
+  if id = 1 then iconindex := 1; //РІР°Р¶РЅС‹Р№ РїСѓРЅРєС‚
+  if id = 2 then iconindex := 2; //РїСЂРѕСЃС‚Рѕ РїСѓРЅРєС‚
+  if id = 3 then iconindex := 3; //РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹Р№ РїСѓРЅРєС‚
   GridLog.AddImageIdx(1,GridLog.RowCount-1,3,haBeforeText,vaCenter);
   GridLog.AddImageIdx(2,GridLog.RowCount-1,iconindex,haBeforeText,vaCenter);
   GridLog.AutoSizeCol(0);
@@ -368,7 +368,7 @@ end;
 
 
 //=========================================================
-{ПРОДЕДУРА СОЗДАНИЯ КОПИИ КЛЮЧА РЕЕСТРА И ВСЕГО ЕГО СОДЕРЖИМОГО НА ЭКСПОРТ ДЛЯ ВОЗМОЖНОСТИ ВОССТАНОВЛЕНИЯ}
+{РџР РћР”Р•Р”РЈР Рђ РЎРћР—Р”РђРќРРЇ РљРћРџРР РљР›Р®Р§Рђ Р Р•Р•РЎРўР Рђ Р Р’РЎР•Р“Рћ Р•Р“Рћ РЎРћР”Р•Р Р–РРњРћР“Рћ РќРђ Р­РљРЎРџРћР Рў Р”Р›РЇ Р’РћР—РњРћР–РќРћРЎРўР Р’РћРЎРЎРўРђРќРћР’Р›Р•РќРРЇ}
 //---------------------------------------------------------
 procedure TfmMsg.BackupRegKey(HKEYName: HKEY; KeyName, Comment: string; var ExportFile: TStringList);
 var
@@ -422,7 +422,7 @@ end;
 
 
 //=========================================================
-{ПРОДЕДУРА ПРЕОБРАЗОВАНИЯ ДЕСЯТИЧНОГО ЧИСЛА В ШЕСТНАДЦАТИРИЧНОЕ - ДВЕ ЗНАЧАЩИХ ЦИФРЫ(14 -> 0e, ...)}
+{РџР РћР”Р•Р”РЈР Рђ РџР Р•РћР‘Р РђР—РћР’РђРќРРЇ Р”Р•РЎРЇРўРР§РќРћР“Рћ Р§РРЎР›Рђ Р’ РЁР•РЎРўРќРђР”Р¦РђРўРР РР§РќРћР• - Р”Р’Р• Р—РќРђР§РђР©РРҐ Р¦РР¤Р Р«(14 -> 0e, ...)}
 //---------------------------------------------------------
 function InvertBytes(InStr: string): string;
 var
@@ -447,7 +447,7 @@ end;
 
 
 //=========================================================
-{ПРОЦЕДУРА ДОБАВЛЕНИЯ HEX-ЗНАЧЕНИЯ (РАЗДЕЛЕНИЕ БОЛЬШОЙ СТРОКИ НА МНОГО СТРОК)}
+{РџР РћР¦Р•Р”РЈР Рђ Р”РћР‘РђР’Р›Р•РќРРЇ HEX-Р—РќРђР§Р•РќРРЇ (Р РђР—Р”Р•Р›Р•РќРР• Р‘РћР›Р¬РЁРћР™ РЎРўР РћРљР РќРђ РњРќРћР“Рћ РЎРўР РћРљ)}
 //---------------------------------------------------------
 procedure AddHexToStringList(BeforeString, HEXString: string; var ExportFile: TStringList);
 const
@@ -489,7 +489,7 @@ end;
 
 
 //=========================================================
-{ПРИ КЛИКЕ ПО ЛОГУ}
+{РџР Р РљР›РРљР• РџРћ Р›РћР“РЈ}
 //---------------------------------------------------------
 procedure TfmMsg.GridLogClickCell(Sender: TObject; ARow, ACol: Integer);
 begin
@@ -500,7 +500,7 @@ end;
 
 
 //=========================================================
-{ПРОДЕДУРА СОЗДАНИЯ КОПИИ ПАРАМЕТРОВ ПЕРЕДАННОГО КЛЮЧА}
+{РџР РћР”Р•Р”РЈР Рђ РЎРћР—Р”РђРќРРЇ РљРћРџРР РџРђР РђРњР•РўР РћР’ РџР•Р Р•Р”РђРќРќРћР“Рћ РљР›Р®Р§Рђ}
 //---------------------------------------------------------
 procedure TfmMsg.BackupRegParams(HKEYName: HKEY; KeyName: string; var ExportFile: TStringList);
 var
@@ -522,14 +522,14 @@ begin
     ParameterToSave := ParameterName;
     ParameterToSave := StringReplace(ParameterToSave, '\', '\\', [rfReplaceAll]);
     ParameterToSave := StringReplace(ParameterToSave, '"', '\"', [rfReplaceAll]);
-    if ParameterName = '' then ParameterToSave := '@' //значение по умолчанию
+    if ParameterName = '' then ParameterToSave := '@' //Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
     else ParameterToSave := '"'+ParameterToSave+'"';
 //    Memo2.Lines.Add('ParameterToSave4='+ParameterToSave);
     KayNameWithoutTheTrailingSlashes := KeyName;
     if KayNameWithoutTheTrailingSlashes[1] = '\' then
       KayNameWithoutTheTrailingSlashes := StringReplace(KayNameWithoutTheTrailingSlashes, '\', '', [rfIgnoreCase]);
     RegValueType := GetRegKeyType(HKEYName,PChar(KayNameWithoutTheTrailingSlashes),PChar(ParameterName));
-    if RegValueType=rdString then //Строка
+    if RegValueType=rdString then //РЎС‚СЂРѕРєР°
     begin
       ValueName := BackupReg.ReadString(ParameterName);
       ValueName := StringReplace(ValueName, '\', '\\', [rfReplaceAll, rfIgnoreCase]);
@@ -542,12 +542,12 @@ begin
       ValueName := LowerCase(IntToHex(BackupReg.ReadInteger(ParameterName),8));
       ValueType := 'dword:';
     end;
-    if RegValueType=rdBinary then //HEX (бинарный тип, двоичный параметр)
+    if RegValueType=rdBinary then //HEX (Р±РёРЅР°СЂРЅС‹Р№ С‚РёРї, РґРІРѕРёС‡РЅС‹Р№ РїР°СЂР°РјРµС‚СЂ)
     begin
       ValueName := LowerCase(BackupReg.GetDataAsString(ParameterName));
       ValueType := 'hex:';
     end;
-    if (RegValueType=rdExpandString) then  //Расширяемый строковой параметр
+    if (RegValueType=rdExpandString) then  //Р Р°СЃС€РёСЂСЏРµРјС‹Р№ СЃС‚СЂРѕРєРѕРІРѕР№ РїР°СЂР°РјРµС‚СЂ
     begin
       TempStr := BackupReg.ReadString(ParameterName);
       ValueName := '';
@@ -570,8 +570,8 @@ begin
       end;}
       ValueType := 'hex(2):';
     end;
-//  if (RegValueType>rdBinary) or (RegValueType=rdUnknown) then //В случае, если параметр неизвестен - значит, скорее всего, это бинарный тип данных
-    if (RegValueType=rdUnknown) then //В случае, если параметр неизвестен - значит, скорее всего, это бинарный тип данных
+//  if (RegValueType>rdBinary) or (RegValueType=rdUnknown) then //Р’ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РїР°СЂР°РјРµС‚СЂ РЅРµРёР·РІРµСЃС‚РµРЅ - Р·РЅР°С‡РёС‚, СЃРєРѕСЂРµРµ РІСЃРµРіРѕ, СЌС‚Рѕ Р±РёРЅР°СЂРЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С…
+    if (RegValueType=rdUnknown) then //Р’ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РїР°СЂР°РјРµС‚СЂ РЅРµРёР·РІРµСЃС‚РµРЅ - Р·РЅР°С‡РёС‚, СЃРєРѕСЂРµРµ РІСЃРµРіРѕ, СЌС‚Рѕ Р±РёРЅР°СЂРЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С…
     begin
       ValueName := BackupReg.GetDataAsString(ParameterName);
 //      ValueType := 'hex('+IntToHex(RegValueType,1)+'):';
@@ -582,12 +582,12 @@ begin
       ValueName := BackupReg.GetDataAsString(ParameterName);
       ValueType := 'hex(6):';
     end;
-    if RegValueType=REG_MULTI_SZ then //Мультистроковой параметр
+    if RegValueType=REG_MULTI_SZ then //РњСѓР»СЊС‚РёСЃС‚СЂРѕРєРѕРІРѕР№ РїР°СЂР°РјРµС‚СЂ
     begin
       ValueName := BackupReg.GetDataAsString(ParameterName);
       ValueType := 'hex(7):';
     end;
-    if RegValueType=REG_NONE then //Не определено
+    if RegValueType=REG_NONE then //РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ
     begin
       ValueName := BackupReg.GetDataAsString(ParameterName);
       ValueType := 'hex(0):';
@@ -622,7 +622,7 @@ end;
 
 
 //=========================================================
-{СОЗДАНИЕ КОНТРОЛЬНОЙ ТОЧКИ ВОССТАНОВЛЕНИЯ}
+{РЎРћР—Р”РђРќРР• РљРћРќРўР РћР›Р¬РќРћР™ РўРћР§РљР Р’РћРЎРЎРўРђРќРћР’Р›Р•РќРРЇ}
 //---------------------------------------------------------
 function TfmMsg.CreateRestorePoint: boolean;
 var
@@ -643,7 +643,7 @@ end;
 
 
 //=========================================================
-{КНОПКА "ИСПРАВИТЬ"}
+{РљРќРћРџРљРђ "РРЎРџР РђР’РРўР¬"}
 //---------------------------------------------------------
 procedure TfmMsg.btStartClick(Sender: TObject);
 var
@@ -815,7 +815,7 @@ end;
 
 
 //=========================================================
-{КНОПКА "ОТМЕНА"}
+{РљРќРћРџРљРђ "РћРўРњР•РќРђ"}
 //---------------------------------------------------------
 procedure TfmMsg.btCancelClick(Sender: TObject);
 begin
@@ -826,7 +826,7 @@ end;
 
 
 //=========================================================
-{КНОПКА "ЗАКРЫТЬ"}
+{РљРќРћРџРљРђ "Р—РђРљР Р«РўР¬"}
 //---------------------------------------------------------
 procedure TfmMsg.btOKClick(Sender: TObject);
 begin
@@ -837,7 +837,7 @@ end;
 
 
 //=========================================================
-{ПРИ ЗАКРЫТИИ ФОРМЫ}
+{РџР Р Р—РђРљР Р«РўРР Р¤РћР РњР«}
 //---------------------------------------------------------
 procedure TfmMsg.FormClose(Sender: TObject; var Action: TCloseAction);
 var
@@ -859,7 +859,7 @@ end;
 
 
 //=========================================================
-{ПРИМЕНЕНИЕ ЯЗЫКА}
+{РџР РРњР•РќР•РќРР• РЇР—Р«РљРђ}
 //--------------------------------------------------------
 procedure TfmMsg.ApplyLang;
 begin
@@ -881,7 +881,7 @@ end;
 
 
 //=========================================================
-{АКТИВАЦИЯ ФОРМЫ}
+{РђРљРўРР’РђР¦РРЇ Р¤РћР РњР«}
 //---------------------------------------------------------
 procedure TfmMsg.FormActivate(Sender: TObject);
 begin
@@ -893,14 +893,14 @@ end;
 
 
 //=========================================================
-{СОЗДАНИЕ ФОРМЫ}
+{РЎРћР—Р”РђРќРР• Р¤РћР РњР«}
 //--------------------------------------------------------
 procedure TfmMsg.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
   isLoaded := False;
-  // ДЕЛАЕМ ФОРМУ ОДИНАКОВОЙ ПО РАЗМЕРУ ПРИ РАЗЛИЧНЫХ РАСРЕШЕНИЯХ И РАЗМЕРАХ ШРИФТА
+  // Р”Р•Р›РђР•Рњ Р¤РћР РњРЈ РћР”РРќРђРљРћР’РћР™ РџРћ Р РђР—РњР•Р РЈ РџР Р Р РђР—Р›РР§РќР«РҐ Р РђРЎР Р•РЁР•РќРРЇРҐ Р Р РђР—РњР•Р РђРҐ РЁР РР¤РўРђ
   scaled := True;
   Screen := TScreen.Create(nil);
   for i := componentCount - 1 downto 0 do
@@ -909,7 +909,7 @@ begin
        if GetPropInfo(ClassInfo, 'font') <> nil then Font.Size := (ScreenWidth div screen.width) * Font.Size;
     end;
 
-  //ЗАГРУЖАЕМ ГРАФИКУ
+  //Р—РђР“Р РЈР–РђР•Рњ Р“Р РђР¤РРљРЈ
   LoadPNG2Prog('logo.dll', 'logo_wt_small', imgWinTuning);
 
   isReady := False;

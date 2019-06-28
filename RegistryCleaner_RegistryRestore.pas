@@ -1,4 +1,4 @@
-unit RegistryCleaner_RegistryRestore;
+ï»¿unit RegistryCleaner_RegistryRestore;
 
 interface
 
@@ -60,9 +60,9 @@ type
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
-    IsLeftImgLoaded: Boolean; //çàãğóæåíà ëè ëåâàÿ êàğòèíêà â êîìïîíåíò ThemeImgLeftTemp - ÷òîáû å¸ îòòóäà êàæäûé ğàç ÷èòàòü ïğè èçìåíåíèè ğàçìåğà îêíà
+    IsLeftImgLoaded: Boolean; //Ğ·Ğ°Ğ³Ñ€ÑƒĞ¶ĞµĞ½Ğ° Ğ»Ğ¸ Ğ»ĞµĞ²Ğ°Ñ ĞºĞ°Ñ€Ñ‚Ğ¸Ğ½ĞºĞ° Ğ² ĞºĞ¾Ğ¼Ğ¿Ğ¾Ğ½ĞµĞ½Ñ‚ ThemeImgLeftTemp - Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ĞµÑ‘ Ğ¾Ñ‚Ñ‚ÑƒĞ´Ğ° ĞºĞ°Ğ¶Ğ´Ñ‹Ğ¹ Ñ€Ğ°Ğ· Ñ‡Ğ¸Ñ‚Ğ°Ñ‚ÑŒ Ğ¿Ñ€Ğ¸ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸Ğ¸ Ñ€Ğ°Ğ·Ğ¼ĞµÑ€Ğ° Ğ¾ĞºĞ½Ğ°
     RegFilesCount: integer;
-    isLoaded: boolean; //Ïåğåìåííàÿ íóæíà, ÷òîáû íå áûëî èçìåíåíèé íàñòğîåê ïğè çàïóñêå ïğîãğàììû
+    isLoaded: boolean; //ĞŸĞµÑ€ĞµĞ¼ĞµĞ½Ğ½Ğ°Ñ Ğ½ÑƒĞ¶Ğ½Ğ°, Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ Ğ½Ğµ Ğ±Ñ‹Ğ»Ğ¾ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸Ğ¹ Ğ½Ğ°ÑÑ‚Ñ€Ğ¾ĞµĞº Ğ¿Ñ€Ğ¸ Ğ·Ğ°Ğ¿ÑƒÑĞºĞµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ñ‹
   public
     { Public declarations }
   protected
@@ -85,34 +85,34 @@ const
 {$R *.dfm}
 
 
-{ÑÎÕĞÀÍÈÒÜ ÏÎÇÈÖÈŞ ÎÊÍÀ ÏĞÈ ÇÀÊĞÛÒÈÈ}
+{Ğ¡ĞĞ¥Ğ ĞĞĞ˜Ğ¢Ğ¬ ĞŸĞĞ—Ğ˜Ğ¦Ğ˜Ğ® ĞĞšĞĞ ĞŸĞ Ğ˜ Ğ—ĞĞšĞ Ğ«Ğ¢Ğ˜Ğ˜}
 procedure SaveWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ÂÎÑÑÒÀÍÎÂÈÒÜ ÏÎÇÈÖÈŞ ÎÊÍÀ ÏĞÈ ÇÀÏÓÑÊÅ}
+{Ğ’ĞĞ¡Ğ¡Ğ¢ĞĞĞĞ’Ğ˜Ğ¢Ğ¬ ĞŸĞĞ—Ğ˜Ğ¦Ğ˜Ğ® ĞĞšĞĞ ĞŸĞ Ğ˜ Ğ—ĞĞŸĞ£Ğ¡ĞšĞ•}
 procedure RestoreWndPosition(FormName: TForm; KeyToSave: PChar); external 'Functions.dll';
 
-{ÂÛÂÎÄÈÌ ĞÀÇÍÓŞ ÈÍÔÓ Î ÂÅĞÑÈÈ WINTUNING: ÈÍÄÅÊÑ, ÃÎÄ ÎÊÎÍ×ÀÍÈß ÈÑÏÎËÜÇÎÂÀÍÈß È ÒÄ.}
+{Ğ’Ğ«Ğ’ĞĞ”Ğ˜Ğœ Ğ ĞĞ—ĞĞ£Ğ® Ğ˜ĞĞ¤Ğ£ Ğ Ğ’Ğ•Ğ Ğ¡Ğ˜Ğ˜ WINTUNING: Ğ˜ĞĞ”Ğ•ĞšĞ¡, Ğ“ĞĞ” ĞĞšĞĞĞ§ĞĞĞ˜Ğ¯ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ¯ Ğ˜ Ğ¢Ğ”.}
 function GetWTVerInfo(info_id: integer): integer; external 'Functions.dll';
 
-{×ÒÅÍÈÅ ÍÀÑÒĞÎÅÊ ÏĞÎÃĞÀÌÌÛ}
+{Ğ§Ğ¢Ğ•ĞĞ˜Ğ• ĞĞĞ¡Ğ¢Ğ ĞĞ•Ğš ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ«}
 function GetProgParam(paramname: PChar): PChar; external 'Functions.dll';
 
-{ÏĞÅÎÁĞÀÇÎÂÀÍÈÅ ÑÒĞÎÊÈ ÂÈÄÀ R,G,B Â TCOLOR}
+{ĞŸĞ Ğ•ĞĞ‘Ğ ĞĞ—ĞĞ’ĞĞĞ˜Ğ• Ğ¡Ğ¢Ğ ĞĞšĞ˜ Ğ’Ğ˜Ğ”Ğ R,G,B Ğ’ TCOLOR}
 function ReadRBG(instr: PChar): TColor; external 'Functions.dll';
 
-{ÎÒÊĞÛÒÜ ÎÏĞÅÄÅË¨ÍÍÛÉ ĞÀÇÄÅË ÑÏĞÀÂÊÈ}
+{ĞĞ¢ĞšĞ Ğ«Ğ¢Ğ¬ ĞĞŸĞ Ğ•Ğ”Ğ•Ğ›ĞĞĞĞ«Ğ™ Ğ ĞĞ—Ğ”Ğ•Ğ› Ğ¡ĞŸĞ ĞĞ’ĞšĞ˜}
 procedure ViewHelp(page: PChar); stdcall; external 'Functions.dll';
 
-{ÏĞÅÎÁĞÀÇÎÂÀÍÈÅ ÑÒĞÎÊÈ ÂÈÄÀ %WinTuning_PATH% Â C:\Program Files\WinTuning 7}
+{ĞŸĞ Ğ•ĞĞ‘Ğ ĞĞ—ĞĞ’ĞĞĞ˜Ğ• Ğ¡Ğ¢Ğ ĞĞšĞ˜ Ğ’Ğ˜Ğ”Ğ %WinTuning_PATH% Ğ’ C:\Program Files\WinTuning 7}
 function ThemePathConvert(InStr, InThemeName: PChar): PChar; external 'Functions.dll';
 
-{×ÒÅÍÈÅ ßÇÛÊÎÂÎÉ ÑÒĞÎÊÈ ÈÇ ÎÏĞÅÄÅË¨ÍÍÎÃÎ ÔÀÉËÀ}
+{Ğ§Ğ¢Ğ•ĞĞ˜Ğ• Ğ¯Ğ—Ğ«ĞšĞĞ’ĞĞ™ Ğ¡Ğ¢Ğ ĞĞšĞ˜ Ğ˜Ğ— ĞĞŸĞ Ğ•Ğ”Ğ•Ğ›ĞĞĞĞĞ“Ğ Ğ¤ĞĞ™Ğ›Ğ}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
 
 
 //=========================================================
-{ÎÒÎÁĞÀÆÀÅÒ ÔÎĞÌÓ ÍÀ ÏÀÍÅËÈ ÇÀÄÀ×}
+{ĞĞ¢ĞĞ‘Ğ ĞĞ–ĞĞ•Ğ¢ Ğ¤ĞĞ ĞœĞ£ ĞĞ ĞŸĞĞĞ•Ğ›Ğ˜ Ğ—ĞĞ”ĞĞ§}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.CreateParams(var Params: TCreateParams);
 begin
@@ -128,7 +128,7 @@ end;
 
 
 //=========================================================
-{ÊÎÏÈĞÎÂÀÒÜ/ÂÛĞÅÇÀÒÜ Â ÁÓÔÅĞ ÎÁÌÅÍÀ ÔÀÉËÛ}
+{ĞšĞĞŸĞ˜Ğ ĞĞ’ĞĞ¢Ğ¬/Ğ’Ğ«Ğ Ğ•Ğ—ĞĞ¢Ğ¬ Ğ’ Ğ‘Ğ£Ğ¤Ğ•Ğ  ĞĞ‘ĞœĞ•ĞĞ Ğ¤ĞĞ™Ğ›Ğ«}
 //---------------------------------------------------------
 procedure CopyFilesToClipboard(const AFiles: TStringList; MoveFiles: Boolean = false);
 var
@@ -169,7 +169,7 @@ end;
 
 
 //=========================================================
-{ÏĞÎÖÅÄÓĞÀ ÎÒÎÁĞÀÆÅÍÈß ÑÂÎÉÑÒÂ ÔÀÉËÀ}
+{ĞŸĞ ĞĞ¦Ğ•Ğ”Ğ£Ğ Ğ ĞĞ¢ĞĞ‘Ğ ĞĞ–Ğ•ĞĞ˜Ğ¯ Ğ¡Ğ’ĞĞ™Ğ¡Ğ¢Ğ’ Ğ¤ĞĞ™Ğ›Ğ}
 //---------------------------------------------------------
 procedure ShowFileProperties(const FileName: string);
 var
@@ -187,7 +187,7 @@ end;
 
 
 //=========================================================
-{ÇÀÃĞÓÇÊÀ ÈÇÎÁĞÀÆÅÍÈß Â ÎÁËÀÑÒÜ ÍÀ ÔÎĞÌÅ}
+{Ğ—ĞĞ“Ğ Ğ£Ğ—ĞšĞ Ğ˜Ğ—ĞĞ‘Ğ ĞĞ–Ğ•ĞĞ˜Ğ¯ Ğ’ ĞĞ‘Ğ›ĞĞ¡Ğ¢Ğ¬ ĞĞ Ğ¤ĞĞ ĞœĞ•}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.LoadPNG2Prog(dllname, resname: string; imgobj: TImage);
 var
@@ -208,29 +208,29 @@ end;
 
 
 //=========================================================
-{ÏĞÈÌÅÍÅÍÈÅ ÑÊÈÍÀ}
+{ĞŸĞ Ğ˜ĞœĞ•ĞĞ•ĞĞ˜Ğ• Ğ¡ĞšĞ˜ĞĞ}
 //=========================================================
 procedure TfmRegistryRestore.ApplyTheme;
 var
   ThemeFileName, StrTmp, ThemeName: string;
-  ThemeFile: TIniFile; //ini-ôàéë òåìû îôîğìëåíèÿ
+  ThemeFile: TIniFile; //ini-Ñ„Ğ°Ğ¹Ğ» Ñ‚ĞµĞ¼Ñ‹ Ğ¾Ñ„Ğ¾Ñ€Ğ¼Ğ»ĞµĞ½Ğ¸Ñ
 begin
-  //ßçûêîâûå íàñòğîéêè
+  //Ğ¯Ğ·Ñ‹ĞºĞ¾Ğ²Ñ‹Ğµ Ğ½Ğ°ÑÑ‚Ñ€Ğ¾Ğ¹ĞºĞ¸
   ThemeName := GetProgParam('theme');
-  //Ğàçäåëû
+  //Ğ Ğ°Ğ·Ğ´ĞµĞ»Ñ‹
   ThemeFileName := ExtractFilePath(paramstr(0)) + 'Themes\' + ThemeName + '\Theme.ini';
   if SysUtils.FileExists(ThemeFileName) then
   begin
     ThemeFile := TIniFile.Create(ThemeFileName);
 
-    //Öâåò îêíà
+    //Ğ¦Ğ²ĞµÑ‚ Ğ¾ĞºĞ½Ğ°
     Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'WndColor', '240,240,240')));
-    //Ôîí ëîãîòèïà
+    //Ğ¤Ğ¾Ğ½ Ğ»Ğ¾Ğ³Ğ¾Ñ‚Ğ¸Ğ¿Ğ°
     imgLogoBack.Visible := ThemeFile.ReadBool('Utilities', 'LogoBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'LogoBackImagePath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then imgLogoBack.Picture.LoadFromFile(StrTmp);
 
-    //Ëåâàÿ êàğòèíêà (ëåâûé ôîí)
+    //Ğ›ĞµĞ²Ğ°Ñ ĞºĞ°Ñ€Ñ‚Ğ¸Ğ½ĞºĞ° (Ğ»ĞµĞ²Ñ‹Ğ¹ Ñ„Ğ¾Ğ½)
     ThemeImgLeft.Visible := ThemeFile.ReadBool('Utilities', 'ImageLeftShow', False);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'ImageLeftPath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then
@@ -239,22 +239,22 @@ begin
       ThemeImgLeftTemp.Picture.LoadFromFile(StrTmp);
     end;
 
-    //Ôîí çàãîëîâêà óòèëèòû
+    //Ğ¤Ğ¾Ğ½ Ğ·Ğ°Ğ³Ğ¾Ğ»Ğ¾Ğ²ĞºĞ° ÑƒÑ‚Ğ¸Ğ»Ğ¸Ñ‚Ñ‹
     ThemeImgMainCaption.Visible := ThemeFile.ReadBool('Utilities', 'UtilCaptionBackImageShow', True);
     StrTmp := ThemePathConvert(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackImagePath', '')), PChar(ThemeName));
     if SysUtils.FileExists(StrTmp) then ThemeImgMainCaption.Picture.LoadFromFile(StrTmp);
-    //Öâåò øğèôòà çàãîëîâêà
+    //Ğ¦Ğ²ĞµÑ‚ ÑˆÑ€Ğ¸Ñ„Ñ‚Ğ° Ğ·Ğ°Ğ³Ğ¾Ğ»Ğ¾Ğ²ĞºĞ°
     albLogoText.Font.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionFontColor', '53,65,79')));
-    //Öâåò ôîíà çàãëîâêà óòèëèòû â ñëó÷àå, åñëè ÍÅÒ êàğòèíêè
+    //Ğ¦Ğ²ĞµÑ‚ Ñ„Ğ¾Ğ½Ğ° Ğ·Ğ°Ğ³Ğ»Ğ¾Ğ²ĞºĞ° ÑƒÑ‚Ğ¸Ğ»Ğ¸Ñ‚Ñ‹ Ğ² ÑĞ»ÑƒÑ‡Ğ°Ğµ, ĞµÑĞ»Ğ¸ ĞĞ•Ğ¢ ĞºĞ°Ñ€Ñ‚Ğ¸Ğ½ĞºĞ¸
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
-    //Öâåò áîğşäà çàãëîâêà óòèëèòû
+    //Ğ¦Ğ²ĞµÑ‚ Ğ±Ğ¾Ñ€ÑĞ´Ğ° Ğ·Ğ°Ğ³Ğ»Ğ¾Ğ²ĞºĞ° ÑƒÑ‚Ğ¸Ğ»Ğ¸Ñ‚Ñ‹
     ThemeShapeMainCaption.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBackgroundColor', '243,243,243')));
     ThemeShapeMainCaption.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeLeft.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     ShapeBottom.Pen.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
     agbLogo.BorderColor := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'UtilCaptionBorderColor', '210,220,227')));
 
-    //Íèæíèé áîğäşğ÷èê
+    //ĞĞ¸Ğ¶Ğ½Ğ¸Ğ¹ Ğ±Ğ¾Ñ€Ğ´ÑÑ€Ñ‡Ğ¸Ğº
     ShapeBottom.Brush.Color := ReadRBG(PChar(ThemeFile.ReadString('Utilities', 'BorderBottomColor', '243,245,248')));
 
     ThemeFile.Free;
@@ -265,11 +265,11 @@ end;
 
 
 //=========================================================
-{ÇÀÌÎÑÒÈÒÜ ËÅÂÓŞ ÏÀÍÅËÜ ÊÀĞÒÈÍÊÎÉ}
+{Ğ—ĞĞœĞĞ¡Ğ¢Ğ˜Ğ¢Ğ¬ Ğ›Ğ•Ğ’Ğ£Ğ® ĞŸĞĞĞ•Ğ›Ğ¬ ĞšĞĞ Ğ¢Ğ˜ĞĞšĞĞ™}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.ThemeUpdateLeftIMG;
 var
-  x,y: integer; // ëåâûé âåğõíèé óãîë êàğòèíêè
+  x,y: integer; // Ğ»ĞµĞ²Ñ‹Ğ¹ Ğ²ĞµÑ€Ñ…Ğ½Ğ¸Ğ¹ ÑƒĞ³Ğ¾Ğ» ĞºĞ°Ñ€Ñ‚Ğ¸Ğ½ĞºĞ¸
   ImgObjLeft: TImage;
 begin
   if ThemeImgLeft.Picture <> nil then ThemeImgLeft.Picture := nil;
@@ -297,7 +297,7 @@ end;
 
 
 //=========================================================
-{ÏĞÈ ÍÀÕÎÆÄÅÍÈÈ REG-ÔÀÉËÀ}
+{ĞŸĞ Ğ˜ ĞĞĞ¥ĞĞ–Ğ”Ğ•ĞĞ˜Ğ˜ REG-Ğ¤ĞĞ™Ğ›Ğ}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.FindFile1FileMatch(Sender: TObject; const FileInfo: TFileDetails);
 begin
@@ -313,7 +313,7 @@ end;
 
 
 //=========================================================
-{ÏĞÈ ÂÛÁÎĞÅ ß×ÅÉÊÈ REG-ÔÀÉËÀ}
+{ĞŸĞ Ğ˜ Ğ’Ğ«Ğ‘ĞĞ Ğ• Ğ¯Ğ§Ğ•Ğ™ĞšĞ˜ REG-Ğ¤ĞĞ™Ğ›Ğ}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.GridRegFilesListSelectCell(Sender: TObject; ACol, ARow: Integer; var CanSelect: Boolean);
 var
@@ -338,7 +338,7 @@ end;
 
 
 //=========================================================
-{ÏĞÈ ÄÂÎÉÍÎÌ ÊËÈÊÅ ÏÎ ß×ÅÉÊÅ REG-ÔÀÉËÀ}
+{ĞŸĞ Ğ˜ Ğ”Ğ’ĞĞ™ĞĞĞœ ĞšĞ›Ğ˜ĞšĞ• ĞŸĞ Ğ¯Ğ§Ğ•Ğ™ĞšĞ• REG-Ğ¤ĞĞ™Ğ›Ğ}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.GridRegFilesListDblClickCell(Sender: TObject; ARow, ACol: Integer);
 begin
@@ -349,7 +349,7 @@ end;
 
 
 //=========================================================
-{ÊÍÎÏÊÀ "ÇÀÏÓÑÒÈÒÜ"}
+{ĞšĞĞĞŸĞšĞ "Ğ—ĞĞŸĞ£Ğ¡Ğ¢Ğ˜Ğ¢Ğ¬"}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.btRestoreClick(Sender: TObject);
 begin
@@ -361,7 +361,7 @@ end;
 
 
 //=========================================================
-{ÊÍÎÏÊÀ "ÎÒÌÅÍÀ"}
+{ĞšĞĞĞŸĞšĞ "ĞĞ¢ĞœĞ•ĞĞ"}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.btCancelClick(Sender: TObject);
 begin
@@ -372,7 +372,7 @@ end;
 
 
 //=========================================================
-{ÑÑÛËÊÀ "ÏÎÄĞÎÁÍÅÅ Î REG-ÔÀÉËÀÕ"}
+{Ğ¡Ğ¡Ğ«Ğ›ĞšĞ "ĞŸĞĞ”Ğ ĞĞ‘ĞĞ•Ğ• Ğ REG-Ğ¤ĞĞ™Ğ›ĞĞ¥"}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.URLRegFileInfoClick(Sender: TObject);
 var
@@ -387,7 +387,7 @@ end;
 
 
 //=========================================================
-{ÊÎÍÒÅÊÑÒÍÎÅ ÌÅÍŞ ÑÏÈÑÊÀ REG-ÔÀÉËÎÂ}
+{ĞšĞĞĞ¢Ğ•ĞšĞ¡Ğ¢ĞĞĞ• ĞœĞ•ĞĞ® Ğ¡ĞŸĞ˜Ğ¡ĞšĞ REG-Ğ¤ĞĞ™Ğ›ĞĞ’}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.popupMenuRunClick(Sender: TObject);
 var
@@ -399,9 +399,9 @@ var
   CnSelect: Boolean;
 begin
   MenuName := TMenuItem(Sender).Name;
-  //Çàïóñòèòü
+  //Ğ—Ğ°Ğ¿ÑƒÑÑ‚Ğ¸Ñ‚ÑŒ
   if MenuName = 'popupMenuRun' then btRestore.OnClick(Self);
-  //Êîïèğîâàòü /
+  //ĞšĞ¾Ğ¿Ğ¸Ñ€Ğ¾Ğ²Ğ°Ñ‚ÑŒ /
   if (MenuName = 'popupMenuCopy') OR (MenuName = 'popupMenuCut') then
   begin
     FilesList := TStringList.Create;
@@ -411,10 +411,10 @@ begin
     end;
     IsCut := False;
     if MenuName = 'popupMenuCut' then IsCut := True;
-    CopyFilesToClipboard(FilesList, IsCut); //âûğåçàòü â áóôåğ
+    CopyFilesToClipboard(FilesList, IsCut); //Ğ²Ñ‹Ñ€ĞµĞ·Ğ°Ñ‚ÑŒ Ğ² Ğ±ÑƒÑ„ĞµÑ€
     FilesList.Free;
   end;
-  //Óäàëèòü
+  //Ğ£Ğ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ
   if MenuName = 'popupMenuDelete' then
   begin
     MsgCaption := ReadLangStr('WinTuning_Common.lng', 'Common', 'Confirmation');
@@ -428,7 +428,7 @@ begin
         if GridRegFilesList.RowSelect[i] then JvSHFileOperation1.SourceFiles.Add(fmDataMod.PathToUtilityFolder+'\Backups\' + GridRegFilesList.Cells[1,i]);
       end;
       JvSHFileOperation1.Operation := foDelete;
-      JvSHFileOperation1.Execute; //óäàëèòü â êîğçèíó
+      JvSHFileOperation1.Execute; //ÑƒĞ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ Ğ² ĞºĞ¾Ñ€Ğ·Ğ¸Ğ½Ñƒ
       Sleep(500);
       inc(RegFilesCount,-GridRegFilesList.SelectedRowCount);
       GridRegFilesList.RemoveRows(GridRegFilesList.RealRowIndex(GridRegFilesList.RealRow),GridRegFilesList.SelectedRowCount);
@@ -441,7 +441,7 @@ begin
       end;
     end;
   end;
-  //Ñâîéñòâà
+  //Ğ¡Ğ²Ğ¾Ğ¹ÑÑ‚Ğ²Ğ°
   if MenuName = 'popupMenuProperties' then ShowFileProperties(fmDataMod.PathToUtilityFolder+'\Backups\'+GridRegFilesList.Cells[1,GridRegFilesList.RealRow]);
 end;
 //=========================================================
@@ -449,7 +449,7 @@ end;
 
 
 //=========================================================
-{ÏĞÈ ÇÀÊĞÛÒÈÈ ÔÎĞÌÛ}
+{ĞŸĞ Ğ˜ Ğ—ĞĞšĞ Ğ«Ğ¢Ğ˜Ğ˜ Ğ¤ĞĞ ĞœĞ«}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.FormClose(Sender: TObject; var Action: TCloseAction);
 var
@@ -472,7 +472,7 @@ end;
 
 
 //=========================================================
-{ÏĞÈÌÅÍÅÍÈÅ ßÇÛÊÀ}
+{ĞŸĞ Ğ˜ĞœĞ•ĞĞ•ĞĞ˜Ğ• Ğ¯Ğ—Ğ«ĞšĞ}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.ApplyLang;
 begin
@@ -493,7 +493,7 @@ end;
 
 
 //=========================================================
-{ÀÊÒÈÂÀÖÈß ÔÎĞÌÛ}
+{ĞĞšĞ¢Ğ˜Ğ’ĞĞ¦Ğ˜Ğ¯ Ğ¤ĞĞ ĞœĞ«}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.FormActivate(Sender: TObject);
 begin
@@ -505,14 +505,14 @@ end;
 
 
 //=========================================================
-{ÏĞÈ ÑÎÇÄÀÍÈÈ ÔÎĞÌÛ}
+{ĞŸĞ Ğ˜ Ğ¡ĞĞ—Ğ”ĞĞĞ˜Ğ˜ Ğ¤ĞĞ ĞœĞ«}
 //---------------------------------------------------------
 procedure TfmRegistryRestore.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
   isLoaded := False;
-  // ÄÅËÀÅÌ ÔÎĞÌÓ ÎÄÈÍÀÊÎÂÎÉ ÏÎ ĞÀÇÌÅĞÓ ÏĞÈ ĞÀÇËÈ×ÍÛÕ ĞÀÑĞÅØÅÍÈßÕ È ĞÀÇÌÅĞÀÕ ØĞÈÔÒÀ
+  // Ğ”Ğ•Ğ›ĞĞ•Ğœ Ğ¤ĞĞ ĞœĞ£ ĞĞ”Ğ˜ĞĞĞšĞĞ’ĞĞ™ ĞŸĞ Ğ ĞĞ—ĞœĞ•Ğ Ğ£ ĞŸĞ Ğ˜ Ğ ĞĞ—Ğ›Ğ˜Ğ§ĞĞ«Ğ¥ Ğ ĞĞ¡Ğ Ğ•Ğ¨Ğ•ĞĞ˜Ğ¯Ğ¥ Ğ˜ Ğ ĞĞ—ĞœĞ•Ğ ĞĞ¥ Ğ¨Ğ Ğ˜Ğ¤Ğ¢Ğ
   scaled := True;
   Screen := TScreen.Create(nil);
   for i := componentCount - 1 downto 0 do
@@ -521,7 +521,7 @@ begin
        if GetPropInfo(ClassInfo, 'font') <> nil then Font.Size := (ScreenWidth div screen.width) * Font.Size;
     end;
 
-  //ÇÀÃĞÓÆÀÅÌ ÃĞÀÔÈÊÓ
+  //Ğ—ĞĞ“Ğ Ğ£Ğ–ĞĞ•Ğœ Ğ“Ğ ĞĞ¤Ğ˜ĞšĞ£
   LoadPNG2Prog('logo.dll', 'logo_wt_small', imgWinTuning);
 
   ApplyTheme;

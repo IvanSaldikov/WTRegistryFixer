@@ -1,4 +1,4 @@
-unit RegistryCleaner_RegExceptions;
+Ôªøunit RegistryCleaner_RegExceptions;
 
 interface
 
@@ -36,12 +36,12 @@ uses RegistryCleaner_Settings;
 {$R *.dfm}
 
 
-{◊“≈Õ»≈ ﬂ«€ Œ¬Œ… —“–Œ » »« Œœ–≈ƒ≈À®ÕÕŒ√Œ ‘¿…À¿}
+{–ß–¢–ï–ù–ò–ï –Ø–ó–´–ö–û–í–û–ô –°–¢–†–û–ö–ò –ò–ó –û–ü–†–ï–î–ï–õ–Å–ù–ù–û–ì–û –§–ê–ô–õ–ê}
 function ReadLangStr(FileName, Section, Caption: PChar): PChar; external 'Functions.dll';
 
 
 //=========================================================
-{ ÕŒœ ¿ "Œ“Ã≈Õ¿"}
+{–ö–ù–û–ü–ö–ê "–û–¢–ú–ï–ù–ê"}
 //---------------------------------------------------------
 procedure TfmRegExceptionsAdd.btCancelClick(Sender: TObject);
 begin
@@ -52,7 +52,7 @@ end;
 
 
 //=========================================================
-{œ–»Ã≈Õ≈Õ»≈ ﬂ«€ ¿}
+{–ü–†–ò–ú–ï–ù–ï–ù–ò–ï –Ø–ó–´–ö–ê}
 //---------------------------------------------------------
 procedure TfmRegExceptionsAdd.ApplyLang;
 begin
@@ -68,7 +68,7 @@ end;
 
 
 //=========================================================
-{ ÕŒœ ¿ "OK"}
+{–ö–ù–û–ü–ö–ê "OK"}
 //---------------------------------------------------------
 procedure TfmRegExceptionsAdd.btOKClick(Sender: TObject);
 var
@@ -87,7 +87,7 @@ end;
 
 
 //=========================================================
-{œ–» —Œ«ƒ¿Õ»» ‘Œ–Ã€}
+{–ü–†–ò –°–û–ó–î–ê–ù–ò–ò –§–û–†–ú–´}
 //---------------------------------------------------------
 procedure TfmRegExceptionsAdd.FormCreate(Sender: TObject);
 begin
